@@ -3,10 +3,6 @@ include_once './header.php';
 include_once './sidebar.php';
 include_once './data/members_list_data.php';
 
-
-
-
-
 if (!empty($_GET['error'])) {
     $error = $_GET['error']; 
 } else {
@@ -16,7 +12,6 @@ if (!empty($_GET['error'])) {
 
 if($error==5){
    echo '<script>  swal("Sucessfully Added", "Please click to update", "success");</script>';
-    
 }
 
 
@@ -54,10 +49,10 @@ if($error==5){
                                             <tr>
                                                 <th>#</th>
                                                 
-                                                 <th>Username/E-Mail/Mobile Number </th>
+                                                 <th>Policy id</th>
                                                 
-                                                <th>Register Date</th>
-                                                <th>Up Line</th>
+                                                <th>Under Company</th>
+                                                <th>Policy Type</th>
                                                
                                                 <th >Action</th>
                                                  
