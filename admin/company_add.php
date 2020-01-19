@@ -4,7 +4,7 @@ include_once './sidebar.php';
 include_once 'data/members_add_data.php';
 include_once 'data/functions.php';
 include_once 'data/database.php';
-
+include_once './data/company_add_data.php';
 
 if (!empty($_GET['error'])) {
     $error = $_GET['error'];
@@ -18,7 +18,7 @@ if ($error == 2) {
 }
 
 if ($error == 4) {
-    echo '<script>  swal("Nothing  Updated", "Please check", "warning");</script>';
+    echo '<script>  swal("Company Name already taken", "Please try again !", "error");</script>';
 }
 
 
@@ -52,7 +52,7 @@ if ($error == 4) {
 
                 <div class="card-title">
 
-                    <?php if ($user_id != '') {
+                    <?php if ($cp_id != '') {
 
 
                         echo '<h2>Update ' . $row['m_type'] . '</h2>';
@@ -93,9 +93,9 @@ if ($error == 4) {
                                 <?php } ?>
 
                                 <?php
-                                if ($user_id != '') { ?>
+                                if ($cp_id != '') { ?>
                                     <form action="data/register_company.php" class="templatemo-login-form" method="post" enctype="multipart/form-data" name="update_members">
-                                        <input type="hidden" name="id" value="<?php echo $user_id; ?>">
+                                        <input type="hidden" name="id" value="<?php echo $cp_id; ?>">
                                         <input type="hidden" name="action" value="update">
 
                                     <?php } else {  ?>
@@ -111,7 +111,7 @@ if ($error == 4) {
                                                     <?php if ($row['cp_logo'] == '') { ?>
                                                         <img name="cp_logo" id="profile_image" src="../uploads/profile/avt.png" class="img-circle profile_image" style="max-height:150px;width:auto">
                                                     <?php } else { ?>
-                                                        <img name="cp_logo" id="profile_image" src="../uploads/profile/<?= $row['cp_logo']; ?>" class="img-circle profile_image" style="max-height:150px;width:auto">
+                                                        <img name="cp_logo" id="profile_image" src="<?= $row['cp_logo']; ?>" class="img-circle profile_image" style="max-height:150px;width:auto">
                                                     <?php } ?>
                                                 </div>
                                             </div>
@@ -142,7 +142,7 @@ if ($error == 4) {
                                                                     echo "date";
                                                                 } else {
                                                                     echo "text";
-                                                                } ?>" class="form-control date" id="cp_registter_day" placeholder="YYYY-MM-DD" name="cp_registter_day" value="<?php echo $row['cp_registter_day']; ?>">
+                                                                } ?>" class="form-control date" id="cp_registter_day" placeholder="YYYY-MM-DD" name="cp_registter_day" value="<?php echo $row['cp_register_date']; ?>">
                                             </div>
 
                                             <div class="col-lg-6 col-md-6 form-group">
@@ -159,16 +159,18 @@ if ($error == 4) {
                                         <div class="row form-group">
                                             <div class="col-lg-3 col-md-3 form-group">
                                                 <?php if ($row['id'] != '') { ?>
-                                                    <button type="submit" class="btn btn-block btn-success">Update Now</button>
+                                                    <button type="submit" class="btn btn-block btn-primary">Update Now</button>
                                                 <?php } else { ?>
                                                     <button type="submit" class="btn btn-block btn-danger">Add New</button>
                                                 <?php } ?>
                                             </div>
 
-                                            <div class="col-lg-3 col-md-3 form-group">
-                                                <button type="reset" class="btn btn-block btn-warning">Reset</button>
-                                            </div>
 
+                                            <?php if ($user_id != '') { ?>
+                                                <div class="col-lg-3 col-md-3 form-group">
+                                                    <button type="reset" class="btn btn-block btn-warning">Reset</button>
+                                                </div>
+                                            <?php } ?>
 
                                         </div>
 
@@ -190,7 +192,6 @@ if ($error == 4) {
 
         <script>
             $('#browse_image').on('click', function(e) {
-
                 $('#company_logo').click();
             })
             $('#company_logo').on('change', function(e) {
