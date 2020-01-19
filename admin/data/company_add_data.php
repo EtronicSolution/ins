@@ -9,17 +9,17 @@ if (isset($_GET['type'])) {
    $m_type = ''; 
 } 
 
-if (isset($_GET['user_id'])) {
-    $user_id = $_GET['user_id']; 
+if (isset($_GET['cp_id'])) {
+    $cp_id = $_GET['cp_id'];
 } else {
-   $user_id = ''; 
+    $cp_id = '';
 } 
 
 
 
-if($user_id!=''){
+if($cp_id != ''){
     
-$sql="select * from members where m_id='".$user_id."'";
+$sql="select * from company where id='".$cp_id."'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result); 
     

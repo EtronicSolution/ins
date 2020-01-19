@@ -26,77 +26,63 @@ if ($_SESSION['master'] != '') {
     $register_by = $_SESSION['reseller'];
 }
 
-
-
-
-
 // image location 
-$target_dir = "../../uploads/logo/";
-
-
+$target_dir = "../uploads/logo/";
 
 if ($action == 'register') {
 
-
-    if (basename($_FILES["company_logo"]["name"]) != '') {
-
-        $m_img = $target_dir . reSize($_FILES['company_logo']['tmp_name'], $_FILES['company_logo']['name'], 1);
-    } else {
-
-        $m_img = '';
-    }
-
-
     if ($company_name != '') {
 
+        if (basename($_FILES["company_logo"]["name"]) != '') {
+
+            $m_img = $target_dir . reSize($_FILES['company_logo']['tmp_name'], $_FILES['company_logo']['name'], 1);
+        } else {
+
+            $m_img = '';
+        }
         
-        $sqlcheck="SELECT * FROM company WHERE cp_name='".$cp_name."'";
+        $sqlcheck="SELECT * FROM company WHERE cp_name='".$company_name."'";
+
+
         $result = mysqli_query($conn, $sqlcheck);
 
-        $sql = "INSERT INTO company (cp_name,cp_logo,cp_registter_day,cp_phone,cp_address,cp_status) VALUES ('" . $company_name . "','" . $m_img . "','" . $company_registered_day . "', '" . $company_phone . "', '" . $company_address . "', '" . $company_status . "')";
+        if(mysqli_num_rows($result) > 0){
+            header('Location: ../company_add.php?type=' . $m_type . '&error=4');
+        }
+        else{
+            $sql = "INSERT INTO company (cp_name,cp_logo,cp_register_date,cp_phone,cp_address,cp_status) VALUES ('" . $company_name . "','" . $m_img . "','" . $company_registered_day . "', '" . $company_phone . "', '" . $company_address . "', '" . $company_status . "')";
 
-        mysqli_query($conn, $sql);
+            mysqli_query($conn, $sql);
+
+            header('Location: ../company_list.php?type=' . $m_type . '&error=5');
+        }
+
+
         // header('Location: ../company_list.php?type=' . $m_type . '&error=5');
     } else {
         header('Location: ../company_add.php?error=2');
     }
 } elseif ($action == 'update') {
 
-    //=================================================================================================
-
-
-
     if (($_FILES["company_logo"]["name"]) != '') {
 
-
-        $target_user_image = $target_dir . basename($_FILES["company_logo"]["name"]);
-        $uploadFileType_user_image = pathinfo($target_user_image, PATHINFO_EXTENSION);
-        $newfilename_user_image = round(microtime(true)) . UniqueRandomNumbersWithinRange(0, 100, 1)[0] . '.' . $uploadFileType_user_image;
-
         if (basename($_FILES["company_logo"]["name"]) != '') {
-            if ($uploadFileType_user_image != "jpg" && $uploadFileType_user_image != "png" && $uploadFileType_user_image != "jpeg" && $uploadFileType_user_image != "gif" && $uploadFileType_user_image != "JPG" && $uploadFileType_user_image != "PNG" && $uploadFileType_user_image != "JPEG" && $uploadFileType_user_image != "GIF") {
-                $fail = "1";
-            } else {
-                $fail = "0";
-            }
+
+            $m_img = $target_dir . reSize($_FILES['company_logo']['tmp_name'], $_FILES['company_logo']['name'], 1);
+        } else {
+
+            $m_img = '';
         }
-        move_uploaded_file($_FILES["company_logo"]["tmp_name"], $target_dir . $newfilename_user_image);
 
-        $user_pic = $newfilename_user_image;
-
-        $sql = "UPDATE members SET m_pic='" . $user_pic . "' WHERE m_id='" . $user_id . "'";
-
+        $sql = "UPDATE company SET cp_logo ='" . $m_img . "' WHERE id='" . $company_id . "'";
 
         if (mysqli_query($conn, $sql)) {
             $error = 2;
         } else {
             $error = 1;
         }
+
     }
-
-
-
-    //===================================================================================================
 
 
     if ($company_name != '') {
@@ -107,7 +93,7 @@ if ($action == 'register') {
 
     if ($company_registered_day != '') {
 
-        $sql = "update company set  cp_registter_day='" . $company_registered_day . "'where id='" . $company_id . "'";
+        $sql = "update company set  cp_register_date='" . $company_registered_day . "'where id='" . $company_id . "'";
         mysqli_query($conn, $sql);
     }
 
@@ -130,11 +116,10 @@ if ($action == 'register') {
     }
 
     if ($error == '') {
-        $error = 4;
+        $error = 5;
     }
 
-
-    header('Location: ../company_add.php?user_id=' . $user_id . '&error=' . $error);
+    header('Location: ../company_list.php?error=' . $error);
 }
 
 function UniqueRandomNumbersWithinRange($min, $max, $quantity)

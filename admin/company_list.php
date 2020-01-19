@@ -1,7 +1,7 @@
 <?php
 include_once './header.php';
 include_once './sidebar.php';
-include_once './data/members_list_data.php';
+include_once './data/company_list_data.php';
 
 
 if (!empty($_GET['error'])) {
@@ -13,6 +13,9 @@ if (!empty($_GET['error'])) {
 
 if ($error == 5) {
   echo '<script>  swal("Sucessfully Added", "Please click to update", "success");</script>';
+}
+if ($error == 4) {
+    echo '<script>  swal("Company Name already taken", "Please try again !", "error");</script>';
 }
 
 
@@ -47,38 +50,21 @@ if ($error == 5) {
               <div>
 
                 <div class="col-md-2">
-                  <button type="button" class="btn btn-block  btn-danger" onclick="location.href='company_add.php?type=<?= $type ?>';">Add New Company</button>
+                  <button type="button" class="btn btn-xl  btn-danger" onclick="location.href='company_add.php?type=<?= $type ?>';">Add New Company</button>
                 </div>
               </div>
               <div class="table-responsive m-t-40">
                 <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                   <thead>
                     <tr>
-                      <th>#</th>
-
-                      <th>Company Name</th>
-
-                      <th>Register Date</th>
-          
-
-                      <th>Action</th>
+                        <th>#</th>
+                        <th>Logo</th>
+                        <th>Company Name</th>
+                        <th>Register Date</th>
+                        <th>Action</th>
 
                     </tr>
                   </thead>
-                  <tfoot>
-                    <tr>
-                      <th>#</th>
-
-                      <th>Company Name</th>
-
-                      <th>Register Date</th>
-                
-
-                      <th>Action</th>
-
-                    </tr>
-                  </tfoot>
-
                   <tbody>
                     <?php
                     $i = 1;
@@ -96,41 +82,24 @@ if ($error == 5) {
                     ?>
                       <tr>
                         <td><?php echo $i++; ?></td>
-
-                        <td><a href="company_add.php?user_id=<?php echo $row['id']; ?>"><?php
-                                                                                          if ($row['cp_name'] != '') {
-                                                                                            echo $row['cp_name'];
-                                                                                          } else {
-
-                                                                                            if ($row['cp_address'] != '') {
-
-                                                                                              echo $row['cp_address'];
-                                                                                            } else {
-
-
-                                                                                              if ($row['cp_phone']) {
-
-                                                                                                echo $row['cp_phone'];
-                                                                                              }
-                                                                                            }
-                                                                                          }
-
-                                                                                          ?></a></td>
-
+                          <td>
+                            <a href="<?php echo $row['cp_logo']; ?>" target="_blank"><img src="<?php echo $row['cp_logo']; ?>" style="width: 100px;height: 100px" /></a>
+                          </td>
+                        <td>
+                            <a href="company_add.php?cp_id=<?php echo $row['id']; ?>">
+                                <?php echo $row['cp_name']?>
+                            </a>
+                        </td>
                         <td><?php echo $row['cp_register_date']; ?></td>
-
-                        <td><?php echo $m_upline_name; ?></td>
-                        <td><?php if ($row['cp_status'] == '1') { ?><button type="button" id="btnm<?php echo $row['id']; ?>" class="btn btn-block  btn-danger" onclick="deleteUser('<?php echo $row['m_id']; ?>', 'm','m_id',<?php echo $type; ?>);">Deactivate</button>
-
-                          <?php } else { ?>
-
-                            <button type="button" id="btnm<?php echo $row['id']; ?>" class="btn btn-block btn-success" onclick="activateUser('<?php echo $row['id']; ?>', 'm','id',<?php echo $type; ?>);">Activate</button>
-
-                          <?php
+                        <td>
+                            <?php if ($row['cp_status'] == '1') { ?>
+                                <button type="button" id="btnm<?php echo $row['id']; ?>" class="btn btn-sm  btn-danger" onclick="deleteUser('<?php echo $row['m_id']; ?>', 'm','m_id',<?php echo $type; ?>);">Delete</button>
+                            <?php } else { ?>
+                                <button type="button" id="btnm<?php echo $row['id']; ?>" class="btn btn-block btn-success" onclick="activateUser('<?php echo $row['id']; ?>', 'm','id',<?php echo $type; ?>);">Activate</button>
+                            <?php
                             }
-
-                          ?>
-
+                            ?>
+                            <button type="button" id="btnm<?php echo $row['id']; ?>" class="btn btn-sm btn-success" onclick="activateUser('<?php echo $row['id']; ?>', 'm','id',<?php echo $type; ?>);">Edit</button>
                         </td>
 
                       </tr>
@@ -138,7 +107,16 @@ if ($error == 5) {
                     <?php } ?>
 
                   </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>#</th>
+                        <th>Logo</th>
+                        <th>Company Name</th>
+                        <th>Register Date</th>
+                        <th>Action</th>
 
+                    </tr>
+                    </tfoot>
                 </table>
               </div>
 

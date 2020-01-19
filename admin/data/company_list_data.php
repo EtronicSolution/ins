@@ -11,16 +11,10 @@ if (isset($_GET['type'])) {
 
 if($_SESSION['login']&& $_SESSION['admin'] != ''){
 
-    if ($type!=''){
-        
-        $sql = "select * from members where m_type="."'".$type."'";	
+        $sql = "select * from company";
         $result = mysqli_query($conn, $sql);
-        
-        
-    }
-	
 
-		
+
 }else{
     
     
