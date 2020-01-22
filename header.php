@@ -10,8 +10,8 @@
 				<div class="top-line">
 					<div class="container">
 						<p>
-							<span><i class="fa fa-phone"></i>1234 - 5678 - 9012</span>
-							<span><i class="fa fa-envelope-o"></i>support@convertible.com</span>
+							<span><i class="fa fa-phone"></i>xxx - xxxx - xxxx</span>
+							<span><i class="fa fa-envelope-o"></i>support@ans.com</span>
 						</p>
 						<ul class="social-icons">
 							<li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
