@@ -37,17 +37,15 @@
 									<div class="invalid-feedback"></div>
 								</div>
 							</div>
-							<label class="pl-3 form-label" lg="3">Marital Status
-								<span class="compulsory-color">*</span>
-							</label>
+
 							<div class="pl-3">
 								<div class="mr-1 form-check form-check-inline">
-									<input name="maritalStatus" type="radio" class="form-check-input" value="single">
-										<label title="" type="checkbox" class="form-check-label">Single</label>
+
+
 									</div>
 									<div class="form-check form-check-inline">
-										<input name="maritalStatus" type="radio" class="form-check-input" value="married">
-											<label title="" type="checkbox" class="form-check-label">Married</label>
+
+
 										</div>
 										<div class="invalid-feedback"></div>
 									</div>
