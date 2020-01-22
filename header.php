@@ -30,7 +30,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="#" style="background-color: #3f729b"><img alt="" src="images/logo (2).png" style="width: 50px;height: 100%;margin: 10px"></a>
+						<a class="navbar-brand" href="#" style="background-color: #3f729b"><img alt="" src="images/logo (2).png" style="width: 130px;height: 70px;"></a>
 					</div>
 					<div class="navbar-collapse collapse">
 						<ul class="nav navbar-nav navbar-right">

@@ -1,7 +1,7 @@
 <?php
 include_once './header.php';
 include_once './sidebar.php';
-include_once './data/members_list_data.php';
+include_once './data/policy_list_data.php';
 
 if (!empty($_GET['error'])) {
     $error = $_GET['error']; 
@@ -42,102 +42,59 @@ if($error==5){
         <div class="card">
 	<div class="card-body">
 	   <h4 class="card-title" style="text-transform: uppercase;"><?=$type?> LIST</h4>
- 
+        <div>
+
+            <div class="col-md-2">
+                <button type="button" class="btn btn-xl  btn-danger" onclick="location.href='policy_add.php?type=new';">Add New Policy</button>
+            </div>
+        </div>
             <div class="table-responsive m-t-40">
                                     <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>#</th>
-                                                
-                                                 <th>Policy id</th>
-                                                
+
+                                                <th>Policy id</th>
                                                 <th>Under Company</th>
-                                                <th>Policy Type</th>
-                                               
-                                                <th >Action</th>
+                                                <th>Topic</th>
+                                                <th>Content</th>
+                                                <th>Price</th>
+
                                                  
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                 <th>#</th>
-                                                
-                                                 <th>Name/E-Mail</th>
-                                                
-                                                <th>Register Date</th>
-                                                <th>Up Line</th>
-                                               
-                                                <th >Action</th>
-                                                  
-                                            </tr>
-                                        </tfoot>
+
                                        
              <tbody>
 				<?php 
 				$i=1;
-				while($row = mysqli_fetch_assoc($result)) { 
-					if($row['m_status'] == '1'){
-						$m_status = 'Active';
-					} else{
-						$m_status = 'Inactive';
-					}
-				
-                                  $find_upline="select members.m_name from members where m_id=".$row['m_upline'];      
-                                  $m_upline = mysqli_query($conn, $find_upline); 
-                                  $row_upline=mysqli_fetch_assoc( $m_upline);
-                                  $m_upline_name= $row_upline['m_name'];
-                             ?>
+				while($row = mysqli_fetch_assoc($result)) { ?>
                 <tr>
-                  <td><?php echo $i++; ?></td>
-                  
-                  <td><a href="members_add.php?user_id=<?php echo $row['m_id'];?>"><?php  
-                  if($row['m_username']!=''){
-                      echo $row['m_username'];
-                      
-                  }else{
-                  
-                  if($row['m_email']!=''){
-                      
-                      echo $row['m_email'];
-                  }else{
-                      
-                      
-                      if($row['m_phone']){
-                          
-                           echo $row['m_phone'];
-                      }
-                      
-                      
-                  }
-                  
-                  
-                  
-                  }
-                  
-                  ?></a></td>
-                 
-                  <td><?php echo $row['m_register_date']; ?></td>
-		
-                  <td><?php echo $m_upline_name; ?></td>
-                  <td><?php if($row['m_status'] == '1'){ ?><button type="button" id="btnm<?php echo $row['m_id'];?>" class="btn btn-block  btn-danger" onclick="deleteUser('<?php echo $row['m_id'];?>', 'm','m_id',<?php echo $type;?>);">Deactivate</button>
+                    <td><?php echo $i++; ?></td>
+                    <td>
+                        <a href="company_add.php?type=show&cp_id=<?php echo $row['id']; ?>">
+                            <?php echo $row['comp_id']; ?>
+                        </a>
+                    </td>
+                    <td><?php echo $row['topic']; ?></td>
+                    <td><?php echo $row['content']; ?></td>
+                    <td><?php echo $row['price']; ?></td>
 
-                                <?php }else{?>
-
-                                <button type="button" id="btnm<?php echo $row['m_id'];?>" class="btn btn-block btn-success" onclick="activateUser('<?php echo $row['m_id'];?>', 'm','m_id',<?php echo $type;?>);">Activate</button>
-
-                                <?php    
-                                }
-
-                                ?>
-
-                  </td>   
 			  
                 </tr>
 				
 				<?php } ?>
           
                 </tbody>
-                                        
+                                        <tfoot>
+                                        <tr>
+                                            <th>Policy id</th>
+                                            <th>Under Company</th>
+                                            <th>Topic</th>
+                                            <th>Content</th>
+                                            <th>Price</th>
+
+                                        </tr>
+                                        </tfoot>
  </table>
                                 </div>
             
