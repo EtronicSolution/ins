@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2020 at 05:46 AM
+-- Generation Time: Jan 22, 2020 at 06:40 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -1377,6 +1377,28 @@ INSERT INTO `member_withdraw` (`mw_id`, `mw_reference`, `mw_member_id`, `mw_type
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `policies`
+--
+
+CREATE TABLE `policies` (
+  `id` int(11) NOT NULL,
+  `comp_id` int(11) NOT NULL,
+  `topic` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `price` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `policies`
+--
+
+INSERT INTO `policies` (`id`, `comp_id`, `topic`, `content`, `price`) VALUES
+(1, 1, 'new policy', 'abc', 14560),
+(2, 4, 'gfgb', 'gbfgb', 145);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `posts_comments`
 --
 
@@ -2065,6 +2087,12 @@ ALTER TABLE `member_withdraw`
   ADD PRIMARY KEY (`mw_id`);
 
 --
+-- Indexes for table `policies`
+--
+ALTER TABLE `policies`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `posts_comments`
 --
 ALTER TABLE `posts_comments`
@@ -2316,6 +2344,12 @@ ALTER TABLE `member_transfer`
 --
 ALTER TABLE `member_withdraw`
   MODIFY `mw_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `policies`
+--
+ALTER TABLE `policies`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `posts_comments`
