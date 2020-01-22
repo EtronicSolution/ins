@@ -1558,7 +1558,20 @@ function loadAllUsers($catky)
         }
 
     }
-    
+
+    function loadAllCompanies($catky)
+    {
+
+        $arrtype = $this->query("SELECT id,cp_name FROM company  ORDER BY cp_name");
+
+        while ($typ = $this->fetch_set($arrtype)) {
+
+            echo '<option value="' . $typ['id'] . '" ' .
+                ($catky == $typ['id'] ? "selected" : "") . ' >' .$typ['cp_name'] . '</option>';
+        }
+
+    }
+
  function loadAllUsersType($catky)
      {    
         echo 'select  usr_cat_id,cat_name from user_cat ORDER by cat_level';

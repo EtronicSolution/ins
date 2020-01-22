@@ -12,6 +12,11 @@ if (!empty($_GET['error'])) {
     $error = '';
 }
 
+if (!empty($_GET['type'])) {
+    $type = $_GET['type'];
+} else {
+    $type = '';
+}
 
 if($error==2){
    echo '<script>  swal("Sucessfully Updated", "Please Navigate to Exit", "success");</script>';
@@ -96,10 +101,9 @@ if($error==4){
             <?php } ?>
 			
 			<?php
- if($user_id != ''){ ?>
-                <form action="data/register_members.php" class="templatemo-login-form" method="post" enctype="multipart/form-data" name="update_members">
-                <input type="hidden" name="id" value="<?php echo $user_id; ?>">
-                <input type="hidden" name="action" value="update">
+ if($type == 'new'){ ?>
+                <form action="data/register_policy.php" class="templatemo-login-form" method="post" enctype="multipart/form-data" name="update_members">
+                <input type="hidden" name="action" value="register">
                                 
             <?php }else{  ?>
                 
@@ -108,136 +112,40 @@ if($error==4){
                 <input type="hidden" name="action" value="register">
                 <input type="hidden" name="m_type" value="<?=$m_type?>">
             <?php }?>
-			<div class="row form-group">						
-				<div class="col-lg-6 col-md-6 form-group">
-					<div class="user_image">
-					<?php if($row['m_pic'] == ''){ ?>
-                                            <img name="user_image" id="profile_image"  src="../uploads/profile/avt.png" class="img-circle profile_image" style="max-height:150px;width:auto">
-					<?php } else { ?>
-                                                <img name="user_image" id="profile_image"  src="../uploads/profile/<?= $row['m_pic']; ?>" class="img-circle profile_image" style="max-height:150px;width:auto">
-					<?php } ?>
-					</div>
-                                    
-                                   
-					
-				</div>
-			</div>
-                
-                   <div class="input-group">
-                                                        
-                                        <input type="file" name="user_profile_image" id="user_profile_image" class="form-control"  placeholder="Username" aria-describedby="inputGroupPrepend" style="display: none;align-content: center" />
-                                         <input type="button" style="width: 100px"value="Browse" id="browse_image" class="btn btn-block btn-success"/>
 
-                                    </div> 
+                
+
                     <br>
 				<div class="row form-group">
                                     
                                     
-					<div class="col-lg-6 col-md-6 form-group">                  
-						<label>Login Name :</label>
-                                                <input type="text" class="form-control" id="user_name" placeholder="Username" name="user_name" value="<?php echo $row['m_username']; ?>" required>                            
+					<div class="col-lg-12 col-md-12 form-group">
+						<label>Policy Topic :</label>
+                        <input type="text" class="form-control" id="user_name" placeholder="Topic" name="topic" value="<?php echo $row['m_username']; ?>" required>
 					</div>
-					
-                                     
-                                    
-                                  
-                                    <?php if($user_id==''){?>
-                                     <div class="col-lg-6 col-md-6 form-group">                  
-						<label>Password :</label>
-                                                <input type="password" class="form-control" id="password"  name="password" autocomplete="off" required>                            
+
+                    <div class="col-lg-12 col-md-12 form-group">
+						<label>Content :</label>
+                        <textarea class="form-control" name="content" autocomplete="off" required></textarea>
 				     </div>
-                                    <?php } ?>
-                                    
-                                    <?php if($row['m_type']=='user'){ ?>
-                                            <div class="col-lg-6 col-md-6 form-group">                  
-                                                          <label>Refer By :</label>
 
-                                                          <select class="form-control" name="user_member_reference" id="user_member_reference">
-                                                                    <?php                                                             
-                                                                       $database->loadAllUsers($row['m_upline']);
-                                                                    ?>
-                                                         </select>
-                                          </div>
-                                    <?php }?>
+                    <div class="col-lg-6 col-md-6 form-group">
+                        <label>Company :</label>
+
+                        <select class="form-control" name="company" id="user_member_reference">
+                            <?php
+                            $database->loadAllCompanies($row['m_upline']);
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-lg-6 col-md-6 form-group">
+                        <label>Price :</label>
+
+                        <input type="text" class="form-control" placeholder="Price" name="price" value="<?php echo $row['m_username']; ?>" required>
+
+                    </div>
 				</div>
                                     
-                                <hr>
-				
-				<div class="row form-group">
-                                       
-					<div class="col-lg-6 col-md-6 form-group">                  
-						<label>Full Name :</label>
-						<input type="text" class="form-control" id="m_name" placeholder="First Name" name="m_name" value="<?php echo $row['m_name'] ; ?>" title="Enter a valid Name">                            
-					</div>
-                               
-					<div class="col-lg-6 col-md-6 form-group">                  
-						<label>Email :</label>
-						<input type="text" class="form-control" id="m_email" placeholder="Email" name="m_email" value="<?php echo $row['m_email']; ?>" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Enter a valid email">                            
-					</div>
-                                    
-                                   <div class="col-lg-6 col-md-6 form-group">                  
-						<label>Date of Birth :</label>
-                                                <input type="<?php if($row['m_id']==''){echo "date";}else{echo "text";} ?>" class="form-control date" id="m_dob" placeholder="YYYY-MM-DD" name="m_dob" value="<?php echo $row['m_dob']; ?>" >                            
-					</div>
-                                    
-                                    <div class="col-lg-6 col-md-6 form-group">                  
-						<label >Mobile Number :</label>
-						
-						<input type="text" class="form-control" id="m_phone" placeholder="Phone" name="m_phone" value="<?php echo $row['m_phone']; ?>"> 						
-					</div>
-
-				</div>
-				
-				<div class="row form-group">
-					
-					<div class="col-lg-6 col-md-6 form-group">                  
-						<label>Line ID :</label>
-						<input type="text" id="m_lineid" autocomplete="off" name="m_lineid" class="form-control" placeholder="Line ID"  value="<?php echo $row['m_lineid']; ?>" >                            
-					</div>
-                                    <div class="col-lg-6 col-md-6 form-group">
-                                                 <label>WhatsApp Number :</label>
-						 <input type="text" id="m_whatsapp" name="m_whatsapp"  class="form-control" placeholder="WhatsApp ID" value="<?php echo $row['m_whatsapp'] ?>">
-                                     </div>
-				</div>
-				 
-								<hr /> 
-				
-				<div class="row form-group">
-					
-				    <div class="col-lg-6 col-md-6 form-group">
-                                         <label>Address :</label>
-                                          <input type="text"  id="m_address" name="m_address" class="form-control " placeholder="Your Address" value="<?php echo $row['m_address'] ?>">
-                                    </div><!-- End .input-group -->
-                                 
-				</div>
-				
-                                 
-				<div class="row form-group">
-					
-					<div class="col-lg-4 col-md-4 form-group">                  
-						<label>Bank Name :</label>
-						<input type="text" class="form-control" id="m_bank_name" placeholder="Bank Name" name="m_bank_name" value="<?php echo $row['m_bank_name']; ?>">                            
-					</div>
-					
-					<div class="col-lg-4 col-md-4 form-group">                  
-						<label>Account No :</label>
-                                                <input type="number" class="form-control" id="m_bank_account_no" placeholder="Account No" name="m_bank_account_no" 
-						value="<?php echo  $row['m_bank_account_no']; ?>">                             
-					</div>
-					
-					<div class="col-lg-4 col-md-4 form-group">                  
-						<label>Bank Branch :</label>
-						<input type="text" class="form-control" id="m_bank_branch" placeholder="Bank Branch" name="m_bank_branch" 
-						value="<?php echo  $row['m_bank_branch']; ?>">                             
-					</div>
-				</div>	                               
-
-	
-				
-				<hr />
-                                
-                       
-
 
               <div  class="row form-group">
                 <div class="col-lg-3 col-md-3 form-group"> 

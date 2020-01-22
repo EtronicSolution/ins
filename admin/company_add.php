@@ -12,6 +12,12 @@ if (!empty($_GET['error'])) {
     $error = '';
 }
 
+if (!empty($_GET['type'])) {
+    $type = $_GET['type'];
+} else {
+    $type = '';
+}
+
 
 if ($error == 2) {
     echo '<script>  swal("Sucessfully Updated", "Please Navigate to Exit", "success");</script>';
@@ -116,13 +122,15 @@ if ($error == 4) {
                                                 </div>
                                             </div>
                                         </div>
-
+                                <?php
+                                if ($type != 'show') { ?>
                                         <div class="input-group">
 
                                             <input type="file" name="company_logo" id="company_logo" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend" style="display: none;align-content: center" />
                                             <input type="button" style="width: 100px" value="Browse" id="browse_image" class="btn btn-block btn-success" />
 
                                         </div>
+                                        <?php }?>
                                         <br>
 
                                         <div class="row form-group">
@@ -155,7 +163,8 @@ if ($error == 4) {
 
                                         </div>
 
-
+                                            <?php
+                                            if ($type != 'show') { ?>
                                         <div class="row form-group">
                                             <div class="col-lg-3 col-md-3 form-group">
                                                 <?php if ($row['id'] != '') { ?>
@@ -164,7 +173,7 @@ if ($error == 4) {
                                                     <button type="submit" class="btn btn-block btn-danger">Add New</button>
                                                 <?php } ?>
                                             </div>
-
+<?php }?>
 
                                             <?php if ($user_id != '') { ?>
                                                 <div class="col-lg-3 col-md-3 form-group">
