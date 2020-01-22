@@ -94,7 +94,7 @@
 
 			<div class="footer-line">
 				<div class="container">
-					<p>&#169; 2019 Etronic Solutions,  All Rights Reserved</p>
+					<p>&#169; 2019  ANS,  All Rights Reserved</p>
 					<a class="go-top" href="#"></a>
 				</div>
 			</div>
