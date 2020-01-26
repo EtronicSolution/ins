@@ -30,13 +30,13 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="#" style="background-color: #3f729b"><img alt="" src="images/logo (2).png" style="width: 130px;height: 70px;"></a>
+                                            <a class="navbar-brand" href="index.php"S><img alt="" style="background-color: #002652" src="images/logo.png"></a>
 					</div>
 					<div class="navbar-collapse collapse">
 						<ul class="nav navbar-nav navbar-right">
 
-							<li class="drop"><a class="active" href="index.html">Home</a>
-								<ul class="drop-down">
+                                                    <li class="drop"><a class="active" href="index.php">Home</a>
+<!--								<ul class="drop-down">
 									<li><a href="index.html">Home Default</a></li>
 									<li><a href="home-shop.html">Home Shop</a></li>
 									<li><a href="home-portfolio.html">Home Portfolio</a></li>
@@ -50,16 +50,16 @@
 											<li><a href="#">Level 3</a></li>
 										</ul>
 									</li>									
-								</ul>
+								</ul>-->
 							</li>
-							<li class="drop"><a href="index.html">Sliders</a>
-								<ul class="drop-down">
+                                                        <li class="drop"><a href="index.php">Partners</a>
+<!--								<ul class="drop-down">
 									<li><a href="index.html">Revolution slider</a></li>
 									<li><a href="flexslider.html">Flexslider</a></li>
-								</ul>
+								</ul>-->
 							</li>
-							<li><a href="about.html">About Us</a></li>
-							<li class="drop"><a href="blog-right-sidebar.html">Blog</a>
+							<li><a href="about.php">About Us</a></li>
+<!--							<li class="drop"><a href="blog-right-sidebar.html">Blog</a>
 								<ul class="drop-down">
 									<li><a href="blog-one-col.html">Blog 1col</a></li>
 									<li><a href="blog-two-col.html">Blog 2col</a></li>
@@ -67,22 +67,22 @@
 									<li><a href="blog-left-sidebar.html">Blog left sidebar</a></li>
 									<li><a href="blog-nosidebar.html">Blog no sidebar</a></li>
 								</ul>
-							</li>
-							<li class="drop"><a href="portfolio-4col.html">Portfolio</a>
+							</li>-->
+<!--							<li class="drop"><a href="portfolio-4col.html">Portfolio</a>
 								<ul class="drop-down">
 									<li><a href="portfolio-2col.html">Portfolio 2col</a></li>
 									<li><a href="portfolio-3col.html">Portfolio 3col</a></li>
 									<li><a href="portfolio-4col.html">Portfolio 4col</a></li>
 								</ul>
-							</li>
-							<li><a href="shop.html">Shop</a></li>
-							<li class="drop"><a href="#">Pages</a>
+							</li>-->
+                                                        <li><a href="admin/index.php">Login</a></li>
+<!--							<li class="drop"><a href="#">Pages</a>
 								<ul class="drop-down">
 									<li><a href="single-post.html">Single Post</a></li>
 									<li><a href="single-project.html">Single Project</a></li>
 								</ul>
-							</li>
-							<li><a href="contact.html">Contact Us</a></li>
+							</li>-->
+                                             <li><a href="contact.php">Contact Us</a></li>
 
 						</ul>
 					</div>
@@ -91,4 +91,3 @@
 		</header>
 		<!-- End Header -->
 
-        </div>

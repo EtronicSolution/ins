@@ -1,43 +1,4 @@
-<?php 
-
-include_once './top_header.php';
-include_once './header.php';
-//include_once './slider.php';
-//include_once './get_ins.php';
-
-?>
-
-
-
-	<!-- Container -->
-	<div id="container">
-		<!-- Header
-		    ================================================== -->
-		
-		<!-- End Header -->
-
-		<!-- content 
-			================================================== -->
-		<div id="content">
-
-			<!-- Page Banner -->
-			<div class="page-banner">
-				<div class="container">
-					<h2>Contact Us</h2>
-					<ul class="page-tree">
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Contact</a></li>
-					</ul>		
-				</div>
-			</div>
-
-			<!-- Map box -->
-			<div class="map">
-				
-			</div>
-
-			<!-- contact box -->
-			<div class="contact-box">
+<div class="contact-box">
 				<div class="container">
 					<div class="row">
 
@@ -91,30 +52,3 @@ include_once './header.php';
 					</div>
 				</div>
 			</div>
-
-		</div>
-		<!-- End content -->
-
-
-		<!-- footer 
-			================================================== -->
-	    <?php include_once './footer.php'; ?>
-		<!-- End footer -->
-
-	<!-- End Container -->
-</div>
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/jquery.migrate.js"></script>
-	<script type="text/javascript" src="js/bootstrap.js"></script>
-  	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-	<script type="text/javascript" src="js/gmap3.min.js"></script>
-	<script type="text/javascript" src="js/retina-1.1.0.min.js"></script>
-	<script type="text/javascript" src="js/plugins-scroll.js"></script>
-	<script type="text/javascript" src="js/script.js"></script>
-
-	<!--[if lt IE 9]>
-		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	
-</body>
-</html>

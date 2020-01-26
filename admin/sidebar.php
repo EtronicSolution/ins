@@ -28,6 +28,15 @@
                             </ul>
                         </li>
                         
+                        <li class="nav-label">Motor insurance </li>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fas fa-car"></i><span class="hide-menu">Car</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a class="fa fa-list" href="ins_list.php">  List</a></li>
+                                 
+                              
+                            </ul>
+                        </li>
+                        
                          <li class="nav-label">Company Managements</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fas fa-building"></i><span class="hide-menu">Companies</span></a>
                             <ul aria-expanded="false" class="collapse">

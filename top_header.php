@@ -4,7 +4,7 @@
 <html lang="en" class="no-js">
 <head>
 	<title>ANS Motor Insurance</title>
-
+           <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
 	<meta charset="utf-8">
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">

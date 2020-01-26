@@ -1,9 +1,17 @@
                   
    <div class="card-foram responsive">
+        
+       <div class="responsive" style="align-self: center">
+           <img  src="images/favicon.png" class="img-responsive  " style="max-height: 100px; height: auto; width: 100px;align-content: center" >
+       
+       </div>
+       
 	<div class="card-body">
+           
 		<h2 class="blue-text" style="text-align: center;">
 			<b>Get Cheaper Motor Insurance</b>
 		</h2>
+            <form action="data/policy_data.php" class="templatemo-login-form" method="post" enctype="multipart/form-data" name="update_members">
 		<p class="blue-text" style="text-align: center;">Instantly Compare Quotes Now</p>
 		<div class="pb-1 card-title h5">Driver Information</div>
 		<div class="pb-2 form-group">
@@ -40,16 +48,17 @@
 
 							<div class="pl-3">
 								<div class="mr-1 form-check form-check-inline">
-
+                                                                            <label class="pl-3 form-label" lg="3">Marital Status<span class="compulsory-color">*</span></label>
 
 									</div>
 									<div class="form-check form-check-inline">
 
-
+                                                                              <input name="maritalStatus" type="radio" class="form-check-input" value="single"><label title="" type="checkbox" class="form-check-label">Single</label></div><div class="form-check form-check-inline"><input name="maritalStatus" type="radio" class="form-check-input" value="married"><label title="" type="checkbox" class="form-check-label">Married</label></div><div class="invalid-feedback">
 										</div>
 										<div class="invalid-feedback"></div>
 									</div>
 								</div>
+                
 								<div class="row">
 									<div class="form-group">
 										<label class="pl-2 form-label" lg="3">By clicking “Get Started” button, you have read and agreed to our 
@@ -63,5 +72,7 @@
 									<div class="col-md-5 offset-md-4">
 										<button type="submit" class="ml-2 motor-primary-button btn btn-primary btn-lg">Get Started</button>
 									</div>
+                
+           </form>
 								</div>
 </div>     

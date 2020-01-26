@@ -1,7 +1,7 @@
 <?php
 include_once './header.php';
 include_once './sidebar.php';
-include_once 'data/members_add_data.php';
+include_once 'data/ins_add_data.php';
 include_once 'data/functions.php';
 include_once 'data/database.php';
 
@@ -33,12 +33,12 @@ if($error==4){
     
      <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary" style="text-transform: uppercase;"><?=$m_type?> Details</h3> </div>
+                    <h3 class="text-primary" style="text-transform: uppercase;">motor insurance details</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?=$m_type?> Group</a></li>
-                        <li class="breadcrumb-item active"><?=$row['m_type']?>  Detail</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Motor</a></li>
+                        <li class="breadcrumb-item active">Detail</li>
                     </ol>
                 </div>
             </div>
@@ -53,15 +53,15 @@ if($error==4){
     
         <div class="card-title">
             
-                                <?php if($user_id!=''){
+                                <?php if($ins_no!=''){
                                     
                                     
-                                    echo '<h2>Update '.$row['m_type'].'</h2>';
+                                    echo '<h2>Update '.$ins_no.'</h2>';
                                     
                                     
                                 }else{
                                     
-                                     echo '<h2>Add New '.$m_type.'</h2>';
+                                     echo '<h2>Add New  insurance </h2>';
                                 }
                                
                                 ?>
@@ -74,69 +74,37 @@ if($error==4){
             
         
             <div class="box-body">
+	
 			
-			<?php if($error != '') { ?>
-			<div class="row">
-                <div class="col-md-12 col-md-12" id="error_display">
-                    <?php
-                    
-                    if($error == '2'){
-                        echo "Please fill-in all the required fields";
-                    } else if($error == '1'){
-                       echo "Username already registered "; 
-                    } else if($error == '3'){
-					  echo "Username can only be alphabets & numbers "; 
-					} else if($error == '4'){
-					  echo "Please upload only image file";	
-					}
-                    
-                    ?>
-                </div>
-              </div>  
-            <?php } ?>
-			
-			<?php
- if($user_id != ''){ ?>
-                <form action="data/register_members.php" class="templatemo-login-form" method="post" enctype="multipart/form-data" name="update_members">
-                <input type="hidden" name="id" value="<?php echo $user_id; ?>">
+<?php
+ if($ins_no != ''){ ?>
+                <form action="data/register_ins.php" class="templatemo-login-form" method="post" enctype="multipart/form-data" name="update_members">
+                <input type="hidden" name="id" value="<?php echo $ins_no; ?>">
                 <input type="hidden" name="action" value="update">
                                 
             <?php }else{  ?>
                 
                 
-                <form action="data/register_members.php" class="templatemo-login-form" method="post" enctype="multipart/form-data" name="update_members">
+                <form action="data/register_ins.php" class="templatemo-login-form" method="post" enctype="multipart/form-data" name="update_members">
                 <input type="hidden" name="action" value="register">
-                <input type="hidden" name="m_type" value="<?=$m_type?>">
-            <?php }?>
-			<div class="row form-group">						
-				<div class="col-lg-6 col-md-6 form-group">
-					<div class="user_image">
-					<?php if($row['m_pic'] == ''){ ?>
-                                            <img name="user_image" id="profile_image"  src="../uploads/profile/avt.png" class="img-circle profile_image" style="max-height:150px;width:auto">
-					<?php } else { ?>
-                                                <img name="user_image" id="profile_image"  src="../uploads/profile/<?= $row['m_pic']; ?>" class="img-circle profile_image" style="max-height:150px;width:auto">
-					<?php } ?>
-					</div>
-                                    
-                                   
-					
-				</div>
-			</div>
                 
-                   <div class="input-group">
-                                                        
-                                        <input type="file" name="user_profile_image" id="user_profile_image" class="form-control"  placeholder="Username" aria-describedby="inputGroupPrepend" style="display: none;align-content: center" />
-                                         <input type="button" style="width: 100px"value="Browse" id="browse_image" class="btn btn-block btn-success"/>
-
-                                    </div> 
-                    <br>
+            <?php }?>
+			
+                
+                  
+                 
 				<div class="row form-group">
                                     
                                     
-					<div class="col-lg-6 col-md-6 form-group">                  
-						<label>Login Name :</label>
-                                                <input type="text" class="form-control" id="user_name" placeholder="Username" name="user_name" value="<?php echo $row['m_username']; ?>" required>                            
-					</div>
+					  <div class="col-lg-6 col-md-6 form-group">                  
+                                                          <label> insurance company :</label>
+
+                                                          <select class="form-control" name="v_ins_comapany" id="v_ins_comapany">
+                                                                    <?php                                                             
+                                                                       $database->loadAllCompanies($row['v_ins_comapany']);
+                                                                    ?>
+                                                         </select>
+                                          </div>
 					
                                      
                                     
