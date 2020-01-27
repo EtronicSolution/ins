@@ -108,13 +108,17 @@ if($error==4){
 					
                                      
                                     
+					  <div class="col-lg-6 col-md-6 form-group">                  
+                                                          <label> Select Policy :</label>
+
+                                                          <select class="form-control" name="v_ins_policy" id="v_ins_policy">
+                                                                    <?php                                                             
+                                                                       $database->loadAllCompanies($row['v_ins_policy']);
+                                                                    ?>
+                                                         </select>
+                                          </div>
                                   
-                                    <?php if($user_id==''){?>
-                                     <div class="col-lg-6 col-md-6 form-group">                  
-						<label>Password :</label>
-                                                <input type="password" class="form-control" id="password"  name="password" autocomplete="off" required>                            
-				     </div>
-                                    <?php } ?>
+                                     
                                     
                                     <?php if($row['m_type']=='user'){ ?>
                                             <div class="col-lg-6 col-md-6 form-group">                  

@@ -42,6 +42,45 @@ return $result;
 
 }
 
+function uploadPic($file_name,$target_dir){
+    
+    	if (($_FILES[$file_name]["name"]) != '') {
+		$target_user_image = $target_dir . basename($_FILES[$file_name]["name"]);
+		$uploadFileType_user_image = pathinfo($target_user_image, PATHINFO_EXTENSION);
+		$newfilename_user_image = round(microtime(true)) . UniqueRandomNumbersWithinRange(0, 100, 1)[0] . '.' . $uploadFileType_user_image;
+
+		if (basename($_FILES[$file_name]["name"]) != '') {
+			if ($uploadFileType_user_image != "jpg" && $uploadFileType_user_image != "png" && $uploadFileType_user_image != "jpeg" && $uploadFileType_user_image != "gif" && $uploadFileType_user_image != "JPG" && $uploadFileType_user_image != "PNG" && $uploadFileType_user_image != "JPEG" && $uploadFileType_user_image != "GIF") {
+				return '';
+			} else {
+                            
+                            if(move_uploaded_file($_FILES[$file_name]["tmp_name"], $target_dir . $newfilename_user_image)){
+                                
+                                 return  $newfilename_user_image;
+                            }else{
+                                
+                                return '';
+                            }
+			 
+
+		                 
+			}
+		}
+		
+
+		 
+
+		 
+	}else{
+            
+            return '';
+        }
+    
+    
+    
+    
+}
+
 function getorder_detail_by_order_id_res($order_id,$conn){
     
      
@@ -105,11 +144,11 @@ function getMemberUsernamebyUserid($userid, $conn){
     
         
 	if($userid>0){
-	$sql = "SELECT m_name FROM members WHERE m_id='".$userid."'";
+	$sql = "SELECT m_username FROM members WHERE m_id='".$userid."'";
         $result = mysqli_query($conn, $sql);
 	$res = mysqli_fetch_assoc($result);
 	
-	return $res['m_name'];
+	return $res['m_username'];
         }
         else{
             return "noresult";
@@ -396,13 +435,13 @@ function countPendingWithdraw($conn){
 	return $row_withdraw['pending_withdraw'];
 }
 
-function getMasterbyAdminid($conn, $adminid){
+function getmemberbyAgent($conn, $m_id){
 	
-	$sqlmaster = "SELECT a_master_by FROM administrators WHERE a_id = '".$adminid."'";
+	$sqlmaster = "SELECT m_reseller_by FROM members WHERE m_id = '".$m_id."'";
 	$resultmaster = mysqli_query($conn, $sqlmaster);
 	$rowmaster = mysqli_fetch_assoc($resultmaster);
 	
-	return $rowmaster['a_master_by'];
+	return $rowmaster['m_reseller_by'];
 }
 
 function getProductImage1($conn,$itemID)
@@ -635,5 +674,15 @@ function get_lotto_info($lotto_draw_no){
     $row = mysqli_fetch_assoc($result);
     return $row;
 }
+
+
+function UniqueRandomNumbersWithinRange($min, $max, $quantity)
+{
+	$numbers = range($min, $max);
+	shuffle($numbers);
+	return array_slice($numbers, 0, $quantity);
+}
+
+
 
 ?>

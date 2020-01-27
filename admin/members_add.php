@@ -152,13 +152,15 @@ if($error==4){
                                             <div class="col-lg-6 col-md-6 form-group">                  
                                                           <label>Refer By :</label>
 
-                                                          <select class="form-control" name="user_member_reference" id="user_member_reference">
+                                                          <select class="form-control" name="m_reseller_by" id="m_reseller_by">
                                                                     <?php                                                             
-                                                                       $database->loadAllUsers($row['m_upline']);
+                                                                       $database->loadDelegators($row['m_reseller_by']);
                                                                     ?>
                                                          </select>
                                           </div>
                                     <?php }?>
+                                    
+                                   
 				</div>
                                     
                                 <hr>
@@ -203,6 +205,15 @@ if($error==4){
 								<hr /> 
 				
 				<div class="row form-group">
+                                      <div class="col-lg-6 col-md-6 form-group">                  
+                                                          <label>zone :</label>
+
+                                                          <select class="form-control" name="m_loc" id="m_loc">
+                                                                    <?php                                                             
+                                                                       $database->loadAllZone($row['m_loc']);
+                                                                    ?>
+                                                         </select>
+                                          </div>
 					
 				    <div class="col-lg-6 col-md-6 form-group">
                                          <label>Address :</label>

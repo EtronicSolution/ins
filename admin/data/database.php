@@ -1546,7 +1546,34 @@ function getcatcombo($pcat = 0)
 } 
 
 
-function loadAllUsers($catky)
+function loadUsers($catky)
+     {    
+        
+        $arrtype = $this->query("SELECT m_id,m_username FROM members where m_type='user' ORDER BY m_name");
+            
+        while ($typ = $this->fetch_set($arrtype)) {
+            
+            echo '<option value="' . $typ['m_id'] . '" ' .
+            ($catky == $typ['m_id'] ? "selected" : "") . ' >' .$typ['m_username'] . '</option>';
+        }
+
+    }
+    
+    
+    function loadDelegators($catky)
+     {    
+        
+        $arrtype = $this->query("SELECT m_id,m_username FROM members where m_type='delegator' ORDER BY m_name");
+            
+        while ($typ = $this->fetch_set($arrtype)) {
+            
+            echo '<option value="' . $typ['m_id'] . '" ' .
+            ($catky == $typ['m_id'] ? "selected" : "") . ' >' .$typ['m_username'] . '</option>';
+        }
+
+    }
+    
+    function loadAllUsers($catky)
      {    
         
         $arrtype = $this->query("SELECT m_id,m_username FROM members  ORDER BY m_name");
@@ -1562,12 +1589,25 @@ function loadAllUsers($catky)
     function loadAllCompanies($catky)
     {
 
-        $arrtype = $this->query("SELECT id,cp_name FROM company  ORDER BY cp_name");
+        $arrtype = $this->query("SELECT cp_id,cp_name FROM company  ORDER BY cp_name");
 
         while ($typ = $this->fetch_set($arrtype)) {
 
             echo '<option value="' . $typ['id'] . '" ' .
                 ($catky == $typ['id'] ? "selected" : "") . ' >' .$typ['cp_name'] . '</option>';
+        }
+
+    }
+    
+     function loadAllZone($catky)
+    {
+
+        $arrtype = $this->query("SELECT z_id,z_name FROM zone  ORDER BY z_name");
+
+        while ($typ = $this->fetch_set($arrtype)) {
+
+            echo '<option value="' . $typ['z_id'] . '" ' .
+                ($catky == $typ['z_id'] ? "selected" : "") . ' >' .$typ['z_name'] . '</option>';
         }
 
     }

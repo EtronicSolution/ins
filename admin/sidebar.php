@@ -11,16 +11,17 @@
                            
                         </li>
                          <li class="nav-label">Delegator Managements</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Delegators</span></a>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-address-card-o"></i><span class="hide-menu">Delegators</span></a>
                             <ul aria-expanded="false" class="collapse">
                                  <li><a class="fa fa-user" href="members_list.php?type=delegator">  List</a></li>
+                                   <li><a class="fa fa-star-o" href="members_list.php?type=delegator">  Points Report</a></li>
                                  
                               
                             </ul>
                         </li>
                         
                         <li class="nav-label">User Managements</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fas fa-user-times"></i><span class="hide-menu">User</span></a>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fas fa-users"></i><span class="hide-menu">User</span></a>
                             <ul aria-expanded="false" class="collapse">
                                  <li><a class="fa fa-user" href="members_list.php?type=user">  List</a></li>
                                  
@@ -31,11 +32,22 @@
                         <li class="nav-label">Motor insurance </li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fas fa-car"></i><span class="hide-menu">Car</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a class="fa fa-list" href="ins_list.php">  List</a></li>
+                                <li><a class="fa fa-car" href="car_list.php">  List</a></li>
+                                <li><a class="fa fa-cart-plus" href="ins_list.php"> insurance</a></li>
+                                <li><a class="fa fa-edit" href="policy_list.php">  Policy</a></li>
                                  
                               
                             </ul>
                         </li>
+                        
+<!--                         <li class="nav-label">Policy Managements</li>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fas fa-newspaper-o"></i><span class="hide-menu">Policy List</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                        <li><a class="fa fa-list" href="policy_list.php">  List</a></li>
+                               
+                              
+                            </ul>
+                        </li>-->
                         
                          <li class="nav-label">Company Managements</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fas fa-building"></i><span class="hide-menu">Companies</span></a>
@@ -45,25 +57,19 @@
                               
                             </ul>
                         </li>
-                        <li class="nav-label">Policy Managements</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fas fa-building"></i><span class="hide-menu">Policy List</span></a>
-                            <ul aria-expanded="false" class="collapse">
-                        <li><a class="fa fa-list" href="policy_list.php">  List</a></li>
-                               
-                              
-                            </ul>
-                        </li>
+                       
                       <li class="nav-label">Admin Task</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-pencil-square-o"></i><span class="hide-menu">User Requests </span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a class="fa fa-dollar" href="deposit_list_pending.php">   Pending Deposit</a></li>
-                                <li><a class="fa fa-list" href="lotto_request.php">   Policy Request</a></li>        
+                                <li><a class="fa fa-dollar" href="deposit_list_pending.php">   Pending Approval</a></li>
+                                <li><a class="fa fa-search" href="lotto_request.php">   Policy Request</a></li>        
                             </ul>
                         </li>
                         
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fas fa-retweet"></i><span class="hide-menu">Referral Settings  </span></a>
+                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fas fa-retweet"></i><span class="hide-menu">Commission Settings  </span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a class="fa fa-dollar" href="packages_list.php">   Package List</a></li>
+                                <li><a class="fa fa-empire" href="packages_list.php">   East malaysia</a></li>
+                                 <li><a class="fa fa-compass" href="packages_list.php">   West malaysia</a></li>
                                        
                             </ul>
                         </li>

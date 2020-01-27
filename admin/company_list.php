@@ -2,23 +2,17 @@
 include_once './header.php';
 include_once './sidebar.php';
 include_once './data/company_list_data.php';
-
-
 if (!empty($_GET['error'])) {
-  $error = $_GET['error'];
+    $error = $_GET['error'];
 } else {
-  $error = '';
+    $error = '';
 }
-
-
 if ($error == 5) {
-  echo '<script>  swal("Sucessfully Added", "Please click to update", "success");</script>';
+    echo '<script>  swal("Sucessfully Added", "Please click to update", "success");</script>';
 }
 if ($error == 4) {
     echo '<script>  swal("Company Name already taken", "Please try again !", "error");</script>';
 }
-
-
 ?>
 
 
@@ -30,13 +24,13 @@ if ($error == 4) {
   <section>
     <div class="row page-titles">
       <div class="col-md-5 align-self-center">
-        <h3 class="text-primary" style="text-transform: uppercase;"><?= $type ?> LIST</h3>
+        <h3 class="text-primary" style="text-transform: uppercase;"> LIST</h3>
       </div>
       <div class="col-md-7 align-self-center">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-          <li class="breadcrumb-item"><a href="javascript:void(0)"><?= $type ?> Group</a></li>
-          <li class="breadcrumb-item active"><?= $type ?> List</li>
+          <li class="breadcrumb-item"><a href="javascript:void(0)">Companies</a></li>
+          <li class="breadcrumb-item active">List</li>
         </ol>
       </div>
     </div>
@@ -46,11 +40,11 @@ if ($error == 4) {
 
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title" style="text-transform: uppercase;"><?= $type ?> LIST</h4>
+              <h4 class="card-title" style="text-transform: uppercase;">Companies LIST</h4>
               <div>
 
                 <div class="col-md-2">
-                  <button type="button" class="btn btn-xl  btn-danger" onclick="location.href='company_add.php?type=<?= $type ?>';">Add New Company</button>
+                  <button type="button" class="btn btn-xl  btn-danger" onclick="location.href='company_add.php';">Add New Company</button>
                 </div>
               </div>
               <div class="table-responsive m-t-40">
@@ -58,65 +52,57 @@ if ($error == 4) {
                   <thead>
                     <tr>
                         <th>#</th>
-                        <th>Logo</th>
+                        <th>company Code</th>
                         <th>Company Name</th>
                         <th>Register Date</th>
+                        <th>Status</th>
                         <th>Action</th>
 
                     </tr>
                   </thead>
-                  <tbody>
-                    <?php
-                    $i = 1;
-                    while ($row = mysqli_fetch_assoc($result)) {
-                      if ($row['cp_status'] == '1') {
-                        $m_status = 'Active';
-                      } else {
-                        $m_status = 'Inactive';
-                      }
-
-                      $find_upline = "select company.cp_name from company where id=" . $row['m_upline'];
-                      $m_upline = mysqli_query($conn, $find_upline);
-                      $row_upline = mysqli_fetch_assoc($m_upline);
-                      $m_upline_name = $row_upline['cp_name'];
-                    ?>
-                      <tr>
-                        <td><?php echo $i++; ?></td>
-                          <td>
-                            <a href="<?php echo $row['cp_logo']; ?>" target="_blank"><img src="<?php echo $row['cp_logo']; ?>" style="width: 100px;height: 100px" /></a>
-                          </td>
-                        <td>
-                            <a href="company_add.php?cp_id=<?php echo $row['id']; ?>">
-                                <?php echo $row['cp_name']?>
-                            </a>
-                        </td>
-                        <td><?php echo $row['cp_register_date']; ?></td>
-                        <td>
-                            <?php if ($row['cp_status'] == '1') { ?>
-                                <button type="button" id="btnm<?php echo $row['id']; ?>" class="btn btn-sm  btn-danger" onclick="deleteUser('<?php echo $row['m_id']; ?>', 'm','m_id',<?php echo $type; ?>);">Delete</button>
-                            <?php } else { ?>
-                                <button type="button" id="btnm<?php echo $row['id']; ?>" class="btn btn-block btn-success" onclick="activateUser('<?php echo $row['id']; ?>', 'm','id',<?php echo $type; ?>);">Activate</button>
-                            <?php
-                            }
-                            ?>
-                            <button type="button" id="btnm<?php echo $row['id']; ?>" class="btn btn-sm btn-success" onclick="activateUser('<?php echo $row['id']; ?>', 'm','id',<?php echo $type; ?>);">Edit</button>
-                        </td>
-
-                      </tr>
-
-                    <?php } ?>
-
-                  </tbody>
-                    <tfoot>
+                      <tfoot>
                     <tr>
                         <th>#</th>
-                        <th>Logo</th>
+                         <th>company Code</th>
                         <th>Company Name</th>
                         <th>Register Date</th>
+                         <th>Status</th>
                         <th>Action</th>
-
                     </tr>
                     </tfoot>
+                  <tbody>
+                    <?php
+                            $i = 1;
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                if ($row['cp_status'] == '1') {
+                                    $cp_status = 'Active';
+                                } else {
+                                    $cp_status = 'Inactive';
+                                }
+                                 
+                     ?>
+                      <tr>
+                        <td><?php echo $i++; ?></td>
+                         <td><?php echo $row['cp_code']; ?></td>
+                         <td><?php echo $row['cp_name']; ?></td>
+                         
+                        <td><?php echo $row['cp_registter_day']; ?></td>
+                        <td><?php echo $cp_status; ?></td>
+                        
+                        <td> <button type="button" id="btn_edit" class="btn  btn-sm btn-success" onclick="location.href='company_add.php?cp_id=<?= $row['cp_id']?>';"><i class="ti ti-eye"></i>  Edit</button>
+                        
+                          
+                        <button type="button" id="btn_rm" class="btn  btn-sm btn-danger" onclick="deleteUser();"><i class="ti ti-eraser"></i>  Del</button>
+                        
+                        </td>
+               
+                      </tr>
+
+                    <?php
+} ?>
+
+                  </tbody>
+                
                 </table>
               </div>
 
