@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 27, 2020 at 08:19 PM
+-- Generation Time: Feb 01, 2020 at 12:31 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.5
 
@@ -2853,7 +2853,7 @@ CREATE TABLE IF NOT EXISTS `policy` (
   `p_id` int(11) NOT NULL AUTO_INCREMENT,
   `p_name` varchar(250) DEFAULT NULL,
   `p_type` varchar(250) DEFAULT NULL,
-  `p_register_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `p_register_date` date DEFAULT NULL,
   `p_end_date` varchar(50) DEFAULT NULL,
   `p_by_company` int(11) DEFAULT NULL,
   `p_delegator_by` int(11) DEFAULT NULL,
@@ -2864,7 +2864,14 @@ CREATE TABLE IF NOT EXISTS `policy` (
   `p_detail` longtext,
   `p_code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`p_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `policy`
+--
+
+INSERT INTO `policy` (`p_id`, `p_name`, `p_type`, `p_register_date`, `p_end_date`, `p_by_company`, `p_delegator_by`, `p_status`, `p_currency`, `p_loc`, `p_price`, `p_detail`, `p_code`) VALUES
+(4, 'Policy_01', 'Car', '2020-02-07', NULL, 11, NULL, 1, 0, 0, 1212, '<p>Sample data&nbsp;</p>\r\n<p>&nbsp;</p>', '001');
 
 -- --------------------------------------------------------
 

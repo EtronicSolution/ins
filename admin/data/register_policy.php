@@ -7,7 +7,7 @@ $p_id           = $_POST['p_id'];
 $p_code         = $_POST['p_code'];
 $p_name          = $_POST['p_name'];
 $p_by_company    = $_POST['p_by_company'];
-$price           = $_POST['p_price'];
+$p_price           = $_POST['p_price'];
 $p_register_date = $_POST['p_register_date'];
 $p_detail        = $_POST['p_detail'];
 $today           = date('Y-m-d');
@@ -24,7 +24,8 @@ if ($action == 'register') {
         if (mysqli_num_rows($result) > 0) {
             header('Location: ../policy_add.php?rror=4');
         } else {
-            $sql = "INSERT INTO `policy` ( `p_name`, `p_type`, `p_register_date`, `p_end_date`, `p_by_company`, `p_delegator_by`, `p_status`, `p_currency`, `p_loc`, `p_price`, `p_detail`, `p_code`) VALUES ( NULL, NULL, CURRENT_TIMESTAMP, NULL, NULL, NULL, '1', '0', '0', '0', NULL, NULL)";
+            $sql = "INSERT INTO `policy` ( `p_name`, `p_type`, `p_register_date`, `p_end_date`, `p_by_company`, `p_delegator_by`, `p_status`, `p_currency`, `p_loc`, `p_price`, `p_detail`, `p_code`) VALUES ('".$p_name."', 'Car', '".$p_register_date."', NULL, '".$p_by_company."', NULL, '1', '0', '0', '".$p_price."','".$p_detail."', '".$p_code."')";
+             
             if(mysqli_query($conn, $sql)){
                 
                  header('Location: ../policy_list.php?error=1');

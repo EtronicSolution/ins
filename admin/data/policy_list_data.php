@@ -1,17 +1,12 @@
 <?php
 include_once 'functions.php';
 
-if (isset($_GET['type'])) {
-    $type = $_GET['type']; 
-} else {
-   $type = ''; 
-}
  
 
 
 if($_SESSION['login']&& $_SESSION['admin'] != ''){
 
-        $sql = "select * from policies";
+        $sql = "select po.*,cp.cp_name from policy po  left join company  cp on po.p_by_company=cp.cp_id ";
         $result = mysqli_query($conn, $sql);
 
 		

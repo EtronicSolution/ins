@@ -38,7 +38,7 @@ if($error==4){
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
                         <li class="breadcrumb-item"><a href="javascript:void(0)"><?=$m_type?> Group</a></li>
-                        <li class="breadcrumb-item active"><?=$row['m_type']?>  Detail</li>
+                        <li class="breadcrumb-item active"><?=$m_type?>  Detail</li>
                     </ol>
                 </div>
             </div>
@@ -148,11 +148,11 @@ if($error==4){
 				     </div>
                                     <?php } ?>
                                     
-                                    <?php if($row['m_type']=='user'){ ?>
+                                    <?php if($row['m_type']=='user' || $m_type =='user'){ ?>
                                             <div class="col-lg-6 col-md-6 form-group">                  
                                                           <label>Refer By :</label>
 
-                                                          <select class="form-control" name="m_reseller_by" id="m_reseller_by">
+                                                          <select class="form-control" name="m_reseller_by" id="m_reseller_by" required>
                                                                     <?php                                                             
                                                                        $database->loadDelegators($row['m_reseller_by']);
                                                                     ?>
@@ -179,7 +179,7 @@ if($error==4){
                                     
                                    <div class="col-lg-6 col-md-6 form-group">                  
 						<label>Date of Birth :</label>
-                                                <input type="<?php if($row['m_id']==''){echo "date";}else{echo "text";} ?>" class="form-control date" id="m_dob" placeholder="YYYY-MM-DD" name="m_dob" value="<?php echo $row['m_dob']; ?>" >                            
+                                                <input type="<?php if($row['m_dob']==''){echo "date";}else{echo "text";} ?>" class="form-control date" id="m_dob" placeholder="YYYY-MM-DD" name="m_dob" value="<?php echo $row['m_dob']; ?>" >                            
 					</div>
                                     
                                     <div class="col-lg-6 col-md-6 form-group">                  

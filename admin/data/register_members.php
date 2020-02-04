@@ -30,21 +30,13 @@ $m_wechatid                 = $_POST['m_wechat_id'];
 $m_type                     = $_POST['m_type'];
 $m_currency                 = $_POST['m_currency'];
 $m_loc                      = $_POST['m_loc'];
-$today = date('Y-m-d');    
-        //Action 
+$today                      = date('Y-m-d');   
+
+//Action 
 $action = $_POST['action'];               
     
         
-        //Other Data 
-if ($_SESSION['master'] != '') {
-	$register_by = $_SESSION['master'];
-} else if ($_SESSION['supermaster'] != '') {
-	$register_by = $_SESSION['supermaster'];
-} else if ($_SESSION['admin'] != '') {
-	$register_by = $_SESSION['admin'];
-} else {
-	$register_by = $_SESSION['reseller'];
-}
+
         
         // pass 
 
@@ -58,12 +50,10 @@ $hash_otp = password_hash($m_otp, PASSWORD_DEFAULT);
 $target_dir = "../../uploads/profile/";
 
 if ($action == 'register') {
-	if (basename($_FILES["user_profile_image"]["name"]) != '') {
-		$m_img = $target_dir . reSize($_FILES['user_profile_image']['tmp_name'], $_FILES['user_profile_image']['name'], 1);
-	} else {
-		$m_img = '';
-	}
-
+         $m_img =uploadPic("user_profile_image",$target_dir);
+         
+                
+                
 	if ($m_username != '' && $m_password != '') {
 		if (preg_match('/[^a-z_\-0-9]/i', $m_username)) {
 			header('Location: ../members_add.php?error=3');
@@ -75,9 +65,7 @@ if ($action == 'register') {
 				header('Location: ../members_add.php?error=1');
 			} else {
 				$sql = "INSERT INTO members (m_address,m_username, m_password, m_name, m_email, m_dob, m_phone,m_type,m_pic,m_upline,m_loc,m_reseller_by) VALUES ('" . $m_address . "','" . $m_username . "', '" . $hash_password . "', '" . $m_fullname . "', '" . $m_email . "', '" . $m_dob . "', '" . $m_phone . "', '" . $m_type . "', '" . $m_img . "', '" . $user_member_reference . "','" . $m_loc . "','" . $m_reseller_by . "')";
-                                        //echo $sql;
-                                       // exit();
-
+                                
 				mysqli_query($conn, $sql);
 
 				header('Location: ../members_list.php?type=' . $m_type . '&error=5');
@@ -93,11 +81,11 @@ if ($action == 'register') {
 //=================================================================================================
 
 	
-		$user_pic = uploadPic("user_profile_image",$target_dir);
+		$m_pic = uploadPic("user_profile_image",$target_dir);
                 
-                if($user_pic!=''){
+                if($m_pic!=''){
 
-		$sql = "UPDATE members SET m_pic='" . $user_pic . "' WHERE m_id='" . $user_id . "'";
+		$sql = "UPDATE members SET m_pic='" . $m_pic . "' WHERE m_id='" . $user_id . "'";
 
 		if (mysqli_query($conn, $sql)) {
 			$error = 2;
@@ -166,8 +154,8 @@ if ($action == 'register') {
 		};
 	}
 
-	if ($user_email != '') {
-		$sql = "update members set m_email='" . $user_email . "'where m_id='" . $user_id . "'";
+	if ($m_email != '') {
+		$sql = "update members set m_email='" . $m_email . "'where m_id='" . $user_id . "'";
 		if (mysqli_query($conn, $sql)) {
 			$error = 2;
 		} else {
@@ -175,8 +163,8 @@ if ($action == 'register') {
 		}
 	}
 
-	if ($user_dob != '') {
-		$sql = "update members set m_dob='" . $user_dob . "'where m_id='" . $user_id . "'";
+	if ($m_dob != '') {
+		$sql = "update members set m_dob='" . $m_dob . "'where m_id='" . $user_id . "'";
 		if (mysqli_query($conn, $sql)) {
 			$error = 2;
 		} else {
@@ -259,6 +247,9 @@ if ($action == 'register') {
 }
 
 
+
+
+// back ground functions image uploading 
 function reSize($file, $var_file, $var_name)
 {
 	$sourceProperties = getimagesize($file);
@@ -309,4 +300,52 @@ function imageResize($imageResourceId, $width, $height)
 	imagecopyresampled($targetLayer, $imageResourceId, 0, 0, 0, 0, $targetWidth, $targetHeight, $width, $height);
 
 	return $targetLayer;
+}
+
+
+function uploadPic($file_name,$target_dir){
+
+    	if (($_FILES[$file_name]["name"]) != '') {
+		$target_user_image = $target_dir . basename($_FILES[$file_name]["name"]);
+		$uploadFileType_user_image = pathinfo($target_user_image, PATHINFO_EXTENSION);
+		$newfilename_user_image = round(microtime(true)) . UniqueRandomNumbersWithinRange(0, 100, 1)[0] . '.' . $uploadFileType_user_image;
+
+		if (basename($_FILES[$file_name]["name"]) != '') {
+			if ($uploadFileType_user_image != "jpg" && $uploadFileType_user_image != "png" && $uploadFileType_user_image != "jpeg" && $uploadFileType_user_image != "gif" && $uploadFileType_user_image != "JPG" && $uploadFileType_user_image != "PNG" && $uploadFileType_user_image != "JPEG" && $uploadFileType_user_image != "GIF") {
+				return '';
+			} else {
+
+                            if(move_uploaded_file($_FILES[$file_name]["tmp_name"], $target_dir . $newfilename_user_image)){
+
+                                 return  $newfilename_user_image;
+                            }else{
+
+                                return '';
+                            }
+
+
+
+			}
+		}
+
+
+
+
+
+	}else{
+
+            return '';
+        }
+
+
+
+
+}
+
+
+function UniqueRandomNumbersWithinRange($min, $max, $quantity)
+{
+    $numbers = range($min, $max);
+    shuffle($numbers);
+    return array_slice($numbers, 0, $quantity);
 }

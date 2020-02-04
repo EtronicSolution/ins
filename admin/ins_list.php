@@ -14,8 +14,13 @@ if (!empty($_GET['error'])) {
 }
 
 
-if($error==5){
+if($error==1){
    echo '<script>  swal("Sucessfully Added", "Please click to update", "success");</script>';
+    
+}
+
+if($error==2){
+   echo '<script>  swal("Something Went Wrong", "Please click to update", "error");</script>';
     
 }
 
@@ -116,7 +121,7 @@ if($error==5){
                    
                    <td><?php echo $status; ?></td>
                  
-                   <td><button type="button"  onclick="location.href='ins_add.php?ins_no=<?= $row['v_ins_number']?>';" class="btn btn-success btn-flat btn-addon m-b-10 m-l-5"><i class="ti-view-grid"></i>View</button></td>
+                   <td><button type="button"  onclick="location.href='ins_add.php?ins_no=<?= $row['v_ins_number']?>';" class="btn btn-success btn-flat btn-sm btn-addon m-b-10 m-l-5"><i class="ti-view-grid"></i>  View</button></td>
 			  
                 </tr>
 				

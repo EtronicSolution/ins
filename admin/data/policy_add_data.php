@@ -15,7 +15,7 @@ if (isset($_GET['p_id'])) {
 }
 
 if ($p_id != '') {
-	$sql = "select * from policy where p_id='" .$user_id . "'";
+	$sql = "select * from policy where p_id='" .$p_id . "'";
 	$result = mysqli_query($conn, $sql);
 	$row = mysqli_fetch_assoc($result);
 }

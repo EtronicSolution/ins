@@ -1593,8 +1593,21 @@ function loadUsers($catky)
 
         while ($typ = $this->fetch_set($arrtype)) {
 
-            echo '<option value="' . $typ['id'] . '" ' .
-                ($catky == $typ['id'] ? "selected" : "") . ' >' .$typ['cp_name'] . '</option>';
+            echo '<option value="' . $typ['cp_id'] . '" ' .
+                ($catky == $typ['cp_id'] ? "selected" : "") . ' >' .$typ['cp_name'] . '</option>';
+        }
+
+    }
+    
+      function loadAllPolicy($catky)
+    {
+
+        $arrtype = $this->query("SELECT p_id,p_name FROM policy  ORDER BY p_name");
+
+        while ($typ = $this->fetch_set($arrtype)) {
+
+            echo '<option value="' . $typ['p_id'] . '" ' .
+                ($catky == $typ['p_id'] ? "selected" : "") . ' >' .$typ['p_name'] . '</option>';
         }
 
     }
@@ -1624,7 +1637,17 @@ function loadUsers($catky)
 
     }
    
-   
+    function loadAllCars($catky)
+     {    
+         
+        $arrtype = $this->query("select  v_id,v_number from vehicles where v_type=1 ORDER by v_number");
+            
+        while ($typ = $this->fetch_set($arrtype)) {
+            echo '<option value="' . $typ['v_number'] . '" ' .
+            ($catky == $typ['v_number'] ? "selected" : "") . ' >' .$typ['v_number'] . '</option>';
+        }
+
+    }
 };
 
 

@@ -100,7 +100,7 @@ if ($error == 4) {
                                             <div class="col-lg-6 col-md-6 form-group">
                                                 <label>Company :</label>
 
-                                                <select class="form-control" name="p_by_company" id="p_by_company">
+                                                <select class="form-control" name="p_by_company" id="p_by_company" required>
                                                         <?php
                                                             $database->loadAllCompanies($row['p_by_company']);
                                                         ?>

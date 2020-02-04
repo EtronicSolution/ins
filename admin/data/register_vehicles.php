@@ -156,3 +156,44 @@ if ($action == 'register') {
 	header('Location: ../car_add.php?v_id=' . $v_id . '&error=' . $error);
 }
 
+function uploadPic($file_name,$target_dir){
+
+    	if (($_FILES[$file_name]["name"]) != '') {
+		$target_user_image = $target_dir . basename($_FILES[$file_name]["name"]);
+		$uploadFileType_user_image = pathinfo($target_user_image, PATHINFO_EXTENSION);
+		$newfilename_user_image = round(microtime(true)) . UniqueRandomNumbersWithinRange(0, 100, 1)[0] . '.' . $uploadFileType_user_image;
+
+		if (basename($_FILES[$file_name]["name"]) != '') {
+			if ($uploadFileType_user_image != "jpg" && $uploadFileType_user_image != "png" && $uploadFileType_user_image != "jpeg" && $uploadFileType_user_image != "gif" && $uploadFileType_user_image != "JPG" && $uploadFileType_user_image != "PNG" && $uploadFileType_user_image != "JPEG" && $uploadFileType_user_image != "GIF") {
+				return '';
+			} else {
+
+                            if(move_uploaded_file($_FILES[$file_name]["tmp_name"], $target_dir . $newfilename_user_image)){
+
+                                 return  $newfilename_user_image;
+                            }else{
+
+                                return '';
+                            }
+
+
+
+			}
+		}
+
+
+
+
+
+	}else{
+
+            return '';
+        }
+
+}
+function UniqueRandomNumbersWithinRange($min, $max, $quantity)
+{
+    $numbers = range($min, $max);
+    shuffle($numbers);
+    return array_slice($numbers, 0, $quantity);
+}
