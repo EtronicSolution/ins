@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 01, 2020 at 12:31 AM
+-- Generation Time: Feb 10, 2020 at 12:05 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.5
 
@@ -308,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `company` (
   `cp_detail` longtext,
   `cp_email` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`cp_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `company`
@@ -317,7 +317,9 @@ CREATE TABLE IF NOT EXISTS `company` (
 INSERT INTO `company` (`cp_id`, `cp_code`, `cp_name`, `cp_logo`, `cp_registter_day`, `cp_phone`, `cp_address`, `updated_id`, `created_dt`, `updated_dt`, `cp_status`, `cp_detail`, `cp_email`) VALUES
 (10, 'a23', 'coampany2', '../uploads/logo/15800567131.jpg', '2020-01-09', '342423', 'company1_address', 1, '2020-01-27 00:00:00', NULL, 1, '\r\nwfweferfefreferf\r\n\r\n', 'scg@mail.com'),
 (11, 'a24', 'scg', '../uploads/logo/15800571931.png', '2020-01-18', '342423', 'scg_address', 1, '2020-01-27 00:00:00', NULL, 1, '<p>The Sampe data&nbsp;</p>', 'scg@mail.com'),
-(12, 'dz12', 'darz', '../uploads/logo/15800742371.jpg', '2020-01-16', '342423', 'company2_address', 1, '2020-01-27 00:00:00', NULL, 1, '<p>Some Thing about company&nbsp;</p>', 'scg@mail.com');
+(12, 'dz12', 'darz', '../uploads/logo/15800742371.jpg', '2020-01-16', '342423', 'company2_address', 1, '2020-01-27 00:00:00', NULL, 1, '<p>Some Thing about company&nbsp;</p>', 'scg@mail.com'),
+(13, '', 'cprt', '', '2020-02-06', '', 'wedwe', 1, '2020-02-03 00:00:00', NULL, 1, '<p>werer</p>', ''),
+(14, '', 'company1', '../uploads/logo/15806815641.jpg', '2020-02-07', '2213432', 'qwwqdwq', 1, '2020-02-03 00:00:00', NULL, 1, '<p>dwedewfewf</p>', '');
 
 -- --------------------------------------------------------
 
@@ -447,6 +449,51 @@ CREATE TABLE IF NOT EXISTS `dividend` (
   `div_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `div_status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`div_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `features`
+--
+
+DROP TABLE IF EXISTS `features`;
+CREATE TABLE IF NOT EXISTS `features` (
+  `f_id` int(11) NOT NULL AUTO_INCREMENT,
+  `f_number` varchar(255) DEFAULT NULL,
+  `short_description` longtext,
+  `f_price` float DEFAULT NULL,
+  `status` int(11) DEFAULT '0',
+  `register_date` date DEFAULT NULL,
+  `expire_date` date DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `f_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`f_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `features`
+--
+
+INSERT INTO `features` (`f_id`, `f_number`, `short_description`, `f_price`, `status`, `register_date`, `expire_date`, `created_by`, `updated_by`, `f_name`) VALUES
+(1, 'fe001', '2222', 22, 1, '2020-02-09', '2020-02-09', 1, 1, 'new'),
+(2, 'fe002', '33333', 33, 1, '2020-02-09', '2020-02-10', 1, 1, 'new');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `features_for_ins`
+--
+
+DROP TABLE IF EXISTS `features_for_ins`;
+CREATE TABLE IF NOT EXISTS `features_for_ins` (
+  `f_ins_id` int(11) NOT NULL AUTO_INCREMENT,
+  `f_id` int(11) DEFAULT NULL,
+  `ins_id` longtext,
+  `status` int(11) DEFAULT '0',
+  `date` date DEFAULT NULL,
+  PRIMARY KEY (`f_ins_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -682,17 +729,27 @@ CREATE TABLE IF NOT EXISTS `members` (
   `m_new_ref` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_currency` int(11) DEFAULT '0',
   `m_loc` int(11) DEFAULT '0',
+  `m_passport` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `m_brid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `m_post_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `m_nic` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `m_mil_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `m_marriage_status` int(11) DEFAULT '0',
   PRIMARY KEY (`m_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=825 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=829 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`m_id`, `m_username`, `m_password`, `m_email`, `m_name`, `m_dob`, `m_phone_country`, `m_phone`, `m_pic`, `m_otp`, `m_bank_name`, `m_bank_account_no`, `m_bank_branch`, `m_bitcoin`, `m_litecoin`, `m_lineid`, `m_wechatid`, `m_whatsapp`, `m_register_date`, `m_end_date`, `m_referal`, `m_master_by`, `m_admin_by`, `m_reseller_by`, `m_upline`, `m_register_by`, `m_updated_by`, `m_updated_date`, `m_updated_type`, `m_status`, `m_address`, `last_act`, `m_lst_payreward`, `m_side`, `m_type`, `m_level`, `m_new_ref`, `m_currency`, `m_loc`) VALUES
-(822, 'dg1', '$2y$10$U.sY4JTDSNyqeNU8OQv6aezfWOgnsAsRVN4jlo/ehjw/ll232mPue', 'dg1@mail.com', 'DG1 Name ', '2020-01-06', NULL, '1234567', '../../uploads/profile/15800757151.jpg', NULL, 'cimb', '89080', 'kl', NULL, NULL, '12345', NULL, '345555', '2020-01-27 05:55:15', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '2020-01-27 05:56:22', NULL, 1, 'dg1 address ', NULL, NULL, NULL, 'delegator', 0, NULL, 0, 1),
-(823, 'dg2', '$2y$10$KwCqJ3WUy/fE7ycbAs4W2uKhIfwvlufza7skeZwJeLYXoJuo1Vw8y', 'dg2@mail.com', '', '', NULL, '', '../../uploads/profile/15800758311.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-27 05:57:11', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '2020-01-27 05:57:11', NULL, 1, '', NULL, NULL, NULL, 'delegator', 0, NULL, 0, 2),
-(824, 'user1', '$2y$10$MiwbUASM.fR6t5TSc0cpUO2fTdo7bLUmyAdbin8iLsbRGf3l2.6ru', 'user1@mail.com', '', '', NULL, '', '158012683938.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-27 05:58:01', NULL, NULL, NULL, NULL, 822, '823', NULL, NULL, '2020-01-27 20:07:19', NULL, 1, '', NULL, NULL, NULL, 'user', 0, NULL, 0, 2);
+INSERT INTO `members` (`m_id`, `m_username`, `m_password`, `m_email`, `m_name`, `m_dob`, `m_phone_country`, `m_phone`, `m_pic`, `m_otp`, `m_bank_name`, `m_bank_account_no`, `m_bank_branch`, `m_bitcoin`, `m_litecoin`, `m_lineid`, `m_wechatid`, `m_whatsapp`, `m_register_date`, `m_end_date`, `m_referal`, `m_master_by`, `m_admin_by`, `m_reseller_by`, `m_upline`, `m_register_by`, `m_updated_by`, `m_updated_date`, `m_updated_type`, `m_status`, `m_address`, `last_act`, `m_lst_payreward`, `m_side`, `m_type`, `m_level`, `m_new_ref`, `m_currency`, `m_loc`, `m_passport`, `m_brid`, `m_post_code`, `m_nic`, `m_mil_id`, `m_marriage_status`) VALUES
+(822, 'dg1', '$2y$10$U.sY4JTDSNyqeNU8OQv6aezfWOgnsAsRVN4jlo/ehjw/ll232mPue', 'dg1@mail.com', 'DG1 Name ', '2020-01-06', NULL, '1234567', '../../uploads/profile/15800757151.jpg', NULL, 'cimb', '89080', 'kl', NULL, NULL, '12345', NULL, '345555', '2020-01-27 05:55:15', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '2020-01-27 05:56:22', NULL, 1, 'dg1 address ', NULL, NULL, NULL, 'delegator', 0, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, 0),
+(823, 'dg2', '$2y$10$KwCqJ3WUy/fE7ycbAs4W2uKhIfwvlufza7skeZwJeLYXoJuo1Vw8y', 'dg2@mail.com', '', '', NULL, '', '../../uploads/profile/15800758311.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-27 05:57:11', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '2020-01-27 05:57:11', NULL, 1, '', NULL, NULL, NULL, 'delegator', 0, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, 0),
+(824, 'user1', '$2y$10$MiwbUASM.fR6t5TSc0cpUO2fTdo7bLUmyAdbin8iLsbRGf3l2.6ru', 'user1@mail.com', '', '2020-02-14', NULL, '', '158068636519.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-27 05:58:01', NULL, NULL, NULL, NULL, 822, '823', NULL, NULL, '2020-02-10 05:40:58', NULL, 1, '', NULL, NULL, NULL, 'user', 0, NULL, 0, 2, NULL, 'xxxx', NULL, NULL, NULL, 0),
+(825, 'user2', '$2y$10$EonLrwfq92W9n7egKXOr1OonXrr93qUSfM6/ERWUw9f1y.MTmgqw2', 'dg@dg.com', '', '2020-02-22', NULL, '23423', '158068608530.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-02-03 07:28:05', NULL, NULL, NULL, NULL, 822, '', NULL, NULL, '2020-02-03 07:33:21', NULL, 1, '', NULL, NULL, NULL, 'user', 0, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, 0),
+(826, 'dg3', '$2y$10$oUGC75qU6igm8Tt3OsFBRuVdzCC6X9ndPzWKOkv4dv9VSUpbSvDsG', '', '', '', NULL, '234324', '158102280639.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-02-07 04:59:59', NULL, NULL, NULL, NULL, 0, '', NULL, NULL, '2020-02-07 05:00:06', NULL, 1, '', NULL, NULL, NULL, 'delegator', 0, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, 0),
+(827, 'admindg2', '$2y$10$r1kZV.ZJokzGg59mZAib3OrlYWFdGJ2w9WgHsKXX7j97R0eNhSijm', '', '', '', NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-02-07 05:02:39', NULL, NULL, NULL, NULL, 0, '', NULL, NULL, '2020-02-07 05:02:39', NULL, 1, '', NULL, NULL, NULL, 'delegator', 0, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, 0),
+(828, 'user3', '$2y$10$obTSyrgTSMJY9CcwhQsV9.xQhM5NvabmJXR7CUw5emwrDhwN2hbE.', '', '', '', NULL, '', '158102306385.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-02-07 05:04:07', NULL, NULL, NULL, NULL, 826, '', NULL, NULL, '2020-02-07 05:04:22', NULL, 1, '', NULL, NULL, NULL, 'user', 0, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -2864,14 +2921,15 @@ CREATE TABLE IF NOT EXISTS `policy` (
   `p_detail` longtext,
   `p_code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`p_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `policy`
 --
 
 INSERT INTO `policy` (`p_id`, `p_name`, `p_type`, `p_register_date`, `p_end_date`, `p_by_company`, `p_delegator_by`, `p_status`, `p_currency`, `p_loc`, `p_price`, `p_detail`, `p_code`) VALUES
-(4, 'Policy_01', 'Car', '2020-02-07', NULL, 11, NULL, 1, 0, 0, 1212, '<p>Sample data&nbsp;</p>\r\n<p>&nbsp;</p>', '001');
+(4, 'Policy_01', 'Car', '2020-02-07', NULL, 11, NULL, 1, 0, 0, 1212, '<p>Sample data&nbsp;</p>\r\n<p>&nbsp;</p>', '001'),
+(5, 'policy_02', 'Car', '2020-02-08', NULL, 14, NULL, 1, 0, 0, 2000, '<p>ASDdd</p>', '200');
 
 -- --------------------------------------------------------
 
@@ -2959,6 +3017,24 @@ CREATE TABLE IF NOT EXISTS `promotion` (
 
 INSERT INTO `promotion` (`p_id`, `p_title`, `p_description`, `p_pic`, `p_status`, `p_created_by`, `p_date`) VALUES
 (3, 'ç½‘åšèµ„æœ¬ 2019 å¼€ç›˜å¤§ä¼˜æƒ ', '\r\nç½‘åšèµ„æœ¬ 2019 å¼€ç›˜å¤§ä¼˜æƒ  ï¼Œ é©¬ä¸Šæ³¨å†Œæˆä¸ºå®˜æ–¹ä¼šå‘˜å“¦ï¼ï¼\r\n\r\n.', '1563382358.jpg', 1, 13, '2019-07-07 01:21:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `regional_setting`
+--
+
+DROP TABLE IF EXISTS `regional_setting`;
+CREATE TABLE IF NOT EXISTS `regional_setting` (
+  `r_id` int(11) NOT NULL AUTO_INCREMENT,
+  `r_code` varchar(255) DEFAULT NULL,
+  `r_agent_rate` int(11) DEFAULT '0',
+  `v_ins_short_description` longtext,
+  `v_ins_member_id` int(11) DEFAULT '0',
+  `v_ins_agent_id` int(11) DEFAULT '0',
+  `v_ins_main_img` text,
+  PRIMARY KEY (`r_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -5475,6 +5551,35 @@ INSERT INTO `trade_settings` (`tr_id`, `tr_name`, `tr_max`, `tr_status`, `tr_cre
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `trading_config`
+--
+
+DROP TABLE IF EXISTS `trading_config`;
+CREATE TABLE IF NOT EXISTS `trading_config` (
+  `id` int(11) NOT NULL,
+  `configDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `minNumber` double NOT NULL DEFAULT '0',
+  `maxNumber` double NOT NULL DEFAULT '0',
+  `increValue` double NOT NULL DEFAULT '0',
+  `decreValue` double NOT NULL DEFAULT '0',
+  `startTime` time NOT NULL,
+  `endTime` time NOT NULL,
+  `timeIntervalMins` double NOT NULL DEFAULT '0',
+  `startValue` float NOT NULL DEFAULT '0',
+  `decreFlow` int(11) NOT NULL DEFAULT '0',
+  `noOfDecre` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `trading_config`
+--
+
+INSERT INTO `trading_config` (`id`, `configDate`, `minNumber`, `maxNumber`, `increValue`, `decreValue`, `startTime`, `endTime`, `timeIntervalMins`, `startValue`, `decreFlow`, `noOfDecre`) VALUES
+(2, '2019-07-08 14:24:55', 1, 18, 0.02, 0.002, '10:00:00', '20:00:00', 5, 0.01, 4, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `treeview`
 --
 
@@ -5590,15 +5695,21 @@ CREATE TABLE IF NOT EXISTS `vehicles` (
   `model` varchar(255) DEFAULT NULL,
   `make_date` date DEFAULT NULL,
   `cc` int(11) DEFAULT '0',
+  `variant` varchar(255) DEFAULT NULL,
+  `postcode` varchar(255) DEFAULT NULL,
+  `chassis` varchar(255) DEFAULT NULL,
+  `seats` int(11) DEFAULT '0',
+  `engine_no` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`v_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicles`
 --
 
-INSERT INTO `vehicles` (`v_id`, `v_number`, `v_type`, `v_code`, `short_description`, `member_id`, `image1`, `image2`, `image3`, `image4`, `image5`, `v_price`, `video_description`, `status`, `register_date`, `expire_date`, `created_by`, `updated_by`, `color`, `make`, `model`, `make_date`, `cc`) VALUES
-(13, 'HW7856', 1, 1002, '<p>Sample data&nbsp;</p>', 824, '158012717771.jpg', '158012718563.jpg', '158012721732.jpg', '158012723948.jpg', NULL, 200877, NULL, 1, '2020-01-27', NULL, 1, 1, '#ff0080', 'Toyota', 'Yaris ', '2020-01-10', 1000);
+INSERT INTO `vehicles` (`v_id`, `v_number`, `v_type`, `v_code`, `short_description`, `member_id`, `image1`, `image2`, `image3`, `image4`, `image5`, `v_price`, `video_description`, `status`, `register_date`, `expire_date`, `created_by`, `updated_by`, `color`, `make`, `model`, `make_date`, `cc`, `variant`, `postcode`, `chassis`, `seats`, `engine_no`) VALUES
+(14, 'Tw3456', 1, 1002, '<p>Sample data&nbsp;</p>', 825, '158068647671.jpg', '158068647639.jpg', '', '', NULL, 3000, NULL, 1, '2020-02-03', NULL, 1, 1, '#ff0080', 'Toyota', 'Pirus', '2020-02-15', 100, NULL, NULL, NULL, 0, NULL),
+(13, 'HW7856', 1, 1002, '<p>Sample data&nbsp;</p>', 824, '158012717771.jpg', '158012718563.jpg', '158012721732.jpg', '158012723948.jpg', NULL, 200877, NULL, 1, '2020-01-27', NULL, 1, 1, '#ff0080', 'Toyota', 'Yaris ', '2020-01-10', 1000, NULL, NULL, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -32580,8 +32691,22 @@ CREATE TABLE IF NOT EXISTS `v_ins` (
   `expire_date` date DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `v_ins_comapany` int(11) DEFAULT '0',
+  `v_ins_car_no` int(11) DEFAULT '0',
+  `f1` int(11) DEFAULT '0',
+  `f2` int(11) DEFAULT '0',
+  `f3` int(11) DEFAULT '0',
+  `f4` int(11) DEFAULT '0',
+  `f5` int(11) DEFAULT '0',
+  `postcode` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`v_ins_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `v_ins`
+--
+
+INSERT INTO `v_ins` (`v_ins_id`, `v_ins_number`, `v_ins_policy`, `v_ins_short_description`, `v_ins_member_id`, `v_ins_agent_id`, `v_ins_main_img`, `v_ins_price`, `status`, `register_date`, `expire_date`, `created_by`, `v_ins_comapany`, `v_ins_car_no`, `f1`, `f2`, `f3`, `f4`, `f5`, `postcode`) VALUES
+(1, 'ins001', 5, '\r\nwefwef\r\n\r\n', 825, 0, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -32604,6 +32729,29 @@ INSERT INTO `v_insure` (`URN`, `INSURE_COMPANY`) VALUES
 ('I001', 'SINSUB'),
 ('I002', 'VIRIYAH'),
 ('I003', 'THAIPAIBOON');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `v_type`
+--
+
+DROP TABLE IF EXISTS `v_type`;
+CREATE TABLE IF NOT EXISTS `v_type` (
+  `v_type_id` int(11) NOT NULL AUTO_INCREMENT,
+  `v_type_name` varchar(255) DEFAULT NULL,
+  `v_type` int(11) DEFAULT '0',
+  `v_type_code` int(11) DEFAULT '0',
+  `short_description` longtext,
+  PRIMARY KEY (`v_type_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `v_type`
+--
+
+INSERT INTO `v_type` (`v_type_id`, `v_type_name`, `v_type`, `v_type_code`, `short_description`) VALUES
+(1, 'Car', 1, 1, 'All Cars');
 
 -- --------------------------------------------------------
 
