@@ -1,36 +1,38 @@
 <?php
 include_once '../../conn.php';
 include_once 'functions.php';
+include_once './imageUpload.php';
 
-	//Fetching Values from URL
-$user_id                    = $_POST['id'];
-$m_username                 = $_POST['user_name'];
-$m_password                 = $_POST['password'];
-$m_reseller_by              = $_POST['m_reseller_by'];
-$m_email                    = $_POST['m_email'];
-$m_name                     = $_POST['m_name'];
-$m_dob                      = $_POST['m_dob'];
-$m_phone                    = $_POST['m_phone'];
-$m_lineid                   = $_POST['m_lineid'];
-$m_whatsapp                 = $_POST['m_whatsapp'];
-$m_address                  = $_POST['m_address'];
-$m_bank_name                = $_POST['m_bank_name'];
-$m_bank_account_no          = $_POST['m_bank_account_no'];
-$m_bank_branch              = $_POST['m_bank_branch'];
-$m_phone_country            = $_POST['m_phone_country'];
-$m_admin_by                 = $_POST['m_admin_by'];
-$m_master_by                = $_POST['m_master_by'];
-$m_upline                   = $_POST['m_upline'];
-$m_referal                  = md5($_POST['m_name']);
-$m_status                   = $_POST['m_status'];
-$m_otp                      = $_POST['m_otp'];
-$m_bitcoin                  = $_POST['m_bitcoin'];
-$m_litecoin                 = $_POST['litecoin'];
-$m_wechatid                 = $_POST['m_wechat_id'];
-$m_type                     = $_POST['m_type'];
-$m_currency                 = $_POST['m_currency'];
-$m_loc                      = $_POST['m_loc'];
-$today                      = date('Y-m-d');   
+//Fetching Values from URL
+$user_id           = $_POST['id'];
+$m_username        = $_POST['user_name'];
+$m_password        = $_POST['password'];
+$m_reseller_by     = $_POST['m_reseller_by'] == '' ? 0 : $_POST['m_reseller_by'];
+$m_email           = $_POST['m_email'];
+$m_name            = $_POST['m_name'];
+$m_dob             = $_POST['m_dob'];
+$m_phone           = $_POST['m_phone'];
+$m_lineid          = $_POST['m_lineid'];
+$m_whatsapp        = $_POST['m_whatsapp'];
+$m_address         = $_POST['m_address'];
+$m_bank_name       = $_POST['m_bank_name'];
+$m_bank_account_no = $_POST['m_bank_account_no'];
+$m_bank_branch     = $_POST['m_bank_branch'];
+$m_phone_country   = $_POST['m_phone_country'];
+$m_admin_by        = $_POST['m_admin_by'];
+$m_master_by       = $_POST['m_master_by'];
+$m_upline          = $_POST['m_upline'];
+ 
+$m_status          = $_POST['m_status'];
+$m_otp             = $_POST['m_otp'];
+$m_bitcoin         = $_POST['m_bitcoin'];
+$m_litecoin        = $_POST['litecoin'];
+$m_wechatid        = $_POST['m_wechat_id'];
+$m_type            = $_POST['m_type'];
+$m_currency        = $_POST['m_currency'];
+$m_loc             = $_POST['m_loc'];
+$m_nic             = $_POST['m_nic']; 
+$m_brid             = $_POST['m_brid']; 
 
 //Action 
 $action = $_POST['action'];               
@@ -50,9 +52,11 @@ $hash_otp = password_hash($m_otp, PASSWORD_DEFAULT);
 $target_dir = "../../uploads/profile/";
 
 if ($action == 'register') {
-         $m_img =uploadPic("user_profile_image",$target_dir);
+        $m_img =uploadPic("user_profile_image",$target_dir);
+        
+       
          
-                
+       
                 
 	if ($m_username != '' && $m_password != '') {
 		if (preg_match('/[^a-z_\-0-9]/i', $m_username)) {
@@ -65,14 +69,20 @@ if ($action == 'register') {
 				header('Location: ../members_add.php?error=1');
 			} else {
 				$sql = "INSERT INTO members (m_address,m_username, m_password, m_name, m_email, m_dob, m_phone,m_type,m_pic,m_upline,m_loc,m_reseller_by) VALUES ('" . $m_address . "','" . $m_username . "', '" . $hash_password . "', '" . $m_fullname . "', '" . $m_email . "', '" . $m_dob . "', '" . $m_phone . "', '" . $m_type . "', '" . $m_img . "', '" . $user_member_reference . "','" . $m_loc . "','" . $m_reseller_by . "')";
-                                
-				mysqli_query($conn, $sql);
+                               
+				if(mysqli_query($conn, $sql)){
+                                    
+                                    header('Location: ../members_list.php?type=' . $m_type . '&error=1');
+                                    
+                                }else{
+                                    header('Location: ../members_list.php?type=' . $m_type . '&error=2');
+                                }
 
-				header('Location: ../members_list.php?type=' . $m_type . '&error=5');
+				
 			}
 		}
 	} else {
-		header('Location: ../members_add.php?error=2');
+		header('Location: ../members_add.php?error=1');
 	}
 } elseif ($action == 'update') {
         
@@ -171,8 +181,8 @@ if ($action == 'register') {
 			$error = 1;
 		}
 	}
-	if ($user_phone != '') {
-		$sql = "update members set m_phone='" . $user_phone . "'where m_id='" . $user_id . "'";
+	if ($m_phone != '') {
+		$sql = "update members set m_phone='" . $m_phone . "'where m_id='" . $user_id . "'";
 		mysqli_query($conn, $sql);
 	}
 	if ($m_lineid != '') {
@@ -193,8 +203,8 @@ if ($action == 'register') {
 			$error = 1;
 		}
 	}
-	if ($user_address != '') {
-		$sql = "update  members set m_address='" . $user_address . "'where m_id='" . $user_id . "'";
+	if ($m_address != '') {
+		$sql = "update  members set m_address='" . $m_address . "'where m_id='" . $user_id . "'";
 		if (mysqli_query($conn, $sql)) {
 			$error = 2;
 		} else {
@@ -221,8 +231,8 @@ if ($action == 'register') {
 		}
 	}
 
-	if ($m_bank_branch != '') {
-		$sql = "update  members set m_bank_branch='" . $m_bank_branch . "'where m_id='" . $user_id . "'";
+	if ($m_brid != '') {
+		$sql = "update  members set m_brid='" . $m_brid . "'where m_id='" . $user_id . "'";
 		if (mysqli_query($conn, $sql)) {
 			$error = 2;
 		} else {
@@ -230,8 +240,35 @@ if ($action == 'register') {
 		}
 	}
 
-	if ($m_reseller_by != '') {
-		$sql = "update  members set m_reseller_by='" . $m_reseller_by . "'where m_id='" . $user_id . "'";
+	if ($m_passport != '') {
+		$sql = "update  members set m_passport ='" . $m_passport . "'where m_id='" . $user_id . "'";
+		if (mysqli_query($conn, $sql)) {
+			$error = 2;
+		} else {
+			$error = 0;
+		}
+	}
+        
+        if ($m_passport != '') {
+		$sql = "update  members set m_passport ='" . $m_passport . "'where m_id='" . $user_id . "'";
+		if (mysqli_query($conn, $sql)) {
+			$error = 2;
+		} else {
+			$error = 0;
+		}
+	}
+        
+        if ($m_nic != '') {
+		$sql = "update  members set m_nic ='" . $m_nic . "'where m_id='" . $user_id . "'";
+		if (mysqli_query($conn, $sql)) {
+			$error = 2;
+		} else {
+			$error = 0;
+		}
+	}
+        
+        if ($m_mil_id != '') {
+		$sql = "update  members set m_mil_id ='" . $m_mil_id . "'where m_id='" . $user_id . "'";
 		if (mysqli_query($conn, $sql)) {
 			$error = 2;
 		} else {
@@ -248,104 +285,3 @@ if ($action == 'register') {
 
 
 
-
-// back ground functions image uploading 
-function reSize($file, $var_file, $var_name)
-{
-	$sourceProperties = getimagesize($file);
-	$fileNewName = time() . $var_name;
-	$folderPath = "../../uploads/profile/";
-	$ext = pathinfo($var_file, PATHINFO_EXTENSION);
-
-	$imageType = $sourceProperties[2];
-
-	switch ($imageType) {
-		case IMAGETYPE_PNG:
-			$imageResourceId = imagecreatefrompng($file);
-			$targetLayer = imageResize($imageResourceId, $sourceProperties[0], $sourceProperties[1]);
-			imagepng($targetLayer, $folderPath . $fileNewName . "." . $ext);
-			break;
-
-		case IMAGETYPE_GIF:
-			$imageResourceId = imagecreatefromgif($file);
-			$targetLayer = imageResize($imageResourceId, $sourceProperties[0], $sourceProperties[1]);
-			imagegif($targetLayer, $folderPath . $fileNewName . "." . $ext);
-			break;
-
-		case IMAGETYPE_JPEG:
-			$imageResourceId = imagecreatefromjpeg($file);
-			$targetLayer = imageResize($imageResourceId, $sourceProperties[0], $sourceProperties[1]);
-			imagejpeg($targetLayer, $folderPath . $fileNewName . "." . $ext);
-			break;
-
-		default:
-			echo "Invalid Image type.";
-			exit;
-			break;
-	}
-
-	$file_save_as = $fileNewName . "." . $ext;
-
-	move_uploaded_file($folderPath . $file_save_as);
-
-	return $file_save_as;
-}
-
-function imageResize($imageResourceId, $width, $height)
-{
-	$targetWidth = 500;
-	$targetHeight = 500;
-
-	$targetLayer = imagecreatetruecolor($targetWidth, $targetHeight);
-	imagecopyresampled($targetLayer, $imageResourceId, 0, 0, 0, 0, $targetWidth, $targetHeight, $width, $height);
-
-	return $targetLayer;
-}
-
-
-function uploadPic($file_name,$target_dir){
-
-    	if (($_FILES[$file_name]["name"]) != '') {
-		$target_user_image = $target_dir . basename($_FILES[$file_name]["name"]);
-		$uploadFileType_user_image = pathinfo($target_user_image, PATHINFO_EXTENSION);
-		$newfilename_user_image = round(microtime(true)) . UniqueRandomNumbersWithinRange(0, 100, 1)[0] . '.' . $uploadFileType_user_image;
-
-		if (basename($_FILES[$file_name]["name"]) != '') {
-			if ($uploadFileType_user_image != "jpg" && $uploadFileType_user_image != "png" && $uploadFileType_user_image != "jpeg" && $uploadFileType_user_image != "gif" && $uploadFileType_user_image != "JPG" && $uploadFileType_user_image != "PNG" && $uploadFileType_user_image != "JPEG" && $uploadFileType_user_image != "GIF") {
-				return '';
-			} else {
-
-                            if(move_uploaded_file($_FILES[$file_name]["tmp_name"], $target_dir . $newfilename_user_image)){
-
-                                 return  $newfilename_user_image;
-                            }else{
-
-                                return '';
-                            }
-
-
-
-			}
-		}
-
-
-
-
-
-	}else{
-
-            return '';
-        }
-
-
-
-
-}
-
-
-function UniqueRandomNumbersWithinRange($min, $max, $quantity)
-{
-    $numbers = range($min, $max);
-    shuffle($numbers);
-    return array_slice($numbers, 0, $quantity);
-}

@@ -1751,7 +1751,7 @@ textarea {
 }
 
 .amcharts-graph-g2 .amcharts-graph-stroke {
-    stroke-dasharray: 3px 3px;
+    stroke-dasharray: 3px;
     stroke-linejoin: round;
     stroke-linecap: round;
     -webkit-animation: am-moving-dashes 1s linear infinite;
@@ -1813,9 +1813,9 @@ textarea {
     stroke-linejoin: round;
     stroke-linecap: round;
     stroke-dasharray: 500%;
-    stroke-dasharray: 0 /;
+    stroke-dasharray: 0 ;
     /* fixes IE prob */
-    stroke-dashoffset: 0 /;
+    stroke-dashoffset: 0 ;
     /* fixes IE prob */
     -webkit-animation: am-draw 40s;
     animation: am-draw 40s;

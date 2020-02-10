@@ -1,7 +1,7 @@
 <?php
 include_once './header.php';
 include_once './sidebar.php';
-include_once './data/members_list_data.php';
+include_once './data/features_list_data.php';
 
 
 
@@ -20,11 +20,9 @@ if($error==1){
 }
 
 if($error==2){
-   echo '<script>  swal("Something went wrong", "Please try agin", "error");</script>';
+   echo '<script>  swal("Something Went Wrong", "Please click to update", "error");</script>';
     
 }
-
-
 
 
 ?>
@@ -38,12 +36,12 @@ if($error==2){
  <section >
      <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary" style="text-transform: uppercase;"><?=$type?> LIST</h3> </div>
+                    <h3 class="text-primary" style="text-transform: uppercase;">LIST</h3> </div>
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0)"><?=$type?> Group</a></li>
-                        <li class="breadcrumb-item active"><?=$type?> List</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Features List</a></li>
+                        <li class="breadcrumb-item active">List</li>
                     </ol>
                 </div>
             </div>
@@ -53,12 +51,12 @@ if($error==2){
 
         <div class="card">
 	<div class="card-body">
-	   <h4 class="card-title" style="text-transform: uppercase;"><?=$type?> LIST</h4>
+	   <h4 class="card-title" style="text-transform: uppercase;">Features List</h4>
            
             <div>
                
                 <div class="col-md-2">
-                   <button type="button" class="btn btn-block  btn-danger" onclick="location.href='members_add.php?type=<?=$type?>';">Add New <?=$type?></button>
+                   <button type="button" class="btn btn-block  btn-danger" onclick="location.href='features_add.php';"><i class="ti-plus"></i> Add New</button>
                 </div>
            </div>
  
@@ -67,25 +65,23 @@ if($error==2){
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                
-                                                 <th>Username/E-Mail/Mobile Number </th>
-                                                
+                                                <th>Feature Number </th>
+                                                <th>Name</th>
                                                 <th>Register Date</th>
-                                                <th>Up Line</th>
-                                               
+                                                <th>Expire Date</th>
+                                                
                                                 <th >Action</th>
                                                  
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                 <th>#</th>
-                                                
-                                                 <th>Name/E-Mail</th>
-                                                
+                                                <th>#</th>
+                                                  <th>Feature Number </th>
+                                                <th>Name</th>
                                                 <th>Register Date</th>
-                                                <th>Up Line</th>
-                                               
+                                                <th>Expire Date</th>
+                                                
                                                 <th >Action</th>
                                                   
                                             </tr>
@@ -95,65 +91,31 @@ if($error==2){
 				<?php 
 				$i=1;
 				while($row = mysqli_fetch_assoc($result)) { 
-					if($row['m_status'] == '1'){
-						$m_status = 'Active';
+					if($row['status'] == '1'){
+						$status = 'Active';
 					} else{
-						$m_status = 'Inactive';
+						$status = 'Inactive';
 					}
 				
-                                  $find_upline="select members.m_name from members where m_id=".$row['m_upline'];      
-                                  $m_upline = mysqli_query($conn, $find_upline); 
-                                  $row_upline=mysqli_fetch_assoc( $m_upline);
-                                  $m_upline_name= $row_upline['m_name'];
                              ?>
                 <tr>
                   <td><?php echo $i++; ?></td>
                   
-                  <td><a href="members_add.php?user_id=<?php echo $row['m_id'];?>"><?php  
-                  if($row['m_username']!=''){
-                      echo $row['m_username'];
-                      
-                  }else{
-                  
-                  if($row['m_email']!=''){
-                      
-                      echo $row['m_email'];
-                  }else{
-                      
-                      
-                      if($row['m_phone']){
-                          
-                           echo $row['m_phone'];
-                      }
-                      
-                      
-                  }
-                  
-                  
-                  
-                  }
-                  
-                  ?></a></td>
+                  <td><?php echo $row['f_number']; ?></td>
                  
-                  <td><?php echo $row['m_register_date']; ?></td>
-		
-                  <td><?php echo $m_upline_name; ?></td>
-                  <td><?php if($row['m_status'] == '1'){ ?><button type="button" id="btnm<?php echo $row['m_id'];?>" class="btn btn-block  btn-danger" onclick="deleteUser('<?php echo $row['m_id'];?>', 'm','m_id',<?php echo $type;?>);">Deactivate</button>
-
-                                <?php }else{?>
-
-                                <button type="button" id="btnm<?php echo $row['m_id'];?>" class="btn btn-block btn-success" onclick="activateUser('<?php echo $row['m_id'];?>', 'm','m_id',<?php echo $type;?>);">Activate</button>
-
-                                <?php    
-                                }
-
-                                ?>
-
-                  </td>   
+                  <td><?php echo $row['f_name']; ?></td>
+                  
+                  <td><?php echo $row['register_date']; ?></td>
+                  
+                  <td><?php echo $row['expire_date']; ?></td>
+                  
+               
+                 
+                   <td><button type="button"  onclick="location.href='ins_add.php?ins_no=<?= $row['v_ins_number']?>';" class="btn btn-success btn-flat btn-sm btn-addon m-b-10 m-l-5"><i class="ti-view-grid"></i>  View</button></td>
 			  
                 </tr>
 				
-				<?php } ?>
+	<?php } ?>
           
                 </tbody>
                                         

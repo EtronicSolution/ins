@@ -219,7 +219,7 @@ ul.drop-down {
     top: 100%;
     left: 0;
     width: 150px;
-    visibility: hidden\0/;
+    visibility: hidden;
     opacity: 0;
     z-index: 3;
     transition: all 0.17s ease-in-out;
@@ -3412,4 +3412,10 @@ p.work-time span {
 
 .slider-caption .flex-control-nav {
     bottom: -80px;
+}
+
+.invalid-feedback {
+    color: #ef5350;
+    display: none;
+    margin-top: 0.25rem;
 }

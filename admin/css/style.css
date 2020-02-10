@@ -1752,7 +1752,7 @@ textarea {
 }
 
 .amcharts-graph-g2 .amcharts-graph-stroke {
-    stroke-dasharray: 3px 3px;
+    stroke-dasharray: 3px;
     stroke-linejoin: round;
     stroke-linecap: round;
     -webkit-animation: am-moving-dashes 1s linear infinite;
