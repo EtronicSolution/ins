@@ -1,5 +1,5 @@
 <?php
-session_start();
+if(!isset($_SESSION)) { session_start(); }
 include_once '../conn.php';
 include_once 'admin/data/functions.php';
 
@@ -14,14 +14,19 @@ $ic_type           = $_POST['ic_type'];
 
 
 // first check 
-
-$sql_v_check = "SELECT * FROM vehicles WHERE v_number ='" . $v_number . "'";
-$resultv_check   = mysqli_query($conn, $sql_v_check);
- if (mysqli_num_rows($resultv_check) > 0) {
-     
-     header('Location: ../page2.php?v_number=' . $v_number);
-     
- }
+if(isset($_SESSION['delegator'])){
+    echo
+    $sql_v_check = "SELECT * FROM vehicles WHERE v_number ='" . $v_number . "'";
+    $resultv_check   = mysqli_query($conn, $sql_v_check);
+     if (mysqli_num_rows($resultv_check) > 0) {
+         
+        header('Location: ../page2.php?v_number=' . $v_number);
+         
+     }
+}else{
+         
+        header('Location: ../login_blade.php');
+}
 
 
 echo $ic_type;

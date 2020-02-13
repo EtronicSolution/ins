@@ -1,5 +1,4 @@
 <?php 
-
 include_once './top_header.php';
 include_once './header.php';
 include_once './slider.php';
@@ -13,7 +12,6 @@ include_once './get_ins.php';
 		<!-- content 
 			================================================== -->
 		<div id="content">
-
 			<!-- welcome-box -->
 			<?php include_once './welcome_box.php';?>
 			<!-- services-box -->
