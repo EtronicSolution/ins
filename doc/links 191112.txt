@@ -1,0 +1,8 @@
+
+1st request : https://staging.api.maybank.com:31101/api/v1.0/my/insurance/motor/quote
+
+
+token : https://staging.api.maybank.com:31100/api/v1.0/my/oauth/token
+
+
+modify quotation : https://staging.api.maybank.com:21101/api/v1.0/my/insurance/motor/quote
