@@ -40,7 +40,8 @@ function LoginFunction(){
                 $_SESSION['login'] = $res['m_id'];
                 $_SESSION['delegator'] = $res['m_username'];
                 
-                header('Location: ../index.php?');
+                // header('Location: ../index.php?');
+                header('Location: ../page2.php?v_number=' . $_SESSION['v_no']);
  
             }       
             else{

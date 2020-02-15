@@ -7,7 +7,7 @@
         
         
         $v_ins_id                   = $_POST['v_ins_id'];
-	$v_ins_number               = $_POST['v_ins_number'];
+	    $v_ins_number               = $_POST['v_ins_number'];
         $v_ins_policy               = $_POST['v_ins_policy'];
         $v_ins_short_description    = $_POST['v_ins_short_description'];
         $v_ins_member_id            = $_POST['v_ins_member_id'];
@@ -17,6 +17,7 @@
         $status                     = $_POST['status'];
         $v_ins_car_no               = $_POST['v_ins_car_no'];
         $expire_date                = $_POST['expire_date'];
+        $v_ins_comapany             = $_POST['v_ins_comapany'];
        
         
         //Action
@@ -42,7 +43,7 @@ if ($action == 'register')
         }
         else
         {
-            $sql = "INSERT INTO `v_ins` ( `v_ins_number`, `v_ins_policy`, `v_ins_short_description`, `v_ins_member_id`, `v_ins_agent_id`, `v_ins_main_img`, `v_ins_price`, `status`, `register_date`, `expire_date`, `created_by`, `v_ins_comapany`, `v_ins_car_no`) VALUES ( '" . $v_ins_number . "', '" . $v_ins_policy . "', '" . $v_ins_short_description . "', '" . $v_ins_member_id. "', '0', NULL, NULL, '0', NULL, NULL, NULL, '0',  '0')";
+            $sql = "INSERT INTO `v_ins` ( `v_ins_number`, `v_ins_policy`, `v_ins_short_description`, `v_ins_member_id`, `v_ins_agent_id`, `v_ins_main_img`, `v_ins_price`, `status`, `register_date`, `expire_date`, `created_by`, `v_ins_comapany`, `v_ins_car_no`) VALUES ( '" . $v_ins_number . "', '" . $v_ins_policy . "', '" . $v_ins_short_description . "', '" . $v_ins_member_id. "','" . $v_ins_agent_id. "', '" . $v_ins_main_img. "', '" . $v_ins_price . "', '". $today ."', '" . $expire_date . "', '" . $created_by . "', '" . $v_ins_comapany . "', '" . $v_ins_car_no . "')";
 
         
             if(mysqli_query($conn, $sql))

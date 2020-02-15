@@ -15,7 +15,6 @@ $ic_type           = $_POST['ic_type'];
 
 // first check 
 if(isset($_SESSION['delegator'])){
-    echo
     $sql_v_check = "SELECT * FROM vehicles WHERE v_number ='" . $v_number . "'";
     $resultv_check   = mysqli_query($conn, $sql_v_check);
      if (mysqli_num_rows($resultv_check) > 0) {
@@ -24,7 +23,7 @@ if(isset($_SESSION['delegator'])){
          
      }
 }else{
-         
+        $_SESSION['v_no'] = $v_number; 
         header('Location: ../login_blade.php');
 }
 
