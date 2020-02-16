@@ -1,11 +1,22 @@
-<?php  
-    include_once "data/all_functions.php";
 
-    $result= $database->getVehicleUsers($_GET['v_number']);
+<?php  
+    include "data/all_functions.php";
+
+    $value = $_GET['v_number'];
+
+    $result= getVehicleUsers($value);
+
+    $insurance = getInsuranceData($value);
+
+    $features = allFeatures();
+
+    $active_features = getActiveFeatures($insurance['v_ins_id']);
+   
+    
 
 ?>
-
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 * {
   box-sizing: border-box;
@@ -80,9 +91,83 @@ button:hover {
 .step.finish {
   background-color: #4CAF50;
 }
+
+/*checkbox css*/
+/* Customize the label (the container) */
+.check-div .container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  /*font-size: 22px;*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding-top: 20px;
+}
+
+/* Hide the browser's default checkbox */
+.check-div .container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.check-div .checkmark {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.check-div .container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.check-div .container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.check-div .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.check-div .container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.check-div .container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+/*checkbox css*/
 </style>
 
 <div class="container" id="regForm">
+
+    <input type="hidden" id="ins_no" value="<?php echo $insurance['v_ins_id']; ?>">
+
     <div class="card-head"><h4>Informations</h4></div>
     <div class="tab">
     <div class="row">
@@ -119,20 +204,48 @@ button:hover {
     </div>
     </div>
 
-  <div class="tab">Contact Info:
-    <p><input placeholder="E-mail..." oninput="this.className = ''" name="email"></p>
-    <p><input placeholder="Phone..." oninput="this.className = ''" name="phone"></p>
+  <div class="tab">
+    <div class="row">
+    <?php if($insurance != null): ?>
+        <div class="col-sm-12 col-12">&nbsp;</div>
+        <div class="col-sm-12 col-12">&nbsp;</div>
+        <div class="col-sm-6 col-6"><img src="uploads/ins/<?php echo $insurance['v_ins_main_img']; ?>" style="width:150px;"></div>
+        <div class="col-sm-6 col-6">Agreed Value Range (<?php echo 'RM. '.$insurance['v_ins_price']; ?>)
+          <br>  Sum Insured (SI):</div>
+        </div>
+        <hr />
+        <div class="row">
+        <div class="col-sm-12 col-12"><?php echo $insurance['v_ins_short_description']; ?></div>
+        </div>
+    <?php else: ?>
+        <div class="col-sm-12 col-12">No Records Found on the Server...</div>
+    <?php endif; ?>
   </div>
-  <div class="tab">Birthday:
-    <p><input placeholder="dd" oninput="this.className = ''" name="dd"></p>
-    <p><input placeholder="mm" oninput="this.className = ''" name="nn"></p>
-    <p><input placeholder="yyyy" oninput="this.className = ''" name="yyyy"></p>
+
+  <div class="tab">
+    <div class="check-div">
+        <?php 
+            $arraySubId = array();
+            if($active_features != null):
+              while($f_data = mysqli_fetch_assoc($active_features)):
+                array_push($arraySubId, $f_data['f_id']);
+              endwhile;;
+            endif;
+        ?>
+        <?php while($row = mysqli_fetch_assoc($features)):?>
+            <label class="container"><?php echo $row['f_number']; ?>
+              <input type="checkbox" id="fetaure_id_<?php echo $row['f_id']; ?>" onclick="changeFeatures(<?php echo $row['f_id']; ?>)" <?php echo (in_array($row['f_id'], $arraySubId))? "checked" : "" ?>>
+              <span class="checkmark"></span>
+            </label>
+        <?php endwhile; ?>
+    </div>
   </div>
+
   <div class="tab">Login Info:
     <p><input placeholder="Username..." oninput="this.className = ''" name="uname"></p>
     <p><input placeholder="Password..." oninput="this.className = ''" name="pword" type="password"></p>
   </div>
-  <div style="overflow:auto;">
+  <div style="overflow:auto; margin-top: 50px;">
     <div style="float:right;">
       <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
       <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
@@ -146,7 +259,6 @@ button:hover {
     <span class="step"></span>
   </div>
 </div>
-
 
 <script>
 var currentTab = 0; // Current tab is set to be the first tab (0)
@@ -221,4 +333,31 @@ function fixStepIndicator(n) {
   //... and adds the "active" class on the current step:
   x[n].className += " active";
 }
+
+function changeFeatures(data){
+
+   var ins_id= $('#ins_no').val();
+   if((document.getElementById("fetaure_id_"+data).checked) == true){
+        $.ajax({ 
+            url: "data/all_functions.php",
+            type: "POST",
+            data: {"ins_id": ins_id, "function_id": data, "ins_type": "add"},
+            async: false,
+            success: function (data_out) {
+                
+            }
+        });
+   }else{
+        $.ajax({ 
+            url: "data/all_functions.php",
+            type: "POST",
+            data: {"ins_id": ins_id, "function_id": data, "ins_type": "remove"},
+            async: false,
+            success: function (data_out) {
+                
+            }
+        });
+   }
+}
+
 </script>

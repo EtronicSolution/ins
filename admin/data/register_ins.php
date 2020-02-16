@@ -1,6 +1,9 @@
 <?php
        
-        include_once 'functions.php';
+@define('BASE_DIR', dirname(__FILE__));
+include_once(BASE_DIR . '/../../conn.php');
+include_once 'functions.php';
+include_once './imageUpload.php';
        
         
         //Fetching Values from URL
@@ -11,15 +14,15 @@
         $v_ins_policy               = $_POST['v_ins_policy'];
         $v_ins_short_description    = $_POST['v_ins_short_description'];
         $v_ins_member_id            = $_POST['v_ins_member_id'];
-        $v_ins_agent_id             = $_POST['v_ins_agent_id'];
-        $v_ins_main_img             = $_POST['v_ins_main_img'];
-        $v_ins_price                = $_POST['v_ins_price'];
-        $status                     = $_POST['status'];
+        $v_ins_agent_id             = $_POST['v_ins_agent_id']?$_POST['v_ins_agent_id']:'0';
+        $v_ins_main_img             = $_POST['v_ins_main_img']?$_POST['v_ins_main_img']:NULL;
+        $v_ins_price                = $_POST['v_ins_price']?$_POST['v_ins_price']:NULL;
+        $status                     = $_POST['status']?$_POST['status']:'1';
         $v_ins_car_no               = $_POST['v_ins_car_no'];
         $expire_date                = $_POST['expire_date'];
         $v_ins_comapany             = $_POST['v_ins_comapany'];
        
-        
+
         //Action
         $action = $_POST['action'];
 
@@ -27,24 +30,30 @@
         $created_by = $_SESSION['login'];
         $today = date('Y-m-d');
 
-        
-if ($action == 'register')
-{
+//         var_dump(  $v_ins_id.'/'.$v_ins_number.'/'.$v_ins_policy.'/'.$v_ins_short_description.'/'.$v_ins_member_id.'/'.$v_ins_agent_id.'/'.$v_ins_main_img.'/'.$v_ins_price.'/'.$status.'/'.$v_ins_car_no.'/'.$expire_date.'/'.$v_ins_comapany ); 
+// die();
+
+
+$target_dir = "../../uploads/ins/";
+
+if ($action == 'register') {
+        $m_img =uploadPic("v_ins_main_img",$target_dir);
 
     if ($v_ins_number != '')
     {
 
         $sqlcheck = "SELECT * FROM v_ins WHERE v_ins_number='" . $v_ins_number . "'";
         $result = mysqli_query($conn, $sqlcheck);
-
         if (mysqli_num_rows($result) > 0)
         {
             header('Location: ../ins_add.php?error=2');
         }
         else
         {
-            $sql = "INSERT INTO `v_ins` ( `v_ins_number`, `v_ins_policy`, `v_ins_short_description`, `v_ins_member_id`, `v_ins_agent_id`, `v_ins_main_img`, `v_ins_price`, `status`, `register_date`, `expire_date`, `created_by`, `v_ins_comapany`, `v_ins_car_no`) VALUES ( '" . $v_ins_number . "', '" . $v_ins_policy . "', '" . $v_ins_short_description . "', '" . $v_ins_member_id. "','" . $v_ins_agent_id. "', '" . $v_ins_main_img. "', '" . $v_ins_price . "', '". $today ."', '" . $expire_date . "', '" . $created_by . "', '" . $v_ins_comapany . "', '" . $v_ins_car_no . "')";
+            // $sql = "INSERT INTO `v_ins` ( `v_ins_number`, `v_ins_policy`, `v_ins_short_description`, `v_ins_member_id`, `v_ins_agent_id`, `v_ins_main_img`, `v_ins_price`, `status`, `register_date`, `expire_date`, `created_by`, `v_ins_comapany`, `v_ins_car_no`) VALUES ( '" . $v_ins_number . "', '" . $v_ins_policy . "', '" . $v_ins_short_description . "', '" . $v_ins_member_id. "', '0', NULL, NULL, '0', NULL, NULL, NULL, '0',  '0')";
 
+            $sql = "INSERT INTO `v_ins` ( `v_ins_number`, `v_ins_policy`, `v_ins_short_description`, `v_ins_member_id`, `v_ins_agent_id`, `v_ins_main_img`, `v_ins_price`, `status`, `register_date`, `expire_date`, `created_by`, `v_ins_comapany`, `v_ins_car_no`) VALUES ( '" . $v_ins_number . "', '" . $v_ins_policy . "', '" . $v_ins_short_description . "', '" . $v_ins_member_id. "','" . $v_ins_agent_id. "', '" . $m_img. "', '" . $v_ins_price . "','".$status."' ,'". $today ."', '" . $expire_date . "', '" . $created_by . "', '" . $v_ins_comapany . "', '" . $v_ins_car_no . "')";
+           
         
             if(mysqli_query($conn, $sql))
             {

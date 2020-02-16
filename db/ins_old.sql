@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 16, 2020 at 11:59 AM
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.3.7
+-- Host: 127.0.0.1:3306
+-- Generation Time: Feb 10, 2020 at 12:05 PM
+-- Server version: 5.7.26
+-- PHP Version: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,21 +28,23 @@ SET time_zone = "+00:00";
 -- Table structure for table `administrators`
 --
 
-CREATE TABLE `administrators` (
-  `a_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `administrators`;
+CREATE TABLE IF NOT EXISTS `administrators` (
+  `a_id` int(11) NOT NULL AUTO_INCREMENT,
   `a_username` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `a_password` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `a_name` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `a_type` int(11) NOT NULL,
-  `a_register_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `a_register_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `a_affilate` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `a_registered_by` int(11) DEFAULT NULL,
   `a_master_by` int(11) DEFAULT NULL,
   `a_admin_by` int(11) DEFAULT NULL,
   `a_updated_by` int(11) DEFAULT NULL,
-  `a_updated_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `a_status` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `a_updated_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `a_status` int(11) NOT NULL,
+  PRIMARY KEY (`a_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `administrators`
@@ -57,23 +59,25 @@ INSERT INTO `administrators` (`a_id`, `a_username`, `a_password`, `a_name`, `a_t
 -- Table structure for table `admin_setting`
 --
 
-CREATE TABLE `admin_setting` (
-  `as_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `admin_setting`;
+CREATE TABLE IF NOT EXISTS `admin_setting` (
+  `as_id` int(11) NOT NULL AUTO_INCREMENT,
   `as_topup_limit` decimal(13,4) NOT NULL,
   `as_withdraw_limit` decimal(13,4) NOT NULL,
   `as_withdraw_service` decimal(13,4) NOT NULL,
   `as_trading_min` decimal(13,5) DEFAULT NULL,
   `as_trading_max` decimal(13,5) DEFAULT NULL,
   `as_updated_by` int(11) NOT NULL,
-  `as_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `as_status` int(11) NOT NULL DEFAULT 1,
+  `as_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `as_status` int(11) NOT NULL DEFAULT '1',
   `as_fund_payout_per` decimal(11,2) NOT NULL,
   `as_gp_expiry_date` int(11) NOT NULL,
   `as_share_rate` double(11,2) NOT NULL,
-  `as_tranfee_per` float NOT NULL DEFAULT 0,
-  `as_transfer_min_amount` float NOT NULL DEFAULT 0,
-  `as_reward_amount` double(11,2) NOT NULL DEFAULT 0.00
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `as_tranfee_per` float NOT NULL DEFAULT '0',
+  `as_transfer_min_amount` float NOT NULL DEFAULT '0',
+  `as_reward_amount` double(11,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`as_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `admin_setting`
@@ -88,11 +92,13 @@ INSERT INTO `admin_setting` (`as_id`, `as_topup_limit`, `as_withdraw_limit`, `as
 -- Table structure for table `admin_types`
 --
 
-CREATE TABLE `admin_types` (
-  `at_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `admin_types`;
+CREATE TABLE IF NOT EXISTS `admin_types` (
+  `at_id` int(11) NOT NULL AUTO_INCREMENT,
   `at_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `at_lang` varchar(50) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `at_lang` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`at_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `admin_types`
@@ -110,13 +116,15 @@ INSERT INTO `admin_types` (`at_id`, `at_name`, `at_lang`) VALUES
 -- Table structure for table `announcement_1`
 --
 
-CREATE TABLE `announcement_1` (
-  `a1_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `announcement_1`;
+CREATE TABLE IF NOT EXISTS `announcement_1` (
+  `a1_id` int(11) NOT NULL AUTO_INCREMENT,
   `a1_title` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `a1_description` longtext COLLATE utf8_unicode_ci NOT NULL,
   `a1_pic` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `a1_status` int(11) NOT NULL DEFAULT 1,
-  `a1_created_by` int(11) NOT NULL
+  `a1_status` int(11) NOT NULL DEFAULT '1',
+  `a1_created_by` int(11) NOT NULL,
+  PRIMARY KEY (`a1_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -125,13 +133,15 @@ CREATE TABLE `announcement_1` (
 -- Table structure for table `announcement_2`
 --
 
-CREATE TABLE `announcement_2` (
-  `a2_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `announcement_2`;
+CREATE TABLE IF NOT EXISTS `announcement_2` (
+  `a2_id` int(11) NOT NULL AUTO_INCREMENT,
   `a2_title` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `a2_description` longtext COLLATE utf8_unicode_ci NOT NULL,
   `a2_pic` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `a2_status` int(11) NOT NULL DEFAULT 1,
-  `a2_created_by` int(11) NOT NULL
+  `a2_status` int(11) NOT NULL DEFAULT '1',
+  `a2_created_by` int(11) NOT NULL,
+  PRIMARY KEY (`a2_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -140,13 +150,15 @@ CREATE TABLE `announcement_2` (
 -- Table structure for table `chart_data`
 --
 
-CREATE TABLE `chart_data` (
-  `cd_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `chart_data`;
+CREATE TABLE IF NOT EXISTS `chart_data` (
+  `cd_id` int(11) NOT NULL AUTO_INCREMENT,
   `cd_value` float NOT NULL,
   `cd_time` datetime NOT NULL,
   `cd_created_by` int(11) DEFAULT NULL,
-  `config_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `config_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cd_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2401 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `chart_data`
@@ -280,21 +292,23 @@ INSERT INTO `chart_data` (`cd_id`, `cd_value`, `cd_time`, `cd_created_by`, `conf
 -- Table structure for table `company`
 --
 
-CREATE TABLE `company` (
-  `cp_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `company`;
+CREATE TABLE IF NOT EXISTS `company` (
+  `cp_id` int(11) NOT NULL AUTO_INCREMENT,
   `cp_code` varchar(255) DEFAULT NULL,
-  `cp_name` text DEFAULT NULL,
-  `cp_logo` text DEFAULT NULL,
+  `cp_name` text,
+  `cp_logo` text,
   `cp_registter_day` date DEFAULT NULL,
-  `cp_phone` text DEFAULT NULL,
-  `cp_address` text DEFAULT NULL,
-  `updated_id` int(11) NOT NULL DEFAULT 0,
-  `created_dt` datetime DEFAULT NULL ON UPDATE current_timestamp(),
-  `updated_dt` datetime DEFAULT NULL ON UPDATE current_timestamp(),
-  `cp_status` int(11) NOT NULL DEFAULT 0,
-  `cp_detail` longtext DEFAULT NULL,
-  `cp_email` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `cp_phone` text,
+  `cp_address` text,
+  `updated_id` int(11) NOT NULL DEFAULT '0',
+  `created_dt` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_dt` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `cp_status` int(11) NOT NULL DEFAULT '0',
+  `cp_detail` longtext,
+  `cp_email` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`cp_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `company`
@@ -313,12 +327,14 @@ INSERT INTO `company` (`cp_id`, `cp_code`, `cp_name`, `cp_logo`, `cp_registter_d
 -- Table structure for table `country`
 --
 
-CREATE TABLE `country` (
-  `c_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `country`;
+CREATE TABLE IF NOT EXISTS `country` (
+  `c_id` int(11) NOT NULL AUTO_INCREMENT,
   `c_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `c_code` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `c_lang` varchar(10) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `c_lang` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`c_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `country`
@@ -339,8 +355,9 @@ INSERT INTO `country` (`c_id`, `c_name`, `c_code`, `c_lang`) VALUES
 -- Table structure for table `currency`
 --
 
-CREATE TABLE `currency` (
-  `cu_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `currency`;
+CREATE TABLE IF NOT EXISTS `currency` (
+  `cu_id` int(11) NOT NULL AUTO_INCREMENT,
   `cu_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `cu_rate` decimal(13,8) NOT NULL,
   `cu_withdraw_rate` decimal(13,8) NOT NULL,
@@ -349,11 +366,12 @@ CREATE TABLE `currency` (
   `cu_type` int(11) NOT NULL,
   `cu_type_details` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `cu_created_by` int(11) NOT NULL,
-  `cu_created_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `cu_created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `cu_updated_by` int(11) DEFAULT NULL,
-  `cu_updated_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `cu_status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `cu_updated_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `cu_status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`cu_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `currency`
@@ -374,8 +392,9 @@ INSERT INTO `currency` (`cu_id`, `cu_name`, `cu_rate`, `cu_withdraw_rate`, `cu_d
 -- Table structure for table `display_values`
 --
 
-CREATE TABLE `display_values` (
-  `dv_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `display_values`;
+CREATE TABLE IF NOT EXISTS `display_values` (
+  `dv_id` int(11) NOT NULL AUTO_INCREMENT,
   `dv_trader_value` decimal(13,4) NOT NULL,
   `dv_trader_percent` decimal(13,4) NOT NULL,
   `dv_trader_arrow` int(11) NOT NULL,
@@ -399,8 +418,9 @@ CREATE TABLE `display_values` (
   `dv_bonus_splits` decimal(13,4) NOT NULL,
   `dv_max_bonus_splits` decimal(13,4) NOT NULL,
   `dv_updated_by` int(11) NOT NULL,
-  `dv_update_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `dv_update_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`dv_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `display_values`
@@ -415,8 +435,9 @@ INSERT INTO `display_values` (`dv_id`, `dv_trader_value`, `dv_trader_percent`, `
 -- Table structure for table `dividend`
 --
 
-CREATE TABLE `dividend` (
-  `div_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `dividend`;
+CREATE TABLE IF NOT EXISTS `dividend` (
+  `div_id` int(11) NOT NULL AUTO_INCREMENT,
   `div_deposit_amount` decimal(65,8) NOT NULL,
   `div_deposit_id` int(11) NOT NULL,
   `div_deposit_by` int(11) NOT NULL,
@@ -425,8 +446,9 @@ CREATE TABLE `dividend` (
   `div_bonus_message` varchar(100) NOT NULL,
   `div_bonus_paid_to` int(11) NOT NULL,
   `div_percent` decimal(13,4) NOT NULL,
-  `div_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `div_status` int(11) NOT NULL DEFAULT 1
+  `div_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `div_status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`div_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -435,18 +457,20 @@ CREATE TABLE `dividend` (
 -- Table structure for table `features`
 --
 
-CREATE TABLE `features` (
-  `f_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `features`;
+CREATE TABLE IF NOT EXISTS `features` (
+  `f_id` int(11) NOT NULL AUTO_INCREMENT,
   `f_number` varchar(255) DEFAULT NULL,
-  `short_description` longtext DEFAULT NULL,
+  `short_description` longtext,
   `f_price` float DEFAULT NULL,
-  `status` int(11) DEFAULT 0,
+  `status` int(11) DEFAULT '0',
   `register_date` date DEFAULT NULL,
   `expire_date` date DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
-  `f_name` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `f_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`f_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `features`
@@ -462,21 +486,15 @@ INSERT INTO `features` (`f_id`, `f_number`, `short_description`, `f_price`, `sta
 -- Table structure for table `features_for_ins`
 --
 
-CREATE TABLE `features_for_ins` (
-  `f_ins_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `features_for_ins`;
+CREATE TABLE IF NOT EXISTS `features_for_ins` (
+  `f_ins_id` int(11) NOT NULL AUTO_INCREMENT,
   `f_id` int(11) DEFAULT NULL,
-  `ins_id` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT 0,
-  `date` date DEFAULT NULL
+  `ins_id` longtext,
+  `status` int(11) DEFAULT '0',
+  `date` date DEFAULT NULL,
+  PRIMARY KEY (`f_ins_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `features_for_ins`
---
-
-INSERT INTO `features_for_ins` (`f_ins_id`, `f_id`, `ins_id`, `status`, `date`) VALUES
-(1, 1, 4, 1, NULL),
-(2, 2, 4, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -484,16 +502,18 @@ INSERT INTO `features_for_ins` (`f_ins_id`, `f_id`, `ins_id`, `status`, `date`) 
 -- Table structure for table `latest_news`
 --
 
-CREATE TABLE `latest_news` (
-  `ln_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `latest_news`;
+CREATE TABLE IF NOT EXISTS `latest_news` (
+  `ln_id` int(11) NOT NULL AUTO_INCREMENT,
   `ln_title` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `ln_date` datetime NOT NULL,
   `ln_description` longtext COLLATE utf8_unicode_ci NOT NULL,
   `ln_pic` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `ln_link` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `ln_status` int(11) NOT NULL DEFAULT 1,
-  `ln_created_by` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `ln_status` int(11) NOT NULL DEFAULT '1',
+  `ln_created_by` int(11) NOT NULL,
+  PRIMARY KEY (`ln_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `latest_news`
@@ -512,17 +532,19 @@ INSERT INTO `latest_news` (`ln_id`, `ln_title`, `ln_date`, `ln_description`, `ln
 -- Table structure for table `lottodetails`
 --
 
-CREATE TABLE `lottodetails` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `lottodetails`;
+CREATE TABLE IF NOT EXISTS `lottodetails` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `number` int(11) DEFAULT NULL,
   `master_id` int(11) DEFAULT NULL,
-  `amount` double DEFAULT 0,
+  `amount` double DEFAULT '0',
   `colm` varchar(50) DEFAULT NULL,
   `rowm` varchar(50) DEFAULT NULL,
-  `acept` int(11) DEFAULT 0,
+  `acept` int(11) DEFAULT '0',
   `factive` bit(1) NOT NULL DEFAULT b'1',
-  `reject` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+  `reject` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=483 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `lottodetails`
@@ -544,8 +566,9 @@ INSERT INTO `lottodetails` (`id`, `number`, `master_id`, `amount`, `colm`, `rowm
 -- Table structure for table `lottomaster`
 --
 
-CREATE TABLE `lottomaster` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `lottomaster`;
+CREATE TABLE IF NOT EXISTS `lottomaster` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `refno` varchar(50) NOT NULL DEFAULT '0',
   `usrid` int(11) DEFAULT NULL,
   `config_id` int(11) NOT NULL,
@@ -555,10 +578,11 @@ CREATE TABLE `lottomaster` (
   `maxnum` int(11) DEFAULT NULL,
   `factive` bit(1) NOT NULL DEFAULT b'1',
   `reject` varchar(255) NOT NULL DEFAULT '0',
-  `acept` int(11) NOT NULL DEFAULT 0,
-  `lt_created_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `cat` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+  `acept` int(11) NOT NULL DEFAULT '0',
+  `lt_created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `cat` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `lottomaster`
@@ -573,11 +597,13 @@ INSERT INTO `lottomaster` (`id`, `refno`, `usrid`, `config_id`, `colcnt`, `rowcn
 -- Table structure for table `make`
 --
 
-CREATE TABLE `make` (
-  `id` int(10) NOT NULL,
+DROP TABLE IF EXISTS `make`;
+CREATE TABLE IF NOT EXISTS `make` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `code` varchar(55) NOT NULL DEFAULT '',
-  `title` varchar(55) NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `title` varchar(55) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `make`
@@ -662,8 +688,9 @@ INSERT INTO `make` (`id`, `code`, `title`) VALUES
 -- Table structure for table `members`
 --
 
-CREATE TABLE `members` (
-  `m_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `members`;
+CREATE TABLE IF NOT EXISTS `members` (
+  `m_id` int(11) NOT NULL AUTO_INCREMENT,
   `m_username` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_password` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_email` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -681,7 +708,7 @@ CREATE TABLE `members` (
   `m_lineid` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_wechatid` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_whatsapp` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `m_register_date` datetime DEFAULT current_timestamp(),
+  `m_register_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `m_end_date` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_referal` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_master_by` int(11) DEFAULT NULL,
@@ -690,32 +717,33 @@ CREATE TABLE `members` (
   `m_upline` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_register_by` int(11) DEFAULT NULL,
   `m_updated_by` int(11) DEFAULT NULL,
-  `m_updated_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `m_updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `m_updated_type` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `m_status` int(11) DEFAULT 1,
+  `m_status` int(11) DEFAULT '1',
   `m_address` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_act` datetime DEFAULT NULL,
   `m_lst_payreward` date DEFAULT NULL,
   `m_side` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `m_level` int(11) DEFAULT 0,
+  `m_level` int(11) DEFAULT '0',
   `m_new_ref` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `m_currency` int(11) DEFAULT 0,
-  `m_loc` int(11) DEFAULT 0,
+  `m_currency` int(11) DEFAULT '0',
+  `m_loc` int(11) DEFAULT '0',
   `m_passport` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_brid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_post_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_nic` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `m_mil_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `m_marriage_status` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `m_marriage_status` int(11) DEFAULT '0',
+  PRIMARY KEY (`m_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=829 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `members`
 --
 
 INSERT INTO `members` (`m_id`, `m_username`, `m_password`, `m_email`, `m_name`, `m_dob`, `m_phone_country`, `m_phone`, `m_pic`, `m_otp`, `m_bank_name`, `m_bank_account_no`, `m_bank_branch`, `m_bitcoin`, `m_litecoin`, `m_lineid`, `m_wechatid`, `m_whatsapp`, `m_register_date`, `m_end_date`, `m_referal`, `m_master_by`, `m_admin_by`, `m_reseller_by`, `m_upline`, `m_register_by`, `m_updated_by`, `m_updated_date`, `m_updated_type`, `m_status`, `m_address`, `last_act`, `m_lst_payreward`, `m_side`, `m_type`, `m_level`, `m_new_ref`, `m_currency`, `m_loc`, `m_passport`, `m_brid`, `m_post_code`, `m_nic`, `m_mil_id`, `m_marriage_status`) VALUES
-(822, 'dg1', '$2y$10$/I9MEz5RGC3mTJ4vj2EDs.B5D63XEw1/T.VMOWYBvGnh6snL7ExPW', 'dg1@mail.com', 'DG1 Name ', '2020-01-06', NULL, '1234567', '../../uploads/profile/15800757151.jpg', NULL, 'cimb', '89080', 'kl', NULL, NULL, '12345', NULL, '345555', '2020-01-27 05:55:15', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '2020-02-13 19:35:15', NULL, 1, 'dg1 address ', NULL, NULL, NULL, 'delegator', 0, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, 0),
+(822, 'dg1', '$2y$10$U.sY4JTDSNyqeNU8OQv6aezfWOgnsAsRVN4jlo/ehjw/ll232mPue', 'dg1@mail.com', 'DG1 Name ', '2020-01-06', NULL, '1234567', '../../uploads/profile/15800757151.jpg', NULL, 'cimb', '89080', 'kl', NULL, NULL, '12345', NULL, '345555', '2020-01-27 05:55:15', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '2020-01-27 05:56:22', NULL, 1, 'dg1 address ', NULL, NULL, NULL, 'delegator', 0, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, 0),
 (823, 'dg2', '$2y$10$KwCqJ3WUy/fE7ycbAs4W2uKhIfwvlufza7skeZwJeLYXoJuo1Vw8y', 'dg2@mail.com', '', '', NULL, '', '../../uploads/profile/15800758311.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-27 05:57:11', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, '2020-01-27 05:57:11', NULL, 1, '', NULL, NULL, NULL, 'delegator', 0, NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, 0),
 (824, 'user1', '$2y$10$MiwbUASM.fR6t5TSc0cpUO2fTdo7bLUmyAdbin8iLsbRGf3l2.6ru', 'user1@mail.com', '', '2020-02-14', NULL, '', '158068636519.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-01-27 05:58:01', NULL, NULL, NULL, NULL, 822, '823', NULL, NULL, '2020-02-10 05:40:58', NULL, 1, '', NULL, NULL, NULL, 'user', 0, NULL, 0, 2, NULL, 'xxxx', NULL, NULL, NULL, 0),
 (825, 'user2', '$2y$10$EonLrwfq92W9n7egKXOr1OonXrr93qUSfM6/ERWUw9f1y.MTmgqw2', 'dg@dg.com', '', '2020-02-22', NULL, '23423', '158068608530.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-02-03 07:28:05', NULL, NULL, NULL, NULL, 822, '', NULL, NULL, '2020-02-03 07:33:21', NULL, 1, '', NULL, NULL, NULL, 'user', 0, NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, 0),
@@ -729,21 +757,23 @@ INSERT INTO `members` (`m_id`, `m_username`, `m_password`, `m_email`, `m_name`, 
 -- Table structure for table `member_capital_tranfer`
 --
 
-CREATE TABLE `member_capital_tranfer` (
-  `mct_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_capital_tranfer`;
+CREATE TABLE IF NOT EXISTS `member_capital_tranfer` (
+  `mct_id` int(11) NOT NULL AUTO_INCREMENT,
   `mct_reference` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `mct_member_id` int(11) NOT NULL,
   `mct_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `mct_amount` decimal(13,4) NOT NULL DEFAULT 0.0000,
-  `mct_fundamt` decimal(13,4) NOT NULL DEFAULT 0.0000,
-  `mct_service` decimal(13,4) NOT NULL DEFAULT 0.0000,
-  `mct_actual_amount` decimal(13,4) DEFAULT 0.0000,
-  `mct_status` int(11) NOT NULL DEFAULT 0,
-  `mct_created_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `mct_amount` decimal(13,4) NOT NULL DEFAULT '0.0000',
+  `mct_fundamt` decimal(13,4) NOT NULL DEFAULT '0.0000',
+  `mct_service` decimal(13,4) NOT NULL DEFAULT '0.0000',
+  `mct_actual_amount` decimal(13,4) DEFAULT '0.0000',
+  `mct_status` int(11) NOT NULL DEFAULT '0',
+  `mct_created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mct_approved_by` int(11) DEFAULT NULL,
-  `mct_approved_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `mct_approved_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `mct_message` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `mct_method` int(11) NOT NULL DEFAULT 0
+  `mct_method` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`mct_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -752,8 +782,9 @@ CREATE TABLE `member_capital_tranfer` (
 -- Table structure for table `member_deposit`
 --
 
-CREATE TABLE `member_deposit` (
-  `md_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_deposit`;
+CREATE TABLE IF NOT EXISTS `member_deposit` (
+  `md_id` int(11) NOT NULL AUTO_INCREMENT,
   `md_reference` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `md_member` int(11) NOT NULL,
   `md_package` int(11) DEFAULT NULL,
@@ -761,23 +792,24 @@ CREATE TABLE `member_deposit` (
   `md_currency` int(11) NOT NULL,
   `md_slip` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `md_type` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `md_actual_amount` decimal(65,8) NOT NULL DEFAULT 0.00000000,
+  `md_actual_amount` decimal(65,8) NOT NULL DEFAULT '0.00000000',
   `md_rewards_percent` decimal(13,4) DEFAULT NULL,
   `md_rewards_amount` decimal(65,8) DEFAULT NULL,
-  `md_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `md_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `md_expiry` datetime NOT NULL,
-  `md_status` int(11) NOT NULL DEFAULT 0,
+  `md_status` int(11) NOT NULL DEFAULT '0',
   `md_approved_by` int(11) DEFAULT NULL,
-  `md_approved_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `md_approved_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `md_message` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `md_depost_type` int(11) NOT NULL DEFAULT 0,
-  `md_fund_amount` decimal(10,0) NOT NULL DEFAULT 0,
-  `md_actual_dp_amount` decimal(10,0) NOT NULL DEFAULT 0,
-  `m_flg_game` int(11) NOT NULL DEFAULT 0,
-  `md_flg_gfund` int(11) NOT NULL DEFAULT 0,
+  `md_depost_type` int(11) NOT NULL DEFAULT '0',
+  `md_fund_amount` decimal(10,0) NOT NULL DEFAULT '0',
+  `md_actual_dp_amount` decimal(10,0) NOT NULL DEFAULT '0',
+  `m_flg_game` int(11) NOT NULL DEFAULT '0',
+  `md_flg_gfund` int(11) NOT NULL DEFAULT '0',
   `md_reward_expdt` datetime DEFAULT NULL,
-  `md_debit_reward_amount` decimal(11,2) DEFAULT 0.00
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `md_debit_reward_amount` decimal(11,2) DEFAULT '0.00',
+  PRIMARY KEY (`md_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1329 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `member_deposit`
@@ -795,14 +827,16 @@ INSERT INTO `member_deposit` (`md_id`, `md_reference`, `md_member`, `md_package`
 -- Table structure for table `member_deposit_renew`
 --
 
-CREATE TABLE `member_deposit_renew` (
-  `mdr_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_deposit_renew`;
+CREATE TABLE IF NOT EXISTS `member_deposit_renew` (
+  `mdr_id` int(11) NOT NULL AUTO_INCREMENT,
   `mdr_desposit_id` int(11) NOT NULL,
   `mdr_member_id` int(11) NOT NULL,
   `mdr_amount` decimal(13,4) NOT NULL,
-  `mdr_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `mdr_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mdr_created_by` int(11) NOT NULL,
-  `mdr_status` int(11) NOT NULL DEFAULT 1
+  `mdr_status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`mdr_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -811,18 +845,20 @@ CREATE TABLE `member_deposit_renew` (
 -- Table structure for table `member_eshare`
 --
 
-CREATE TABLE `member_eshare` (
-  `mges_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_eshare`;
+CREATE TABLE IF NOT EXISTS `member_eshare` (
+  `mges_id` int(11) NOT NULL AUTO_INCREMENT,
   `mges_reference` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `mges_member_id` int(11) NOT NULL,
   `mges_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `mges_amount` decimal(13,4) NOT NULL,
-  `mges_status` int(11) NOT NULL DEFAULT 1,
-  `mges_issue_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `mges_status` int(11) NOT NULL DEFAULT '1',
+  `mges_issue_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mges_unit` int(11) NOT NULL,
   `mges_approved_by` int(11) NOT NULL,
-  `mges_approved_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `mges_message` varchar(250) COLLATE utf8_unicode_ci NOT NULL
+  `mges_approved_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `mges_message` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`mges_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -831,15 +867,17 @@ CREATE TABLE `member_eshare` (
 -- Table structure for table `member_gf_transfer`
 --
 
-CREATE TABLE `member_gf_transfer` (
-  `mgft_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_gf_transfer`;
+CREATE TABLE IF NOT EXISTS `member_gf_transfer` (
+  `mgft_id` int(11) NOT NULL AUTO_INCREMENT,
   `mgft_reference` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `mgft_member_id` int(11) NOT NULL,
   `mgft_type` int(11) NOT NULL,
   `mgft_amount` decimal(13,4) NOT NULL,
-  `mgft_status` int(11) NOT NULL DEFAULT 1,
-  `mgft_created_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `mgtf_percentage` decimal(10,0) NOT NULL
+  `mgft_status` int(11) NOT NULL DEFAULT '1',
+  `mgft_created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `mgtf_percentage` decimal(10,0) NOT NULL,
+  PRIMARY KEY (`mgft_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -848,8 +886,9 @@ CREATE TABLE `member_gf_transfer` (
 -- Table structure for table `member_package`
 --
 
-CREATE TABLE `member_package` (
-  `mp_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_package`;
+CREATE TABLE IF NOT EXISTS `member_package` (
+  `mp_id` int(11) NOT NULL AUTO_INCREMENT,
   `mp_name` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `mp_price_dollar` decimal(13,4) NOT NULL,
   `mp_price_rc` decimal(13,4) NOT NULL,
@@ -859,10 +898,10 @@ CREATE TABLE `member_package` (
   `mp_closed_account` int(11) NOT NULL,
   `mp_bonus_level` int(11) DEFAULT NULL,
   `mp_register_by` int(11) NOT NULL,
-  `mp_register_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `mp_register_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mp_pic` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mp_expiry` int(11) NOT NULL,
-  `mp_rewards_percent` decimal(13,4) DEFAULT 0.0000,
+  `mp_rewards_percent` decimal(13,4) DEFAULT '0.0000',
   `mp_rewards_start` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mp_rewards_end` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mp_referal_1` decimal(13,4) DEFAULT NULL,
@@ -887,13 +926,14 @@ CREATE TABLE `member_package` (
   `mp_referal_20` decimal(13,4) DEFAULT NULL,
   `mp_referal_21` decimal(13,4) DEFAULT NULL,
   `mp_referal_registered_by` int(11) DEFAULT NULL,
-  `mp_referal_registered_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `mp_referal_registered_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mp_updated_by` int(11) DEFAULT NULL,
-  `mp_updated_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `mp_status` int(11) NOT NULL DEFAULT 1,
+  `mp_updated_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `mp_status` int(11) NOT NULL DEFAULT '1',
   `mp_order` int(11) NOT NULL,
-  `mp_payoutx` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `mp_payoutx` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`mp_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `member_package`
@@ -915,8 +955,9 @@ INSERT INTO `member_package` (`mp_id`, `mp_name`, `mp_price_dollar`, `mp_price_r
 -- Table structure for table `member_referal_bonus`
 --
 
-CREATE TABLE `member_referal_bonus` (
-  `rb_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_referal_bonus`;
+CREATE TABLE IF NOT EXISTS `member_referal_bonus` (
+  `rb_id` int(11) NOT NULL AUTO_INCREMENT,
   `rb_deposit_amount` decimal(65,8) NOT NULL,
   `rb_deposit_id` int(11) NOT NULL,
   `rb_deposit_by` int(11) NOT NULL,
@@ -925,9 +966,10 @@ CREATE TABLE `member_referal_bonus` (
   `rb_bonus_message` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `rb_bonus_paid_to` int(11) NOT NULL,
   `rb_percent` decimal(13,4) NOT NULL,
-  `rb_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `rb_status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `rb_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `rb_status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`rb_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=338 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `member_referal_bonus`
@@ -1253,14 +1295,16 @@ INSERT INTO `member_referal_bonus` (`rb_id`, `rb_deposit_amount`, `rb_deposit_id
 -- Table structure for table `member_reward`
 --
 
-CREATE TABLE `member_reward` (
-  `m_reward_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_reward`;
+CREATE TABLE IF NOT EXISTS `member_reward` (
+  `m_reward_id` int(11) NOT NULL AUTO_INCREMENT,
   `m_id` int(11) NOT NULL,
   `amt` decimal(8,2) NOT NULL,
   `remark` varchar(250) COLLATE utf8_bin NOT NULL,
-  `mem_rw_entdt` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `dep_id` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `mem_rw_entdt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `dep_id` int(11) NOT NULL,
+  PRIMARY KEY (`m_reward_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -1268,15 +1312,17 @@ CREATE TABLE `member_reward` (
 -- Table structure for table `member_sd_transfer`
 --
 
-CREATE TABLE `member_sd_transfer` (
-  `msdt_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_sd_transfer`;
+CREATE TABLE IF NOT EXISTS `member_sd_transfer` (
+  `msdt_id` int(11) NOT NULL AUTO_INCREMENT,
   `msdt_reference` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `msdt_member_id` int(11) NOT NULL,
   `msdt_type` int(11) NOT NULL,
   `msdt_amount` decimal(13,4) NOT NULL,
-  `msdt_status` int(11) NOT NULL DEFAULT 1,
-  `msdt_created_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `msdf_percentage` decimal(10,0) NOT NULL
+  `msdt_status` int(11) NOT NULL DEFAULT '1',
+  `msdt_created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `msdf_percentage` decimal(10,0) NOT NULL,
+  PRIMARY KEY (`msdt_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1285,17 +1331,19 @@ CREATE TABLE `member_sd_transfer` (
 -- Table structure for table `member_support`
 --
 
-CREATE TABLE `member_support` (
-  `ms_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_support`;
+CREATE TABLE IF NOT EXISTS `member_support` (
+  `ms_id` int(11) NOT NULL AUTO_INCREMENT,
   `ms_subject` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `ms_message` longtext COLLATE utf8_unicode_ci NOT NULL,
-  `ms_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `ms_status` int(11) NOT NULL DEFAULT 0,
+  `ms_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ms_status` int(11) NOT NULL DEFAULT '0',
   `ms_admin_id` int(11) DEFAULT NULL,
   `ms_reference` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `ms_member_id` int(11) NOT NULL,
-  `ms_reply` longtext COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ms_reply_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `ms_reply` longtext COLLATE utf8_unicode_ci,
+  `ms_reply_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ms_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1304,18 +1352,20 @@ CREATE TABLE `member_support` (
 -- Table structure for table `member_trading`
 --
 
-CREATE TABLE `member_trading` (
-  `mt_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_trading`;
+CREATE TABLE IF NOT EXISTS `member_trading` (
+  `mt_id` int(11) NOT NULL AUTO_INCREMENT,
   `mt_reference` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `mt_market` int(11) NOT NULL,
   `mt_amount` decimal(13,4) NOT NULL,
   `mt_member` int(11) NOT NULL,
   `mt_type` int(11) NOT NULL,
-  `mt_status` int(11) NOT NULL DEFAULT 0,
-  `mt_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `mt_delete` int(11) NOT NULL DEFAULT 0,
-  `mt_mkttype` tinyint(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `mt_status` int(11) NOT NULL DEFAULT '0',
+  `mt_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `mt_delete` int(11) NOT NULL DEFAULT '0',
+  `mt_mkttype` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`mt_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `member_trading`
@@ -1425,17 +1475,19 @@ INSERT INTO `member_trading` (`mt_id`, `mt_reference`, `mt_market`, `mt_amount`,
 -- Table structure for table `member_trading_interest`
 --
 
-CREATE TABLE `member_trading_interest` (
-  `mti_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_trading_interest`;
+CREATE TABLE IF NOT EXISTS `member_trading_interest` (
+  `mti_id` int(11) NOT NULL AUTO_INCREMENT,
   `mti_trading_id` int(11) NOT NULL,
   `mti_member` int(11) NOT NULL,
   `mti_amount` decimal(13,4) NOT NULL,
   `mti_interest_percent` decimal(13,4) NOT NULL,
   `mti_interest_amount` decimal(13,4) NOT NULL,
   `mti_created_by` int(11) NOT NULL,
-  `mti_created_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `mti_type` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `mti_created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `mti_type` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`mti_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `member_trading_interest`
@@ -1453,18 +1505,20 @@ INSERT INTO `member_trading_interest` (`mti_id`, `mti_trading_id`, `mti_member`,
 -- Table structure for table `member_transfer`
 --
 
-CREATE TABLE `member_transfer` (
-  `mt_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_transfer`;
+CREATE TABLE IF NOT EXISTS `member_transfer` (
+  `mt_id` int(11) NOT NULL AUTO_INCREMENT,
   `mt_reference` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `mt_member_id` int(11) NOT NULL,
   `mt_type` int(11) NOT NULL,
   `mt_amount` decimal(13,4) NOT NULL,
-  `mt_status` int(11) NOT NULL DEFAULT 1,
-  `mt_created_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `mt_actual_amount` decimal(11,2) NOT NULL DEFAULT 0.00,
-  `mt_tran_fee` decimal(11,2) NOT NULL DEFAULT 0.00,
-  `mt_tranfee_per` float NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `mt_status` int(11) NOT NULL DEFAULT '1',
+  `mt_created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `mt_actual_amount` decimal(11,2) NOT NULL DEFAULT '0.00',
+  `mt_tran_fee` decimal(11,2) NOT NULL DEFAULT '0.00',
+  `mt_tranfee_per` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`mt_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `member_transfer`
@@ -1483,8 +1537,9 @@ INSERT INTO `member_transfer` (`mt_id`, `mt_reference`, `mt_member_id`, `mt_type
 -- Table structure for table `member_withdraw`
 --
 
-CREATE TABLE `member_withdraw` (
-  `mw_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `member_withdraw`;
+CREATE TABLE IF NOT EXISTS `member_withdraw` (
+  `mw_id` int(11) NOT NULL AUTO_INCREMENT,
   `mw_reference` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `mw_member_id` int(11) NOT NULL,
   `mw_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -1494,12 +1549,13 @@ CREATE TABLE `member_withdraw` (
   `mw_service` decimal(13,4) NOT NULL,
   `mw_actual_amount_currency` decimal(13,8) NOT NULL,
   `mw_method` int(11) NOT NULL,
-  `mw_status` int(11) NOT NULL DEFAULT 0,
-  `mw_created_date` datetime NOT NULL DEFAULT current_timestamp(),
+  `mw_status` int(11) NOT NULL DEFAULT '0',
+  `mw_created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mw_approved_by` int(11) DEFAULT NULL,
-  `mw_approved_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `mw_message` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `mw_approved_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `mw_message` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`mw_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `member_withdraw`
@@ -1514,12 +1570,14 @@ INSERT INTO `member_withdraw` (`mw_id`, `mw_reference`, `mw_member_id`, `mw_type
 -- Table structure for table `model`
 --
 
-CREATE TABLE `model` (
-  `id` int(10) NOT NULL,
-  `make_id` int(10) NOT NULL DEFAULT 0,
+DROP TABLE IF EXISTS `model`;
+CREATE TABLE IF NOT EXISTS `model` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `make_id` int(10) NOT NULL DEFAULT '0',
   `code` varchar(125) NOT NULL DEFAULT '',
-  `title` varchar(125) NOT NULL DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `title` varchar(125) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1315 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `model`
@@ -2847,21 +2905,23 @@ INSERT INTO `model` (`id`, `make_id`, `code`, `title`) VALUES
 -- Table structure for table `policy`
 --
 
-CREATE TABLE `policy` (
-  `p_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `policy`;
+CREATE TABLE IF NOT EXISTS `policy` (
+  `p_id` int(11) NOT NULL AUTO_INCREMENT,
   `p_name` varchar(250) DEFAULT NULL,
   `p_type` varchar(250) DEFAULT NULL,
   `p_register_date` date DEFAULT NULL,
   `p_end_date` varchar(50) DEFAULT NULL,
   `p_by_company` int(11) DEFAULT NULL,
   `p_delegator_by` int(11) DEFAULT NULL,
-  `p_status` int(11) DEFAULT 1,
-  `p_currency` int(11) DEFAULT 0,
-  `p_loc` int(11) DEFAULT 0,
-  `p_price` float DEFAULT 0,
-  `p_detail` longtext DEFAULT NULL,
-  `p_code` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `p_status` int(11) DEFAULT '1',
+  `p_currency` int(11) DEFAULT '0',
+  `p_loc` int(11) DEFAULT '0',
+  `p_price` float DEFAULT '0',
+  `p_detail` longtext,
+  `p_code` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`p_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `policy`
@@ -2877,15 +2937,17 @@ INSERT INTO `policy` (`p_id`, `p_name`, `p_type`, `p_register_date`, `p_end_date
 -- Table structure for table `posts_comments`
 --
 
-CREATE TABLE `posts_comments` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `posts_comments`;
+CREATE TABLE IF NOT EXISTS `posts_comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `post_id` int(11) NOT NULL,
   `comment` varchar(255) NOT NULL,
   `created_by` int(11) NOT NULL,
   `updated_by` int(11) NOT NULL,
-  `created_dt` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `updated_dt` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `factive` bit(1) NOT NULL DEFAULT b'1'
+  `created_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `factive` bit(1) NOT NULL DEFAULT b'1',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -2894,8 +2956,9 @@ CREATE TABLE `posts_comments` (
 -- Table structure for table `posts_data`
 --
 
-CREATE TABLE `posts_data` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `posts_data`;
+CREATE TABLE IF NOT EXISTS `posts_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
@@ -2903,12 +2966,13 @@ CREATE TABLE `posts_data` (
   `type` enum('BUSINESS','FASHION','GAME','TRAINING','TECHNOLOGY','FINANCIAL') NOT NULL,
   `factive` bit(1) NOT NULL DEFAULT b'1',
   `fapproved` bit(1) NOT NULL DEFAULT b'0',
-  `approved_by` tinyint(4) NOT NULL DEFAULT 0,
+  `approved_by` tinyint(4) NOT NULL DEFAULT '0',
   `created_by` int(11) NOT NULL,
   `updated_by` int(11) NOT NULL,
-  `created_dt` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `updated_dt` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `created_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2916,16 +2980,18 @@ CREATE TABLE `posts_data` (
 -- Table structure for table `posts_likes`
 --
 
-CREATE TABLE `posts_likes` (
-  `id` int(11) NOT NULL,
-  `post_id` int(11) NOT NULL DEFAULT 0,
+DROP TABLE IF EXISTS `posts_likes`;
+CREATE TABLE IF NOT EXISTS `posts_likes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) NOT NULL DEFAULT '0',
   `flike` bit(1) NOT NULL DEFAULT b'1',
-  `add_dt` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `upd_dt` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `add_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `upd_dt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_by` int(11) NOT NULL,
   `updated_by` int(11) NOT NULL,
-  `factive` bit(1) NOT NULL DEFAULT b'1'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `factive` bit(1) NOT NULL DEFAULT b'1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2933,15 +2999,17 @@ CREATE TABLE `posts_likes` (
 -- Table structure for table `promotion`
 --
 
-CREATE TABLE `promotion` (
-  `p_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `promotion`;
+CREATE TABLE IF NOT EXISTS `promotion` (
+  `p_id` int(11) NOT NULL AUTO_INCREMENT,
   `p_title` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `p_description` longtext COLLATE utf8_unicode_ci NOT NULL,
   `p_pic` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `p_status` int(11) NOT NULL DEFAULT 1,
+  `p_status` int(11) NOT NULL DEFAULT '1',
   `p_created_by` int(11) NOT NULL,
-  `p_date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `p_date` datetime NOT NULL,
+  PRIMARY KEY (`p_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `promotion`
@@ -2956,14 +3024,16 @@ INSERT INTO `promotion` (`p_id`, `p_title`, `p_description`, `p_pic`, `p_status`
 -- Table structure for table `regional_setting`
 --
 
-CREATE TABLE `regional_setting` (
-  `r_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `regional_setting`;
+CREATE TABLE IF NOT EXISTS `regional_setting` (
+  `r_id` int(11) NOT NULL AUTO_INCREMENT,
   `r_code` varchar(255) DEFAULT NULL,
-  `r_agent_rate` int(11) DEFAULT 0,
-  `v_ins_short_description` longtext DEFAULT NULL,
-  `v_ins_member_id` int(11) DEFAULT 0,
-  `v_ins_agent_id` int(11) DEFAULT 0,
-  `v_ins_main_img` text DEFAULT NULL
+  `r_agent_rate` int(11) DEFAULT '0',
+  `v_ins_short_description` longtext,
+  `v_ins_member_id` int(11) DEFAULT '0',
+  `v_ins_agent_id` int(11) DEFAULT '0',
+  `v_ins_main_img` text,
+  PRIMARY KEY (`r_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -2972,12 +3042,14 @@ CREATE TABLE `regional_setting` (
 -- Table structure for table `reseller_fund`
 --
 
-CREATE TABLE `reseller_fund` (
-  `rf_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `reseller_fund`;
+CREATE TABLE IF NOT EXISTS `reseller_fund` (
+  `rf_id` int(11) NOT NULL AUTO_INCREMENT,
   `rf_amount` decimal(13,4) NOT NULL,
   `rf_reseller_id` int(11) NOT NULL,
   `rf_created_by` int(11) NOT NULL,
-  `rf_created_date` datetime NOT NULL DEFAULT current_timestamp()
+  `rf_created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`rf_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2986,7 +3058,8 @@ CREATE TABLE `reseller_fund` (
 -- Table structure for table `roller_market_trade`
 --
 
-CREATE TABLE `roller_market_trade` (
+DROP TABLE IF EXISTS `roller_market_trade`;
+CREATE TABLE IF NOT EXISTS `roller_market_trade` (
   `rmt_id` int(11) NOT NULL,
   `rmt_status` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `rmt_market_name` varchar(250) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -3004,7 +3077,8 @@ CREATE TABLE `roller_market_trade` (
   `rmt_rolling_min_com` decimal(10,2) NOT NULL,
   `rmt_rolling_insurance` double(11,2) NOT NULL,
   `rmt_rolling_win_min` double(11,2) NOT NULL,
-  `rmt_rolling_win_max` double(11,2) NOT NULL
+  `rmt_rolling_win_max` double(11,2) NOT NULL,
+  PRIMARY KEY (`rmt_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -3013,12 +3087,14 @@ CREATE TABLE `roller_market_trade` (
 -- Table structure for table `share_rate_setting`
 --
 
-CREATE TABLE `share_rate_setting` (
-  `share_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `share_rate_setting`;
+CREATE TABLE IF NOT EXISTS `share_rate_setting` (
+  `share_id` int(11) NOT NULL AUTO_INCREMENT,
   `share_rate` double NOT NULL,
   `share_rem` varchar(100) NOT NULL,
   `share_updated_by` int(11) NOT NULL,
-  `share_created_date` timestamp NOT NULL DEFAULT current_timestamp()
+  `share_created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`share_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -3027,8 +3103,9 @@ CREATE TABLE `share_rate_setting` (
 -- Table structure for table `system_log`
 --
 
-CREATE TABLE `system_log` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `system_log`;
+CREATE TABLE IF NOT EXISTS `system_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `adddt` datetime NOT NULL,
   `dbtbl` varchar(50) NOT NULL,
   `dml_type` enum('INSERT','UPDATE','DELETE','SEARCH') NOT NULL,
@@ -3036,8 +3113,9 @@ CREATE TABLE `system_log` (
   `log_desc` text NOT NULL,
   `adduser` int(11) NOT NULL,
   `fread` bit(1) NOT NULL,
-  `factive` tinyint(4) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `factive` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=195 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `system_log`
@@ -3186,13 +3264,15 @@ INSERT INTO `system_log` (`id`, `adddt`, `dbtbl`, `dml_type`, `log_code`, `log_d
 -- Table structure for table `tbl_model_type`
 --
 
-CREATE TABLE `tbl_model_type` (
+DROP TABLE IF EXISTS `tbl_model_type`;
+CREATE TABLE IF NOT EXISTS `tbl_model_type` (
   `MODEL_ID` int(11) NOT NULL,
   `MAKE` varchar(20) NOT NULL,
   `MODEL` varchar(30) NOT NULL,
   `SUB_MODEL` varchar(20) NOT NULL,
   `VEHICLE_TYPE` int(11) NOT NULL,
-  `VEHICAL_TYPEMC` double NOT NULL
+  `VEHICAL_TYPEMC` double NOT NULL,
+  PRIMARY KEY (`MODEL_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -3804,11 +3884,14 @@ INSERT INTO `tbl_model_type` (`MODEL_ID`, `MAKE`, `MODEL`, `SUB_MODEL`, `VEHICLE
 -- Table structure for table `tbl_model_type group`
 --
 
-CREATE TABLE `tbl_model_type group` (
+DROP TABLE IF EXISTS `tbl_model_type group`;
+CREATE TABLE IF NOT EXISTS `tbl_model_type group` (
   `GROUP_ID` int(11) NOT NULL,
   `MODEL_ID` int(11) NOT NULL,
   `INSURE_ID` varchar(5) NOT NULL,
-  `CAR_GROUP` int(11) NOT NULL
+  `CAR_GROUP` int(11) NOT NULL,
+  PRIMARY KEY (`GROUP_ID`),
+  KEY `tbl_model_type group_ibfk_1` (`MODEL_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -5376,7 +5459,8 @@ INSERT INTO `tbl_model_type group` (`GROUP_ID`, `MODEL_ID`, `INSURE_ID`, `CAR_GR
 -- Table structure for table `topup_amt_config`
 --
 
-CREATE TABLE `topup_amt_config` (
+DROP TABLE IF EXISTS `topup_amt_config`;
+CREATE TABLE IF NOT EXISTS `topup_amt_config` (
   `topup_amt` double(11,2) NOT NULL,
   `rem` varchar(100) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -5401,15 +5485,17 @@ INSERT INTO `topup_amt_config` (`topup_amt`, `rem`) VALUES
 -- Table structure for table `topup_settings`
 --
 
-CREATE TABLE `topup_settings` (
-  `ts_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `topup_settings`;
+CREATE TABLE IF NOT EXISTS `topup_settings` (
+  `ts_id` int(11) NOT NULL AUTO_INCREMENT,
   `ts_from_amount` decimal(13,4) NOT NULL,
   `ts_to_amount` decimal(13,4) NOT NULL,
   `ts_expiry` int(11) NOT NULL,
   `ts_created_by` int(11) NOT NULL,
-  `ts_created_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `ts_status` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `ts_created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ts_status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`ts_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `topup_settings`
@@ -5424,30 +5510,32 @@ INSERT INTO `topup_settings` (`ts_id`, `ts_from_amount`, `ts_to_amount`, `ts_exp
 -- Table structure for table `trade_settings`
 --
 
-CREATE TABLE `trade_settings` (
-  `tr_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `trade_settings`;
+CREATE TABLE IF NOT EXISTS `trade_settings` (
+  `tr_id` int(11) NOT NULL AUTO_INCREMENT,
   `tr_name` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `tr_max` decimal(13,4) NOT NULL,
-  `tr_status` int(11) NOT NULL DEFAULT 1,
+  `tr_status` int(11) NOT NULL DEFAULT '1',
   `tr_created_by` int(11) NOT NULL,
-  `tr_created_date` datetime NOT NULL DEFAULT current_timestamp(),
-  `tr_win_min` double(11,2) NOT NULL DEFAULT 0.00,
-  `tr_win_max` double(11,2) NOT NULL DEFAULT 0.00,
-  `tr_rollcom_min` double(11,2) NOT NULL DEFAULT 0.00,
-  `tr_rollcom_max` double(11,2) NOT NULL DEFAULT 0.00,
-  `tr_bet_amt` double(11,2) NOT NULL DEFAULT 0.00,
+  `tr_created_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tr_win_min` double(11,2) NOT NULL DEFAULT '0.00',
+  `tr_win_max` double(11,2) NOT NULL DEFAULT '0.00',
+  `tr_rollcom_min` double(11,2) NOT NULL DEFAULT '0.00',
+  `tr_rollcom_max` double(11,2) NOT NULL DEFAULT '0.00',
+  `tr_bet_amt` double(11,2) NOT NULL DEFAULT '0.00',
   `tr_pic` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `trval` double(11,2) NOT NULL DEFAULT 0.00,
-  `bnkval` double(11,2) NOT NULL DEFAULT 0.00,
-  `plval` double(11,2) NOT NULL DEFAULT 0.00,
-  `winloss` double(11,2) NOT NULL DEFAULT 0.00,
-  `roll` double(11,2) NOT NULL DEFAULT 0.00,
-  `pwinloss` double(11,2) NOT NULL DEFAULT 0.00,
-  `proll` double(11,2) NOT NULL DEFAULT 0.00,
+  `trval` double(11,2) NOT NULL DEFAULT '0.00',
+  `bnkval` double(11,2) NOT NULL DEFAULT '0.00',
+  `plval` double(11,2) NOT NULL DEFAULT '0.00',
+  `winloss` double(11,2) NOT NULL DEFAULT '0.00',
+  `roll` double(11,2) NOT NULL DEFAULT '0.00',
+  `pwinloss` double(11,2) NOT NULL DEFAULT '0.00',
+  `proll` double(11,2) NOT NULL DEFAULT '0.00',
   `playwinloss` decimal(11,2) NOT NULL,
   `pplaywinloss` decimal(11,2) NOT NULL,
-  `tr_fixmarket` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `tr_fixmarket` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`tr_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `trade_settings`
@@ -5466,19 +5554,20 @@ INSERT INTO `trade_settings` (`tr_id`, `tr_name`, `tr_max`, `tr_status`, `tr_cre
 -- Table structure for table `trading_config`
 --
 
-CREATE TABLE `trading_config` (
+DROP TABLE IF EXISTS `trading_config`;
+CREATE TABLE IF NOT EXISTS `trading_config` (
   `id` int(11) NOT NULL,
-  `configDate` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `minNumber` double NOT NULL DEFAULT 0,
-  `maxNumber` double NOT NULL DEFAULT 0,
-  `increValue` double NOT NULL DEFAULT 0,
-  `decreValue` double NOT NULL DEFAULT 0,
+  `configDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `minNumber` double NOT NULL DEFAULT '0',
+  `maxNumber` double NOT NULL DEFAULT '0',
+  `increValue` double NOT NULL DEFAULT '0',
+  `decreValue` double NOT NULL DEFAULT '0',
   `startTime` time NOT NULL,
   `endTime` time NOT NULL,
-  `timeIntervalMins` double NOT NULL DEFAULT 0,
-  `startValue` float NOT NULL DEFAULT 0,
-  `decreFlow` int(11) NOT NULL DEFAULT 0,
-  `noOfDecre` int(11) NOT NULL DEFAULT 0
+  `timeIntervalMins` double NOT NULL DEFAULT '0',
+  `startValue` float NOT NULL DEFAULT '0',
+  `decreFlow` int(11) NOT NULL DEFAULT '0',
+  `noOfDecre` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -5494,19 +5583,24 @@ INSERT INTO `trading_config` (`id`, `configDate`, `minNumber`, `maxNumber`, `inc
 -- Table structure for table `treeview`
 --
 
-CREATE TABLE `treeview` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `treeview`;
+CREATE TABLE IF NOT EXISTS `treeview` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `parentID` int(11) DEFAULT NULL,
-  `m_id` int(11) NOT NULL DEFAULT 0,
+  `m_id` int(11) NOT NULL DEFAULT '0',
   `position` enum('L','R') DEFAULT NULL,
-  `leftcnt` int(11) NOT NULL DEFAULT 0,
-  `rightcnt` int(11) NOT NULL DEFAULT 0,
-  `create_date` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `create_by` int(11) NOT NULL DEFAULT 0,
-  `org_parentid` int(11) NOT NULL DEFAULT 0,
-  `factive` int(11) NOT NULL DEFAULT 1,
-  `mem_id` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+  `leftcnt` int(11) NOT NULL DEFAULT '0',
+  `rightcnt` int(11) NOT NULL DEFAULT '0',
+  `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_by` int(11) NOT NULL DEFAULT '0',
+  `org_parentid` int(11) NOT NULL DEFAULT '0',
+  `factive` int(11) NOT NULL DEFAULT '1',
+  `mem_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `parentID` (`parentID`),
+  KEY `m_id` (`m_id`),
+  KEY `mem_id` (`mem_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=819 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data for table `treeview`
@@ -5550,14 +5644,16 @@ INSERT INTO `treeview` (`id`, `parentID`, `m_id`, `position`, `leftcnt`, `rightc
 -- Table structure for table `user_cat`
 --
 
-CREATE TABLE `user_cat` (
-  `usr_cat_id` int(8) NOT NULL,
+DROP TABLE IF EXISTS `user_cat`;
+CREATE TABLE IF NOT EXISTS `user_cat` (
+  `usr_cat_id` int(8) NOT NULL AUTO_INCREMENT,
   `cat_name` varchar(50) DEFAULT NULL,
   `main_cat` varchar(255) DEFAULT NULL,
   `ref_per` float DEFAULT NULL,
-  `cat_level` int(11) DEFAULT 0,
-  `status` varchar(5) DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `cat_level` int(11) DEFAULT '0',
+  `status` varchar(5) DEFAULT '0',
+  PRIMARY KEY (`usr_cat_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=148 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user_cat`
@@ -5574,21 +5670,22 @@ INSERT INTO `user_cat` (`usr_cat_id`, `cat_name`, `main_cat`, `ref_per`, `cat_le
 -- Table structure for table `vehicles`
 --
 
-CREATE TABLE `vehicles` (
-  `v_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `vehicles`;
+CREATE TABLE IF NOT EXISTS `vehicles` (
+  `v_id` int(11) NOT NULL AUTO_INCREMENT,
   `v_number` varchar(255) DEFAULT NULL,
-  `v_type` int(11) DEFAULT 0,
-  `v_code` int(11) DEFAULT 0,
-  `short_description` longtext DEFAULT NULL,
-  `member_id` int(11) DEFAULT 0,
-  `image1` text DEFAULT NULL,
-  `image2` text DEFAULT NULL,
-  `image3` text DEFAULT NULL,
-  `image4` text DEFAULT NULL,
-  `image5` text DEFAULT NULL,
+  `v_type` int(11) DEFAULT '0',
+  `v_code` int(11) DEFAULT '0',
+  `short_description` longtext,
+  `member_id` int(11) DEFAULT '0',
+  `image1` text,
+  `image2` text,
+  `image3` text,
+  `image4` text,
+  `image5` text,
   `v_price` float DEFAULT NULL,
-  `video_description` text DEFAULT NULL,
-  `status` int(11) DEFAULT 0,
+  `video_description` text,
+  `status` int(11) DEFAULT '0',
   `register_date` date DEFAULT NULL,
   `expire_date` date DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
@@ -5597,13 +5694,14 @@ CREATE TABLE `vehicles` (
   `make` varchar(255) DEFAULT NULL,
   `model` varchar(255) DEFAULT NULL,
   `make_date` date DEFAULT NULL,
-  `cc` int(11) DEFAULT 0,
+  `cc` int(11) DEFAULT '0',
   `variant` varchar(255) DEFAULT NULL,
   `postcode` varchar(255) DEFAULT NULL,
   `chassis` varchar(255) DEFAULT NULL,
-  `seats` int(11) DEFAULT 0,
-  `engine_no` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `seats` int(11) DEFAULT '0',
+  `engine_no` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`v_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vehicles`
@@ -5619,7 +5717,8 @@ INSERT INTO `vehicles` (`v_id`, `v_number`, `v_type`, `v_code`, `short_descripti
 -- Table structure for table `vehicles_1`
 --
 
-CREATE TABLE `vehicles_1` (
+DROP TABLE IF EXISTS `vehicles_1`;
+CREATE TABLE IF NOT EXISTS `vehicles_1` (
   `COVERAGE_ID` varchar(5) NOT NULL,
   `MODEL_ID` int(11) NOT NULL,
   `INSURE_ID` varchar(5) NOT NULL,
@@ -5630,7 +5729,10 @@ CREATE TABLE `vehicles_1` (
   `COVERAGE_MAX` int(11) NOT NULL,
   `COVERAGE_MIN_2` int(11) NOT NULL,
   `COVERAGE_MAX_2` int(11) NOT NULL,
-  `PREMIUMS` int(11) NOT NULL
+  `PREMIUMS` int(11) NOT NULL,
+  PRIMARY KEY (`COVERAGE_ID`),
+  KEY `MODEL_ID` (`MODEL_ID`),
+  KEY `INSURE_ID` (`INSURE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -32561,7 +32663,8 @@ INSERT INTO `vehicles_1` (`COVERAGE_ID`, `MODEL_ID`, `INSURE_ID`, `REGISTER_YEAR
 -- Stand-in structure for view `view1`
 -- (See below for the actual view)
 --
-CREATE TABLE `view1` (
+DROP VIEW IF EXISTS `view1`;
+CREATE TABLE IF NOT EXISTS `view1` (
 `usrid` int(11)
 ,`master_id` int(11)
 ,`amt` double
@@ -32573,36 +32676,37 @@ CREATE TABLE `view1` (
 -- Table structure for table `v_ins`
 --
 
-CREATE TABLE `v_ins` (
-  `v_ins_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `v_ins`;
+CREATE TABLE IF NOT EXISTS `v_ins` (
+  `v_ins_id` int(11) NOT NULL AUTO_INCREMENT,
   `v_ins_number` varchar(255) DEFAULT NULL,
-  `v_ins_policy` int(11) DEFAULT 0,
-  `v_ins_short_description` longtext DEFAULT NULL,
-  `v_ins_member_id` int(11) DEFAULT 0,
-  `v_ins_agent_id` int(11) DEFAULT 0,
-  `v_ins_main_img` text DEFAULT NULL,
+  `v_ins_policy` int(11) DEFAULT '0',
+  `v_ins_short_description` longtext,
+  `v_ins_member_id` int(11) DEFAULT '0',
+  `v_ins_agent_id` int(11) DEFAULT '0',
+  `v_ins_main_img` text,
   `v_ins_price` float DEFAULT NULL,
-  `status` int(11) DEFAULT 0,
+  `status` int(11) DEFAULT '0',
   `register_date` date DEFAULT NULL,
   `expire_date` date DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
-  `v_ins_comapany` int(11) DEFAULT 0,
-  `v_ins_car_no` varchar(100) DEFAULT '0',
-  `f1` int(11) DEFAULT 0,
-  `f2` int(11) DEFAULT 0,
-  `f3` int(11) DEFAULT 0,
-  `f4` int(11) DEFAULT 0,
-  `f5` int(11) DEFAULT 0,
-  `postcode` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `v_ins_comapany` int(11) DEFAULT '0',
+  `v_ins_car_no` int(11) DEFAULT '0',
+  `f1` int(11) DEFAULT '0',
+  `f2` int(11) DEFAULT '0',
+  `f3` int(11) DEFAULT '0',
+  `f4` int(11) DEFAULT '0',
+  `f5` int(11) DEFAULT '0',
+  `postcode` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`v_ins_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `v_ins`
 --
 
 INSERT INTO `v_ins` (`v_ins_id`, `v_ins_number`, `v_ins_policy`, `v_ins_short_description`, `v_ins_member_id`, `v_ins_agent_id`, `v_ins_main_img`, `v_ins_price`, `status`, `register_date`, `expire_date`, `created_by`, `v_ins_comapany`, `v_ins_car_no`, `f1`, `f2`, `f3`, `f4`, `f5`, `postcode`) VALUES
-(1, 'ins001', 5, '\r\nwefwef\r\n\r\n', 825, 0, NULL, NULL, 0, NULL, NULL, NULL, 0, '0', 0, 0, 0, 0, 0, NULL),
-(4, 'Test 001', 4, '<p>test data</p>', 824, 0, '158182986344.png', 100000, 1, '2020-02-16', '2021-06-18', 0, 10, 'Tw3456', 0, 0, 0, 0, 0, NULL);
+(1, 'ins001', 5, '\r\nwefwef\r\n\r\n', 825, 0, NULL, NULL, 0, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -32610,9 +32714,11 @@ INSERT INTO `v_ins` (`v_ins_id`, `v_ins_number`, `v_ins_policy`, `v_ins_short_de
 -- Table structure for table `v_insure`
 --
 
-CREATE TABLE `v_insure` (
+DROP TABLE IF EXISTS `v_insure`;
+CREATE TABLE IF NOT EXISTS `v_insure` (
   `URN` varchar(5) NOT NULL,
-  `INSURE_COMPANY` text CHARACTER SET tis620 NOT NULL
+  `INSURE_COMPANY` text CHARACTER SET tis620 NOT NULL,
+  PRIMARY KEY (`URN`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -32630,13 +32736,15 @@ INSERT INTO `v_insure` (`URN`, `INSURE_COMPANY`) VALUES
 -- Table structure for table `v_type`
 --
 
-CREATE TABLE `v_type` (
-  `v_type_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `v_type`;
+CREATE TABLE IF NOT EXISTS `v_type` (
+  `v_type_id` int(11) NOT NULL AUTO_INCREMENT,
   `v_type_name` varchar(255) DEFAULT NULL,
-  `v_type` int(11) DEFAULT 0,
-  `v_type_code` int(11) DEFAULT 0,
-  `short_description` longtext DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `v_type` int(11) DEFAULT '0',
+  `v_type_code` int(11) DEFAULT '0',
+  `short_description` longtext,
+  PRIMARY KEY (`v_type_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `v_type`
@@ -32651,11 +32759,12 @@ INSERT INTO `v_type` (`v_type_id`, `v_type_name`, `v_type`, `v_type_code`, `shor
 -- Table structure for table `zone`
 --
 
-CREATE TABLE `zone` (
+DROP TABLE IF EXISTS `zone`;
+CREATE TABLE IF NOT EXISTS `zone` (
   `z_id` int(11) NOT NULL,
   `z_name` varchar(255) DEFAULT NULL,
-  `z_time` double NOT NULL DEFAULT 0,
-  `z_status` double NOT NULL DEFAULT 0
+  `z_time` double NOT NULL DEFAULT '0',
+  `z_status` double NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -32673,639 +32782,7 @@ INSERT INTO `zone` (`z_id`, `z_name`, `z_time`, `z_status`) VALUES
 --
 DROP TABLE IF EXISTS `view1`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view1`  AS  select `lottomaster`.`usrid` AS `usrid`,`lottodetails`.`master_id` AS `master_id`,min(`lottodetails`.`amount`) AS `amt` from (`lottodetails` join `lottomaster` on(`lottodetails`.`master_id` = `lottodetails`.`master_id`)) where `lottodetails`.`factive` = 1 group by `lottomaster`.`usrid`,`lottodetails`.`master_id`,`lottodetails`.`rowm` ;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `administrators`
---
-ALTER TABLE `administrators`
-  ADD PRIMARY KEY (`a_id`);
-
---
--- Indexes for table `admin_setting`
---
-ALTER TABLE `admin_setting`
-  ADD PRIMARY KEY (`as_id`);
-
---
--- Indexes for table `admin_types`
---
-ALTER TABLE `admin_types`
-  ADD PRIMARY KEY (`at_id`);
-
---
--- Indexes for table `announcement_1`
---
-ALTER TABLE `announcement_1`
-  ADD PRIMARY KEY (`a1_id`);
-
---
--- Indexes for table `announcement_2`
---
-ALTER TABLE `announcement_2`
-  ADD PRIMARY KEY (`a2_id`);
-
---
--- Indexes for table `chart_data`
---
-ALTER TABLE `chart_data`
-  ADD PRIMARY KEY (`cd_id`);
-
---
--- Indexes for table `company`
---
-ALTER TABLE `company`
-  ADD PRIMARY KEY (`cp_id`);
-
---
--- Indexes for table `country`
---
-ALTER TABLE `country`
-  ADD PRIMARY KEY (`c_id`);
-
---
--- Indexes for table `currency`
---
-ALTER TABLE `currency`
-  ADD PRIMARY KEY (`cu_id`);
-
---
--- Indexes for table `display_values`
---
-ALTER TABLE `display_values`
-  ADD PRIMARY KEY (`dv_id`);
-
---
--- Indexes for table `dividend`
---
-ALTER TABLE `dividend`
-  ADD PRIMARY KEY (`div_id`);
-
---
--- Indexes for table `features`
---
-ALTER TABLE `features`
-  ADD PRIMARY KEY (`f_id`);
-
---
--- Indexes for table `features_for_ins`
---
-ALTER TABLE `features_for_ins`
-  ADD PRIMARY KEY (`f_ins_id`);
-
---
--- Indexes for table `latest_news`
---
-ALTER TABLE `latest_news`
-  ADD PRIMARY KEY (`ln_id`);
-
---
--- Indexes for table `lottodetails`
---
-ALTER TABLE `lottodetails`
-  ADD PRIMARY KEY (`id`) USING BTREE;
-
---
--- Indexes for table `lottomaster`
---
-ALTER TABLE `lottomaster`
-  ADD PRIMARY KEY (`id`) USING BTREE;
-
---
--- Indexes for table `make`
---
-ALTER TABLE `make`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `members`
---
-ALTER TABLE `members`
-  ADD PRIMARY KEY (`m_id`);
-
---
--- Indexes for table `member_capital_tranfer`
---
-ALTER TABLE `member_capital_tranfer`
-  ADD PRIMARY KEY (`mct_id`);
-
---
--- Indexes for table `member_deposit`
---
-ALTER TABLE `member_deposit`
-  ADD PRIMARY KEY (`md_id`);
-
---
--- Indexes for table `member_deposit_renew`
---
-ALTER TABLE `member_deposit_renew`
-  ADD PRIMARY KEY (`mdr_id`);
-
---
--- Indexes for table `member_eshare`
---
-ALTER TABLE `member_eshare`
-  ADD PRIMARY KEY (`mges_id`);
-
---
--- Indexes for table `member_gf_transfer`
---
-ALTER TABLE `member_gf_transfer`
-  ADD PRIMARY KEY (`mgft_id`);
-
---
--- Indexes for table `member_package`
---
-ALTER TABLE `member_package`
-  ADD PRIMARY KEY (`mp_id`);
-
---
--- Indexes for table `member_referal_bonus`
---
-ALTER TABLE `member_referal_bonus`
-  ADD PRIMARY KEY (`rb_id`);
-
---
--- Indexes for table `member_reward`
---
-ALTER TABLE `member_reward`
-  ADD PRIMARY KEY (`m_reward_id`);
-
---
--- Indexes for table `member_sd_transfer`
---
-ALTER TABLE `member_sd_transfer`
-  ADD PRIMARY KEY (`msdt_id`);
-
---
--- Indexes for table `member_support`
---
-ALTER TABLE `member_support`
-  ADD PRIMARY KEY (`ms_id`);
-
---
--- Indexes for table `member_trading`
---
-ALTER TABLE `member_trading`
-  ADD PRIMARY KEY (`mt_id`);
-
---
--- Indexes for table `member_trading_interest`
---
-ALTER TABLE `member_trading_interest`
-  ADD PRIMARY KEY (`mti_id`);
-
---
--- Indexes for table `member_transfer`
---
-ALTER TABLE `member_transfer`
-  ADD PRIMARY KEY (`mt_id`);
-
---
--- Indexes for table `member_withdraw`
---
-ALTER TABLE `member_withdraw`
-  ADD PRIMARY KEY (`mw_id`);
-
---
--- Indexes for table `model`
---
-ALTER TABLE `model`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `policy`
---
-ALTER TABLE `policy`
-  ADD PRIMARY KEY (`p_id`);
-
---
--- Indexes for table `posts_comments`
---
-ALTER TABLE `posts_comments`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `posts_data`
---
-ALTER TABLE `posts_data`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `posts_likes`
---
-ALTER TABLE `posts_likes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `promotion`
---
-ALTER TABLE `promotion`
-  ADD PRIMARY KEY (`p_id`);
-
---
--- Indexes for table `regional_setting`
---
-ALTER TABLE `regional_setting`
-  ADD PRIMARY KEY (`r_id`);
-
---
--- Indexes for table `reseller_fund`
---
-ALTER TABLE `reseller_fund`
-  ADD PRIMARY KEY (`rf_id`);
-
---
--- Indexes for table `roller_market_trade`
---
-ALTER TABLE `roller_market_trade`
-  ADD PRIMARY KEY (`rmt_id`);
-
---
--- Indexes for table `share_rate_setting`
---
-ALTER TABLE `share_rate_setting`
-  ADD PRIMARY KEY (`share_id`);
-
---
--- Indexes for table `system_log`
---
-ALTER TABLE `system_log`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `tbl_model_type`
---
-ALTER TABLE `tbl_model_type`
-  ADD PRIMARY KEY (`MODEL_ID`);
-
---
--- Indexes for table `tbl_model_type group`
---
-ALTER TABLE `tbl_model_type group`
-  ADD PRIMARY KEY (`GROUP_ID`),
-  ADD KEY `tbl_model_type group_ibfk_1` (`MODEL_ID`);
-
---
--- Indexes for table `topup_settings`
---
-ALTER TABLE `topup_settings`
-  ADD PRIMARY KEY (`ts_id`);
-
---
--- Indexes for table `trade_settings`
---
-ALTER TABLE `trade_settings`
-  ADD PRIMARY KEY (`tr_id`);
-
---
--- Indexes for table `treeview`
---
-ALTER TABLE `treeview`
-  ADD PRIMARY KEY (`id`) USING BTREE,
-  ADD KEY `parentID` (`parentID`),
-  ADD KEY `m_id` (`m_id`),
-  ADD KEY `mem_id` (`mem_id`);
-
---
--- Indexes for table `user_cat`
---
-ALTER TABLE `user_cat`
-  ADD PRIMARY KEY (`usr_cat_id`);
-
---
--- Indexes for table `vehicles`
---
-ALTER TABLE `vehicles`
-  ADD PRIMARY KEY (`v_id`);
-
---
--- Indexes for table `vehicles_1`
---
-ALTER TABLE `vehicles_1`
-  ADD PRIMARY KEY (`COVERAGE_ID`),
-  ADD KEY `MODEL_ID` (`MODEL_ID`),
-  ADD KEY `INSURE_ID` (`INSURE_ID`);
-
---
--- Indexes for table `v_ins`
---
-ALTER TABLE `v_ins`
-  ADD PRIMARY KEY (`v_ins_id`);
-
---
--- Indexes for table `v_insure`
---
-ALTER TABLE `v_insure`
-  ADD PRIMARY KEY (`URN`);
-
---
--- Indexes for table `v_type`
---
-ALTER TABLE `v_type`
-  ADD PRIMARY KEY (`v_type_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `administrators`
---
-ALTER TABLE `administrators`
-  MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `admin_setting`
---
-ALTER TABLE `admin_setting`
-  MODIFY `as_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `admin_types`
---
-ALTER TABLE `admin_types`
-  MODIFY `at_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `announcement_1`
---
-ALTER TABLE `announcement_1`
-  MODIFY `a1_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `announcement_2`
---
-ALTER TABLE `announcement_2`
-  MODIFY `a2_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `chart_data`
---
-ALTER TABLE `chart_data`
-  MODIFY `cd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2401;
-
---
--- AUTO_INCREMENT for table `company`
---
-ALTER TABLE `company`
-  MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT for table `country`
---
-ALTER TABLE `country`
-  MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `currency`
---
-ALTER TABLE `currency`
-  MODIFY `cu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `display_values`
---
-ALTER TABLE `display_values`
-  MODIFY `dv_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `dividend`
---
-ALTER TABLE `dividend`
-  MODIFY `div_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `features`
---
-ALTER TABLE `features`
-  MODIFY `f_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `features_for_ins`
---
-ALTER TABLE `features_for_ins`
-  MODIFY `f_ins_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `latest_news`
---
-ALTER TABLE `latest_news`
-  MODIFY `ln_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `lottodetails`
---
-ALTER TABLE `lottodetails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=483;
-
---
--- AUTO_INCREMENT for table `lottomaster`
---
-ALTER TABLE `lottomaster`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
-
---
--- AUTO_INCREMENT for table `make`
---
-ALTER TABLE `make`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
-
---
--- AUTO_INCREMENT for table `members`
---
-ALTER TABLE `members`
-  MODIFY `m_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=829;
-
---
--- AUTO_INCREMENT for table `member_capital_tranfer`
---
-ALTER TABLE `member_capital_tranfer`
-  MODIFY `mct_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `member_deposit`
---
-ALTER TABLE `member_deposit`
-  MODIFY `md_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1329;
-
---
--- AUTO_INCREMENT for table `member_deposit_renew`
---
-ALTER TABLE `member_deposit_renew`
-  MODIFY `mdr_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `member_eshare`
---
-ALTER TABLE `member_eshare`
-  MODIFY `mges_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `member_gf_transfer`
---
-ALTER TABLE `member_gf_transfer`
-  MODIFY `mgft_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `member_package`
---
-ALTER TABLE `member_package`
-  MODIFY `mp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `member_referal_bonus`
---
-ALTER TABLE `member_referal_bonus`
-  MODIFY `rb_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=338;
-
---
--- AUTO_INCREMENT for table `member_reward`
---
-ALTER TABLE `member_reward`
-  MODIFY `m_reward_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `member_sd_transfer`
---
-ALTER TABLE `member_sd_transfer`
-  MODIFY `msdt_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `member_support`
---
-ALTER TABLE `member_support`
-  MODIFY `ms_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `member_trading`
---
-ALTER TABLE `member_trading`
-  MODIFY `mt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=208;
-
---
--- AUTO_INCREMENT for table `member_trading_interest`
---
-ALTER TABLE `member_trading_interest`
-  MODIFY `mti_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `member_transfer`
---
-ALTER TABLE `member_transfer`
-  MODIFY `mt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `member_withdraw`
---
-ALTER TABLE `member_withdraw`
-  MODIFY `mw_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `model`
---
-ALTER TABLE `model`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1315;
-
---
--- AUTO_INCREMENT for table `policy`
---
-ALTER TABLE `policy`
-  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `posts_comments`
---
-ALTER TABLE `posts_comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `posts_data`
---
-ALTER TABLE `posts_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
---
--- AUTO_INCREMENT for table `posts_likes`
---
-ALTER TABLE `posts_likes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `promotion`
---
-ALTER TABLE `promotion`
-  MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `regional_setting`
---
-ALTER TABLE `regional_setting`
-  MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `reseller_fund`
---
-ALTER TABLE `reseller_fund`
-  MODIFY `rf_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `share_rate_setting`
---
-ALTER TABLE `share_rate_setting`
-  MODIFY `share_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `system_log`
---
-ALTER TABLE `system_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
-
---
--- AUTO_INCREMENT for table `topup_settings`
---
-ALTER TABLE `topup_settings`
-  MODIFY `ts_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `trade_settings`
---
-ALTER TABLE `trade_settings`
-  MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT for table `treeview`
---
-ALTER TABLE `treeview`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=819;
-
---
--- AUTO_INCREMENT for table `user_cat`
---
-ALTER TABLE `user_cat`
-  MODIFY `usr_cat_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
-
---
--- AUTO_INCREMENT for table `vehicles`
---
-ALTER TABLE `vehicles`
-  MODIFY `v_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT for table `v_ins`
---
-ALTER TABLE `v_ins`
-  MODIFY `v_ins_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `v_type`
---
-ALTER TABLE `v_type`
-  MODIFY `v_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view1`  AS  select `lottomaster`.`usrid` AS `usrid`,`lottodetails`.`master_id` AS `master_id`,min(`lottodetails`.`amount`) AS `amt` from (`lottodetails` join `lottomaster` on((`lottodetails`.`master_id` = `lottodetails`.`master_id`))) where (`lottodetails`.`factive` = 1) group by `lottomaster`.`usrid`,`lottodetails`.`master_id`,`lottodetails`.`rowm` ;
 
 --
 -- Constraints for dumped tables

@@ -82,7 +82,28 @@ if ($error == 4) {
                                 <?php } ?>
 
 
+                                        <div class="row form-group">                        
+                                            <div class="col-lg-6 col-md-6 form-group">
+                                                <div class="user_image">
+                                        <?php if ($row['v_ins_main_img'] == '') { ?>
+                                                        <img name="v_ins_main_img" id="profile_image"  src="../uploads/profile/avt.png" class="img-circle profile_image" style="max-height:150px;width:auto">
+                                        <?php } else { ?>
+                                                        <img name="v_ins_main_img" id="profile_image"  src="../uploads/profile/<?= $row['v_ins_main_img']; ?>" class="img-circle profile_image" style="max-height:150px;width:auto">
+                                        <?php } ?>
+                                                </div>
 
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="input-group">
+
+                                            <input type="file" name="v_ins_main_img" id="user_profile_image" class="form-control"  placeholder="Username" aria-describedby="inputGroupPrepend" style="display: none;align-content: center" />
+                                            <input type="button" style="width: 100px"value="Browse" id="browse_image" class="btn btn-block btn-success"/>
+
+                                        </div> 
+                                        <br>
 
                                         <div class="row form-group">
 
@@ -135,6 +156,11 @@ if ($error == 4) {
                                                                  $database->loadAllCars($row['v_ins_car_no']);
                                                         ?>
                                                 </select>
+                                            </div>
+
+                                            <div class="col-lg-6 col-md-6 form-group">                  
+                                                <label> Price :</label>
+                                                 <input type="text" class="form-control" id="v_ins_price" placeholder="Price" name="v_ins_price" value="<?php echo $row['v_ins_price']; ?>" required>  
                                             </div>
 
 
