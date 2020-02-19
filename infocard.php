@@ -10,6 +10,8 @@
 
     $features = allFeatures();
 
+    $get_features = getFeatures($insurance['v_ins_id']);
+
     $active_features = getActiveFeatures($insurance['v_ins_id']);
    
     
@@ -241,10 +243,68 @@ button:hover {
     </div>
   </div>
 
-  <div class="tab">Login Info:
-    <p><input placeholder="Username..." oninput="this.className = ''" name="uname"></p>
-    <p><input placeholder="Password..." oninput="this.className = ''" name="pword" type="password"></p>
+  
+
+
+  <div class="tab">
+  
+    <div class="row">
+        <div class="col-sm-12 col-12">&nbsp;</div>
+        <div class="col-sm-12 col-12">&nbsp;</div>
+        <div class="col-sm-12 col-12">IC Number : <?php echo $result['m_nic'] != ''?$result['m_nic']:'Not Available'; ?></div>
+        <div class="col-sm-12 col-12">Mobile Phone No. : <?php echo $result['m_phone'] != ''?$result['m_phone']:'Not Available'; ?></div>
+        </div>
+        <hr />
+        <div class="row">
+        <div class="col-sm-12 col-12">Next Effective Date : <?php echo $result['expire_date'] != ''?$result['expire_date']:'Not Available'; ?></div>
+        <div class="col-sm-6 col-6">No-Claim Discount Rate: 55%</div>
+        </div>
+        <hr />
+    <div class="row">
+        <div class="col-sm-6 col-6">Vehicle No. : <?php echo $result['v_number'] != ''?$result['v_number']:'Not Available'; ?></div>
+        <div class="col-sm-6 col-6">Chassis No. : <?php echo $result['chassis'] != ''?$result['chassis']:'Not Available'; ?></div>
+        <div class="col-sm-6 col-6">Engine No. : <?php echo $result['engine_no'] != ''?$result['engine_no']:'Not Available'; ?></div>
+        <div class="col-sm-6 col-6">Car Location Postcode : <?php echo $result['postcode'] != ''?$result['postcode']:'Not Available'; ?></div>
+        <div class="col-sm-6 col-6">NVIC : <?php echo $result['nvic'] != ''?$result['nvic']:'Not Available'; ?></div>
+        <div class="col-sm-6 col-6">Make : <?php echo $result['make'] != ''?$result['make']:'Not Available'; ?></div>
+        <div class="col-sm-6 col-6">Model : <?php echo $result['model'] != ''?$result['model']:'Not Available'; ?></div>
+        <div class="col-sm-6 col-6">Variant : <?php echo $result['variant'] != ''?$result['variant']:'Not Available'; ?></div>
+        <div class="col-sm-6 col-6">Seats : <?php echo $result['seats'] != ''?$result['seats']:'Not Available'; ?></div>
+        <div class="col-sm-6 col-6">Trans : <?php echo $result['trans'] != ''?$result['trans']:'Not Available'; ?></div>
+        <div class="col-sm-6 col-6">CC : <?php echo $result['cc'] != ''?$result['cc']:'Not Available'; ?></div>
+        <div class="col-sm-6 col-6">Group : <?php echo $result['group'] != ''?$result['group']:'Not Available'; ?></div>
+        <div class="col-sm-6 col-6">Make Year : <?php echo $result['year'] != ''?$result['year']:'Not Available'; ?></div>
+    </div>
+     <hr>
+  <br>
+
+    <div class="row">
+        <div class="col-sm-12 col-12">&nbsp;</div>
+        <div class="col-sm-12 col-12">&nbsp;</div>
+        <div class="col-sm-6 col-6"><img src="uploads/ins/<?php echo $insurance['v_ins_main_img']; ?>" style="width:150px;"></div>
+        <div class="col-sm-6 col-6">Agreed Value Range (<?php echo 'RM. '.$insurance['v_ins_price']; ?>)
+          <br>  Sum Insured (SI):</div>
+        </div>
+        <hr />
+        <div class="row">
+        <div class="col-sm-12 col-12"><?php echo $insurance['v_ins_short_description']; ?></div>
+        </div>
+     <hr>
+     <br>
+       <div>
+            <ul>
+        <?php while($row = mysqli_fetch_assoc($get_features)):?>
+              <li><?php echo $row['f_number']; ?></li>
+        <?php endwhile; ?>
+            </ul>
+      </div>
+
+
+
+
   </div>
+
+
   <div style="overflow:auto; margin-top: 50px;">
     <div style="float:right;">
       <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>

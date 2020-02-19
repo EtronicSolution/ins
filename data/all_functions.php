@@ -128,4 +128,18 @@ function removeFeatures(){
     mysqli_query($conn, $query);
 }
 
+function getFeatures($value){
+    global $conn;
+
+    $sql = "SELECT `f_number` FROM `features` LEFT JOIN features_for_ins ON features.f_id = features_for_ins.f_id  WHERE features_for_ins.ins_id ='" . $value . "' AND features_for_ins.status = '1'";
+    $result   = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        return $result;
+        // return mysqli_fetch_all( $result, MYSQLI_ASSOC);
+    }else{
+        return null;
+    }
+
+}
+
 ?>
