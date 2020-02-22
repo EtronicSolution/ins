@@ -2,10 +2,18 @@
 if(!isset($_SESSION)) { session_start(); }
 @define('BASE_DIR', dirname(__FILE__));
 include_once(BASE_DIR . '/../conn.php');
+include_once(BASE_DIR . '/../dompdf/autoload.inc.php');
 
+use Dompdf\Dompdf; 
 
 if(isset($_POST['username'])){
     loginFunction();
+}
+
+
+
+if(isset($_POST['ins_id'])){
+    pdfFunction();
 }
 
 if(isset($_POST['ins_type'])){
@@ -140,6 +148,29 @@ function getFeatures($value){
         return null;
     }
 
+}
+
+function pdfFunction(){
+    ob_start();
+    include "vehiclePdf.php";
+    $html = ob_get_clean();
+    ob_end_clean();
+
+
+    $dompdf = new DOMPDF();
+
+    // Load content from html file 
+    // $html = file_get_contents("vehiclePdf.php"); 
+    $dompdf->loadHtml($html); 
+     
+    // (Optional) Setup the paper size and orientation 
+    $dompdf->setPaper('A4'); 
+     
+    // Render the HTML as PDF 
+    $dompdf->render(); 
+     
+    // Output the generated PDF (1 = download and 0 = preview) 
+    $dompdf->stream("invoice", array("Attachment" => 1));
 }
 
 ?>

@@ -74,6 +74,8 @@
 </head>
 
 <body class="text-center">
+    <form class="form-signin"  action="data/all_functions.php" method="POST">
+      <img class="mb-4" src="./images/logo.png" alt="" width="100%">
      
     <div id="error_display" class="text-center text-danger">
         <?php
@@ -90,8 +92,7 @@
 
         ?>
     </div>
-    <form class="form-signin"  action="data/all_functions.php" method="POST">
-      <img class="mb-4" src="./images/logo.png" alt="" width="100%">
+    
       <label for="inputEmail" class="sr-only">Username</label>
       <input type="text" name="username" class="form-control my-3" placeholder="Username" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>

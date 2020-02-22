@@ -1627,6 +1627,17 @@ function loadUsers($catky)
 
  function loadAllUsersType($catky)
      {    
+
+       // global $conn;
+       //  $sql = "select  usr_cat_id,cat_name from user_cat ORDER by cat_level";
+       //  $result   = mysqli_query($conn, $sql);
+    
+       //  if (mysqli_num_rows($result) > 0) {
+       //      while ($typ = $this->fetch_set($result)) {
+       //          echo '<option value="' . $typ['cat_name'] . '" ' .
+       //          ($catky == $typ['cat_name'] ? "selected" : "") . ' >' .$typ['cat_name'] . '</option>';
+       //      }
+       //  }
         echo 'select  usr_cat_id,cat_name from user_cat ORDER by cat_level';
         $arrtype = $this->query("select  usr_cat_id,cat_name from user_cat ORDER by cat_level");
             

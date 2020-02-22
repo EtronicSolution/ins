@@ -19,6 +19,11 @@
 ?>
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+
+
+
 <style>
 * {
   box-sizing: border-box;
@@ -166,7 +171,7 @@ button:hover {
 /*checkbox css*/
 </style>
 
-<div class="container" id="regForm">
+<div class="container">
 
     <input type="hidden" id="ins_no" value="<?php echo $insurance['v_ins_id']; ?>">
 
@@ -246,7 +251,7 @@ button:hover {
   
 
 
-  <div class="tab">
+  <div class="tab" id="regForm">
   
     <div class="row">
         <div class="col-sm-12 col-12">&nbsp;</div>
@@ -304,7 +309,12 @@ button:hover {
 
   </div>
 
-
+</div>
+<div id="editor"></div>
+<form id="pdfForm" action="data/all_functions.php" method="POST">
+  <input type="hidden" name="ins_id" value="<?php echo $insurance['v_ins_id']; ?>">
+  <input type="hidden" name="v_number" value="<?php echo $_GET['v_number']; ?>">
+<div class="container">
   <div style="overflow:auto; margin-top: 50px;">
     <div style="float:right;">
       <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
@@ -319,6 +329,7 @@ button:hover {
     <span class="step"></span>
   </div>
 </div>
+</form>
 
 <script>
 var currentTab = 0; // Current tab is set to be the first tab (0)
@@ -327,6 +338,7 @@ showTab(currentTab); // Display the current tab
 function showTab(n) {
   // This function will display the specified tab of the form...
   var x = document.getElementsByClassName("tab");
+  // alert( x.length);
   x[n].style.display = "block";
   //... and fix the Previous/Next buttons:
   if (n == 0) {
@@ -335,7 +347,8 @@ function showTab(n) {
     document.getElementById("prevBtn").style.display = "inline";
   }
   if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
+    document.getElementById("nextBtn").innerHTML = "Download";
+    document.getElementById("nextBtn").setAttribute("class", "cmd");
   } else {
     document.getElementById("nextBtn").innerHTML = "Next";
   }
@@ -346,8 +359,6 @@ function showTab(n) {
 function nextPrev(n) {
   // This function will figure out which tab to display
   var x = document.getElementsByClassName("tab");
-  // Exit the function if any field in the current tab is invalid:
-  if (n == 1 && !validateForm()) return false;
   // Hide the current tab:
   x[currentTab].style.display = "none";
   // Increase or decrease the current tab by 1:
@@ -355,7 +366,10 @@ function nextPrev(n) {
   // if you have reached the end of the form...
   if (currentTab >= x.length) {
     // ... the form gets submitted:
-    document.getElementById("regForm").submit();
+    document.getElementById("pdfForm").submit();
+    currentTab =currentTab - 1;
+    showTab(currentTab);
+    // downloadPdf();
     return false;
   }
   // Otherwise, display the correct tab:
@@ -418,6 +432,34 @@ function changeFeatures(data){
             }
         });
    }
+}
+
+function downloadPdf(){
+
+  var ins_id= $('#ins_no').val();
+  $.ajax({
+    url: "data/all_functions.php",
+    type: "get", //send it through get method
+    data: { 
+      ins_id: ins_id
+    },
+    success: function(data) {
+      alert(data)
+      //Do Something
+    }
+  });
+ //  var doc = new jsPDF('p', 'pt', 'a4');
+ //  var specialElementHandlers = {
+ //      '#editor': function (element, renderer) {
+ //          return true;
+ //      }
+ //  };
+  
+ // doc.fromHTML($('#regForm').html(), 15, 15, {
+ //          'width': 170,
+ //              'elementHandlers': specialElementHandlers
+ //      });
+ //      doc.save('sample-file.pdf');
 }
 
 </script>

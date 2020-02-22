@@ -1,3 +1,6 @@
+<?php
+	if(!isset($_SESSION)) { session_start(); }
+?>
 <body>
 
 	<!-- Container -->
@@ -74,8 +77,11 @@
 									<li><a href="portfolio-3col.html">Portfolio 3col</a></li>
 									<li><a href="portfolio-4col.html">Portfolio 4col</a></li>
 								</ul>
-							</li>-->
+							</li>-->				<?php if(isset($_SESSION['delegator'])): ?>
+                                                        <li><a href="data/logout.php">Logout</a></li>
+                                                    <?php else: ?>    
                                                         <li><a href="admin/index.php">Login</a></li>
+                                                    <?php endif; ?>
 <!--							<li class="drop"><a href="#">Pages</a>
 								<ul class="drop-down">
 									<li><a href="single-post.html">Single Post</a></li>
