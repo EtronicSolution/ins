@@ -363,6 +363,8 @@ if(!isset($_SESSION)) { session_start(); }
         <td class="container">
           <div class="content">
 
+
+            <h2>Vehicles Details</h2>
             <!-- START CENTERED WHITE CONTAINER -->
             <table role="presentation" class="main">
                     <tr>
@@ -443,6 +445,7 @@ if(!isset($_SESSION)) { session_start(); }
 
             <hr>
 
+            <h2>Insurance Details</h2>
             <table role="presentation" class="main">
                 <tr>
                     <td>
@@ -456,7 +459,7 @@ if(!isset($_SESSION)) { session_start(); }
                 </tr>
             </table>
             <div>
-                <h5>Active Features</h5>
+                <h2>Active Features</h2>
                 <ul style="list-style-type:none">
                     <?php while($row = mysqli_fetch_assoc($get_features)):?>
                           <li><?php echo $row['f_number']; ?></li>

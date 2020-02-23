@@ -10,6 +10,14 @@ if(isset($_POST['username'])){
     loginFunction();
 }
 
+if(isset($_POST['reffer_by'])){
+    registerFunction();
+}
+
+if(isset($_POST['owner'])){
+    vehicleRegisterFunction();
+}
+
 
 
 if(isset($_POST['ins_id'])){
@@ -26,7 +34,7 @@ if(isset($_POST['ins_type'])){
 
 function LoginFunction(){
     global $conn;
-    $sqlcheck="SELECT * FROM members WHERE  m_username='".$_POST['username']."' AND m_status = 1";
+    $sqlcheck="SELECT * FROM members WHERE  m_username='".$_POST['username']."' AND m_status = 1 AND m_type='delegator'";
                
        $result = mysqli_query($conn, $sqlcheck);
        
@@ -40,9 +48,18 @@ function LoginFunction(){
             //    echo 'success';
                 $_SESSION['login'] = $res['m_id'];
                 $_SESSION['delegator'] = $res['m_username'];
-                
-                // header('Location: ../index.php?');
-                header('Location: ../page2.php?v_number=' . $_SESSION['v_no']);
+
+
+                $sql_v_check = "SELECT * FROM vehicles WHERE v_number ='" . $_SESSION['v_no'] . "'";
+                $resultv_check   = mysqli_query($conn, $sql_v_check);
+                 if (mysqli_num_rows($resultv_check) > 0) {
+                     
+                    header('Location: ../page2.php?v_number=' . $_SESSION['v_no']);
+                     
+                 }else {
+
+                    header('Location: ../register-user.php');
+                 }
  
             }       
             else{
@@ -55,6 +72,51 @@ function LoginFunction(){
               header('Location: ../login_blade.php?error=1');
             
         }
+}
+
+function registerFunction(){
+    global $conn;
+
+
+    $hash_password = password_hash($_POST['m_password'], PASSWORD_DEFAULT);
+    $sqlcheck = "SELECT * FROM members WHERE m_username='" . $_POST['m_username'] . "'";
+    $result = mysqli_query($conn, $sqlcheck);
+
+    if (mysqli_num_rows($result) > 0) {
+        header('Location: ../register-user.php?error=1');
+    } else {
+        $sql = "INSERT INTO members (m_username, m_password, m_name, m_email, m_address, m_phone,m_type, m_dob,m_reseller_by) VALUES ('" . $_POST['m_username'] . "','" . $hash_password . "', '" . $_POST['name'] . "', '" . $_POST['email'] . "', '" . $_POST['address'] . "', '" . $_POST['phone'] . "', 'user', '" . $_POST['dob'] . "', '" . $_POST['reffer_by'] . "')";
+                       
+        if(mysqli_query($conn, $sql)){
+            header('Location: ../page2new.php');
+        }else{
+            header('Location: ../register-user.php?error=1');
+        }
+
+        
+    }
+}
+
+function vehicleRegisterFunction(){
+    global $conn;
+
+    $sql = "INSERT INTO `vehicles` ( `v_number`,  `member_id`, `v_price`, `status`, `register_date`,  `created_by`,  `color`, `make`, `model`, `cc`) VALUES ( '" . $_POST['v_no'] . "', '" . $_POST['owner'] . "', '" . $_POST['value'] . "', '1', '" . date('Y-m-d') . "', '" . $_SESSION['login'] . "', '" . $_POST['color'] . "', '" . $_POST['make'] . "', '" . $_POST['model'] . "',  '" . $_POST['cc'] . "')";         
+                        
+            if (mysqli_query($conn, $sql)) {
+
+                $sql2 = "INSERT INTO `v_ins` ( `v_ins_number`, `v_ins_policy`, `v_ins_short_description`, `v_ins_member_id`, `v_ins_agent_id`,  `v_ins_price`, `status`, `register_date`, `expire_date`, `created_by`, `v_ins_comapany`, `v_ins_car_no`) VALUES ( '" . $_POST['code'] . "', '" . $_POST['policy'] . "', '" . $_POST['v_description'] . "', '" . $_POST['owner']. "','" . $_SESSION['login']. "', '" . $_POST['amount']. "', '1' ,'". date('Y-m-d') ."', '" . $_POST['expiry'] . "', '" . $_SESSION['login'] . "', '" . $_POST['company'] . "', '" . $_POST['v_no'] . "')";
+           
+                // var_dump($sql2); die();
+                if(mysqli_query($conn, $sql2))
+                {
+                     header('Location: ../page2.php?v_number='.$_POST['v_no']);
+                }else
+                {
+                     header('Location: ../page2new.php?error=2');
+                }
+            } else {
+                header('Location: ../page2new.php?error=1');
+            }
 }
 
 function getVehicleUsers($value){  
@@ -171,6 +233,42 @@ function pdfFunction(){
      
     // Output the generated PDF (1 = download and 0 = preview) 
     $dompdf->stream("invoice", array("Attachment" => 1));
+}
+
+function getAllDelegators(){
+    global $conn;
+
+    $sql = "SELECT * FROM members WHERE m_type='delegator'";
+    $result   = mysqli_query($conn, $sql);
+    return $result;
+
+}
+
+function getAllMembers(){
+    global $conn;
+
+    $sql = "SELECT * FROM members WHERE m_type='user'";
+    $result   = mysqli_query($conn, $sql);
+    return $result;
+
+}
+
+function getAllCompany(){
+    global $conn;
+
+    $sql = "SELECT * FROM company";
+    $result   = mysqli_query($conn, $sql);
+    return $result;
+
+}
+
+function getAllPolicies(){
+    global $conn;
+
+    $sql = "SELECT * FROM policy";
+    $result   = mysqli_query($conn, $sql);
+    return $result;
+
 }
 
 ?>

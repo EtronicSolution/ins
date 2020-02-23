@@ -10,26 +10,29 @@ $m_nic          = $_POST['m_nic'];
 $m_phone    = $_POST['m_phone'];
 $m_marriage_status           = $_POST['m_marriage_status'];
 $ic_type           = $_POST['ic_type'];
-
+$_SESSION['v_no'] = $v_number; 
 
 
 // first check 
 if(isset($_SESSION['delegator'])){
     $sql_v_check = "SELECT * FROM vehicles WHERE v_number ='" . $v_number . "'";
     $resultv_check   = mysqli_query($conn, $sql_v_check);
-     if (mysqli_num_rows($resultv_check) > 0) {
-         
+    if (mysqli_num_rows($resultv_check) > 0) {
+        
         header('Location: ../page2.php?v_number=' . $v_number);
          
-     }
+    }else{
+
+        header('Location: ../register-user.php');
+
+    }
 }else{
-        $_SESSION['v_no'] = $v_number; 
-        header('Location: ../login_blade.php');
+    header('Location: ../login_blade.php');
 }
 
 
-echo $ic_type;
-exit();
+// echo $ic_type;
+// exit();
 
 //Action
  

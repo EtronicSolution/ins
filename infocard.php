@@ -236,7 +236,7 @@ button:hover {
             if($active_features != null):
               while($f_data = mysqli_fetch_assoc($active_features)):
                 array_push($arraySubId, $f_data['f_id']);
-              endwhile;;
+              endwhile;
             endif;
         ?>
         <?php while($row = mysqli_fetch_assoc($features)):?>
