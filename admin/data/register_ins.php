@@ -8,13 +8,15 @@ include_once './imageUpload.php';
         
         //Fetching Values from URL
         
+        $user_agent= $conn->query("SELECT `m_reseller_by` FROM members WHERE m_id = '" . $_POST['v_ins_member_id']. "' ");
+        $agent = $user_agent->fetch_assoc();
         
         $v_ins_id                   = $_POST['v_ins_id'];
 	    $v_ins_number               = $_POST['v_ins_number'];
         $v_ins_policy               = $_POST['v_ins_policy'];
         $v_ins_short_description    = $_POST['v_ins_short_description'];
         $v_ins_member_id            = $_POST['v_ins_member_id'];
-        $v_ins_agent_id             = $_POST['v_ins_agent_id']?$_POST['v_ins_agent_id']:'0';
+        $v_ins_agent_id             = $agent['m_reseller_by'];
         $v_ins_main_img             = $_POST['v_ins_main_img']?$_POST['v_ins_main_img']:NULL;
         $v_ins_price                = $_POST['v_ins_price']?$_POST['v_ins_price']:NULL;
         $status                     = $_POST['status']?$_POST['status']:'1';
@@ -44,6 +46,7 @@ if ($action == 'register') {
 
         $sqlcheck = "SELECT * FROM v_ins WHERE v_ins_number='" . $v_ins_number . "'";
         $result = mysqli_query($conn, $sqlcheck);
+
         if (mysqli_num_rows($result) > 0)
         {
             header('Location: ../ins_add.php?error=2');
@@ -57,7 +60,40 @@ if ($action == 'register') {
         
             if(mysqli_query($conn, $sql))
             {
-                 header('Location: ../ins_list.php?error=1');
+                $ins_id= $conn->insert_id;
+                $zone= $conn->query("SELECT `m_loc` FROM members WHERE m_id = '" . $v_ins_agent_id. "' ");
+                $loc = $zone->fetch_assoc();
+                $precentage= '';
+                $commission= '';
+
+                if($loc["m_loc"] == '1'){
+                $precentage= 10;
+                $commission= $v_ins_price * ($precentage/100);
+                }elseif ($loc["m_loc"] == '2') {
+                if($v_ins_price > '16000'){
+                    $precentage= 12;
+                    $commission= $v_ins_price * ($precentage/100);
+                }elseif ($v_ins_price > '11000') {
+                    $precentage= 11.5;
+                    $commission= $v_ins_price * ($precentage/100);
+                   
+                }elseif ($v_ins_price > '7000') {
+                    $precentage= 11;
+                    $commission= $v_ins_price * ($precentage/100);
+                   
+                }elseif ($v_ins_price > '3000') {
+                    $precentage= 10.5;
+                    $commission= $v_ins_price * ($precentage/100);
+                   
+                }else{
+                    $precentage= 10;
+                    $commission= $v_ins_price * ($precentage/100);
+                }
+                }
+
+                $conn->query("INSERT INTO `commission`(`agent_id`, `ins_id`, `ins_amount`, `commission`, `%`) VALUES ('" . $v_ins_agent_id. "', '" . $ins_id. "', '" . $v_ins_price. "', '" . $commission. "','" . $precentage. "')");
+                     
+                header('Location: ../ins_list.php?error=1');
             }else
             {
                  header('Location: ../ins_list.php?error=2');

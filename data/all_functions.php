@@ -100,15 +100,48 @@ function registerFunction(){
 function vehicleRegisterFunction(){
     global $conn;
 
-    $sql = "INSERT INTO `vehicles` ( `v_number`,  `member_id`, `v_price`, `status`, `register_date`,  `created_by`,  `color`, `make`, `model`, `cc`) VALUES ( '" . $_POST['v_no'] . "', '" . $_POST['owner'] . "', '" . $_POST['value'] . "', '1', '" . date('Y-m-d') . "', '" . $_SESSION['login'] . "', '" . $_POST['color'] . "', '" . $_POST['make'] . "', '" . $_POST['model'] . "',  '" . $_POST['cc'] . "')";         
+    $sql = "INSERT INTO `vehicles` ( `v_number`,  `member_id`, `v_price`, `status`, `register_date`,  `created_by`,  `color`, `make`, `model`, `cc`, `v_type`) VALUES ( '" . $_POST['v_no'] . "', '" . $_POST['owner'] . "', '" . $_POST['value'] . "', '1', '" . date('Y-m-d') . "', '" . $_SESSION['login'] . "', '" . $_POST['color'] . "', '" . $_POST['make'] . "', '" . $_POST['model'] . "',  '" . $_POST['cc'] . "', '1')";         
                         
             if (mysqli_query($conn, $sql)) {
 
                 $sql2 = "INSERT INTO `v_ins` ( `v_ins_number`, `v_ins_policy`, `v_ins_short_description`, `v_ins_member_id`, `v_ins_agent_id`,  `v_ins_price`, `status`, `register_date`, `expire_date`, `created_by`, `v_ins_comapany`, `v_ins_car_no`) VALUES ( '" . $_POST['code'] . "', '" . $_POST['policy'] . "', '" . $_POST['v_description'] . "', '" . $_POST['owner']. "','" . $_SESSION['login']. "', '" . $_POST['amount']. "', '1' ,'". date('Y-m-d') ."', '" . $_POST['expiry'] . "', '" . $_SESSION['login'] . "', '" . $_POST['company'] . "', '" . $_POST['v_no'] . "')";
            
-                // var_dump($sql2); die();
+                
                 if(mysqli_query($conn, $sql2))
                 {
+                     $ins_id= $conn->insert_id;
+                     $zone= $conn->query("SELECT `m_loc` FROM members WHERE m_id = '" . $_SESSION['login']. "' ");
+                     $loc = $zone->fetch_assoc();
+                     $precentage= '';
+                     $commission= '';
+
+                     if($loc["m_loc"] == '1'){
+                        $precentage= 10;
+                        $commission= $_POST['amount'] * ($precentage/100);
+                     }elseif ($loc["m_loc"] == '2') {
+                        if($_POST['amount'] > '16000'){
+                            $precentage= 12;
+                            $commission= $_POST['amount'] * ($precentage/100);
+                        }elseif ($_POST['amount'] > '11000') {
+                            $precentage= 11.5;
+                            $commission= $_POST['amount'] * ($precentage/100);
+                           
+                        }elseif ($_POST['amount'] > '7000') {
+                            $precentage= 11;
+                            $commission= $_POST['amount'] * ($precentage/100);
+                           
+                        }elseif ($_POST['amount'] > '3000') {
+                            $precentage= 10.5;
+                            $commission= $_POST['amount'] * ($precentage/100);
+                           
+                        }else{
+                            $precentage= 10;
+                            $commission= $_POST['amount'] * ($precentage/100);
+                        }
+                     }
+                     
+                     $conn->query("INSERT INTO `commission`(`agent_id`, `ins_id`, `ins_amount`, `commission`, `%`) VALUES ('" . $_SESSION['login']. "', '" . $ins_id. "', '" . $_POST['amount']. "', '" . $commission. "','" . $precentage. "')");
+
                      header('Location: ../page2.php?v_number='.$_POST['v_no']);
                 }else
                 {
