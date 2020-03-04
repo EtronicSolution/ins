@@ -7,4 +7,11 @@ Token URL (SIT) :  https://staging.api.maybank.com:21100/api/v1.0/my/oauth/token
 Token URL (UAT) :   https://staging.api.maybank.com:21100/api/v1.0/my/oauth/token 
 
 
+Environment : Prod 
+Client Name : MYCOVER SDN. BHD. 
+Client Id :ETIQA_MYCOVER_CP
+Client Secret: ED99A835F2A20058FCA9A69046BD5953
+Api Base Url : api.maybank.com
+Token URL  :  https://api.maybank.com:21100/api/v1.0/my/oauth/token 
+
  
