@@ -1,4 +1,4 @@
-<footer class="footer"> © 2020 CoinDash All Right Reserved.</footer>
+<footer class="footer"> © 2020 ANS All Right Reserved.</footer>
 <script type="text/javascript">
     
  function logout(){

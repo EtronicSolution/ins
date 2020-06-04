@@ -36,13 +36,13 @@ if ($error == 6) {
 
     <div class="row page-titles">
         <div class="col-md-5 align-self-center">
-            <h3 class="text-primary" style="text-transform: uppercase;"><?=$row['cp_name'] ?> Details</h3>
+            <h3 class="text-primary" style="text-transform: uppercase;"><?= $row['cp_name'] ?> Details</h3>
         </div>
         <div class="col-md-7 align-self-center">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
                 <li class="breadcrumb-item"><a href="javascript:void(0)">Company</a></li>
-                <li class="breadcrumb-item active"><?=$row['cp_name'] ?> Detail</li>
+                <li class="breadcrumb-item active"><?= $row['cp_name'] ?> Detail</li>
             </ol>
         </div>
     </div>
@@ -64,48 +64,48 @@ if ($error == 6) {
                         echo '<h2>Add New Comapany</h2>';
                     }
                     ?>
- 
+
                 </div>
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="box-body">
- 
+
                                 <?php if ($cp_id != '') { ?>
-                                      <form action="data/register_company.php" class="templatemo-login-form" method="post" enctype="multipart/form-data" name="update_members">
-                                                                    <input type="hidden" name="id" value="<?php echo $cp_id; ?>">
-                                                                    <input type="hidden" name="action" value="update">
+                                    <form action="data/register_company.php" class="templatemo-login-form" method="post" enctype="multipart/form-data" name="update_members">
+                                        <input type="hidden" name="id" value="<?php echo $cp_id; ?>">
+                                        <input type="hidden" name="action" value="update">
 
-                                <?php
-                                } else { ?>
+                                    <?php } else {
+                                        ?>
 
 
-                                       <form action="data/register_company.php" class="templatemo-login-form" method="post" enctype="multipart/form-data" name="update_members">
-                                                                            <input type="hidden" name="action" value="register">
+                                        <form action="data/register_company.php" class="templatemo-login-form" method="post" enctype="multipart/form-data" name="update_members">
+                                            <input type="hidden" name="action" value="register">
 
-                                <?php
-                                } ?>
+                                        <?php }
+                                        ?>
                                         <div class="row form-group">
                                             <div class="col-lg-6 col-md-6 form-group">
                                                 <div class="user_image">
                                                     <?php if ($row['cp_logo'] == '') { ?>
                                                         <img name="cp_logo" id="profile_image" src="../images/company.jpg" class="img-responsive profile_image" style="max-height:150px;width:auto">
-                                                    <?php
-                                                    } else { ?>
-                                                        <img name="cp_logo" id="profile_image" src="<?=$row['cp_logo']; ?>" class="img-circle profile_image" style="max-height:150px;width:auto">
-                                                    <?php
-                                                    } ?>
+                                                    <?php } else {
+                                                        ?>
+                                                        <img name="cp_logo" id="profile_image" src="<?= $row['cp_logo']; ?>" class="img-circle profile_image" style="max-height:150px;width:auto">
+                                                    <?php }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
- 
-                                            <div class="input-group">
 
-                                                <input type="file" name="company_logo" id="company_logo" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend" style="display: none;align-content: center" />
-                                                <input type="button" style="width: 100px" value="Browse" id="browse_image" class="btn btn-block btn-success" />
+                                        <div class="input-group">
 
-                                            </div>
- 
+                                            <input type="file" name="company_logo" id="company_logo" class="form-control" placeholder="Username" aria-describedby="inputGroupPrepend" style="display: none;align-content: center" />
+                                            <input type="button" style="width: 100px" value="Browse" id="browse_image" class="btn btn-block btn-success" />
+
+                                        </div>
+
                                         <br>
 
                                         <div class="row form-group">
@@ -121,7 +121,13 @@ if ($error == 6) {
 
                                             <div class="col-lg-6 col-md-6 form-group">
                                                 <label>Company Registered Day :</label>
-                                                <input type="<?php if ($row['cp_id'] == '') { echo "date"; } else { echo "text"; } ?>" class="form-control date" id="cp_registter_day" placeholder="YYYY-MM-DD" name="cp_registter_day" value="<?php echo $row['cp_registter_day']; ?>">
+                                                <input type="<?php
+                                                if ($row['cp_id'] == '') {
+                                                    echo "date";
+                                                } else {
+                                                    echo "text";
+                                                }
+                                                ?>" class="form-control date" id="cp_registter_day" placeholder="YYYY-MM-DD" name="cp_registter_day" value="<?php echo $row['cp_registter_day']; ?>">
                                             </div>
 
                                             <div class="col-lg-6 col-md-6 form-group">
@@ -135,8 +141,8 @@ if ($error == 6) {
 
                                                 <input type="email" class="form-control" id="cp_email" placeholder="E-mail" name="cp_email" value="<?php echo $row['cp_email']; ?>">
                                             </div>
-                                            
-                                             <div class="col-lg-6 col-md-6 form-group">
+
+                                            <div class="col-lg-6 col-md-6 form-group">
                                                 <label>Company code :</label>
 
                                                 <input type="text" class="form-control" id="cp_code" placeholder="Code" name="cp_code" value="<?php echo $row['cp_code']; ?>">
@@ -155,11 +161,11 @@ if ($error == 6) {
                                             <div class="col-lg-3 col-md-3 form-group">
                                                 <?php if ($row['cp_id'] != '') { ?>
                                                     <button type="submit" class="btn btn-block btn-primary">Update Now</button>
-                                                <?php
-                                                } else { ?>
+                                                <?php } else {
+                                                    ?>
                                                     <button type="submit" class="btn btn-block btn-danger">Add New</button>
-                                                    <?php
-                                                } ?>
+                                                <?php }
+                                                ?>
 
                                             </div>
 
@@ -218,6 +224,6 @@ if ($error == 6) {
 
 
 
-<?php
-require_once 'footer.php';
-?>
+    <?php
+    require_once 'footer.php';
+    ?>

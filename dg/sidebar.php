@@ -22,16 +22,16 @@
                         
                        
                       <li class="nav-label">My Point wallet</li>
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-pencil-square-o"></i><span class="hide-menu">View Point History </span></a>
+<!--                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-pencil-square-o"></i><span class="hide-menu">View Point History </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a class="fa fa-dollar" href="deposit_list_pending.php">  View Point History </a></li>
                                
                             </ul>
-                        </li>
+                        </li>-->
                         
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fas fa-retweet"></i><span class="hide-menu">  My profile Settings</span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a class="fa fa-dollar" href="packages_list.php">   My Profile</a></li>
+                                <li><a class="fa fa-dollar" href="members_add.php?m_id=<?php echo $_SESSION['m_id']?>">   My Profile</a></li>
                                        
                             </ul>
                         </li>
