@@ -12,7 +12,7 @@
 
                 </li>
                 <li class="nav-label">Delegator Managements</li>
-                <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-address-card-o"></i><span class="hide-menu">Delegators</span></a>
+                <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-address-card-o"></i><span class="hide-menu">Partners</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a class="fa fa-user" href="members_list.php?type=delegator">  List</a></li>
                         <li><a class="fa fa-star-o" href="members_list.php?type=delegator">  Points Report</a></li>

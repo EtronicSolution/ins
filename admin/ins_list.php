@@ -56,7 +56,7 @@ if($error==2){
             <div>
                
                 <div class="col-md-2">
-                   <button type="button" class="btn btn-block  btn-danger" onclick="location.href='ins_add.php';"><i class="ti-plus"></i> Add New</button>
+                   <button type="button" class="btn btn-block  btn-danger" onclick="location.href='ins_add.php';"><i class="ti-plus"></i> Add New Insurence</button>
                 </div>
            </div>
  
